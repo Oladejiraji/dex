@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
+import { config } from "@/config/wagmi";
+import { cookieToInitialState } from "wagmi";
+import AppKitProvider from "@/context/wagmiContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +18,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(config, headers().get("cookie"));
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className="bg-primary-100 relative h-screen">
+        <AppKitProvider initialState={initialState}>{children}</AppKitProvider>
+      </body>
     </html>
   );
 }
