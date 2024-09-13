@@ -41,9 +41,10 @@ const Review = () => {
 
   const swapFn = async () => {
     try {
+      const anyWindow = window as any;
       if (!activeTransaction) return;
       if (isRightChain) {
-        const provider = new ethers.BrowserProvider(window.ethereum, "any");
+        const provider = new ethers.BrowserProvider(anyWindow.ethereum, "any");
 
         // Prompt user for account connections
         await provider.send("eth_requestAccounts", []);
