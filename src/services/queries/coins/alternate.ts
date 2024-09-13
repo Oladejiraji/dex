@@ -12,7 +12,7 @@ export async function getBridgeStatus(
         "API-KEY": process.env.NEXT_PUBLIC_SOCKET_KEY,
         Accept: "application/json",
         "Content-Type": "application/json",
-      },
+      } as any,
     }
   );
 
