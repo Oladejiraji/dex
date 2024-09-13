@@ -6,11 +6,24 @@ import { config, projectId, metadata } from "@/config/wagmi";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { State, WagmiProvider } from "wagmi";
+import ExchangeContexttProvider from "./ExchangeContext";
 
 // Setup queryClient
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      retry: 1,
+      retryDelay: 1000,
+      refetchOnWindowFocus: false,
+      refetchInterval: false,
+      refetchOnReconnect: true,
+    },
+  },
+});
 
 if (!projectId) throw new Error("Project ID is not defined");
 
@@ -31,7 +44,11 @@ export default function AppKitProvider({
 }) {
   return (
     <WagmiProvider config={config} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <ExchangeContexttProvider>
+        <QueryClientProvider client={queryClient}>
+          {children} <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </ExchangeContexttProvider>
     </WagmiProvider>
   );
 }

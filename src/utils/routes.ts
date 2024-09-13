@@ -3,6 +3,12 @@ export const AppRoutes = {
     path: "/terms",
   },
   connect: {
-    path: "/connect",
+    path: "/",
+  },
+  home: {
+    path: "/home",
+  },
+  review: {
+    path: "/review",
   },
 };

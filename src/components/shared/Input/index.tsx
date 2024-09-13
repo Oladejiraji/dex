@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ReactNode } from "react";
 import Image from "next/image";
 
 import cx from "classnames";
@@ -12,6 +12,8 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   subText?: string;
   iconBefore?: boolean;
   icon?: any;
+  className?: string;
+  inButton?: ReactNode;
 }
 
 const Input = ({
@@ -22,7 +24,9 @@ const Input = ({
   type = "text",
   subText,
   icon,
+  className,
   iconBefore,
+  inButton,
   ...rest
 }: InputProps) => {
   return (
@@ -39,9 +43,15 @@ const Input = ({
             <Image src={icon} alt="icon" />
           </span>
         )}
+        {inButton && (
+          <span className="absolute top-[50%] translate-y-[-50%] right-6">
+            {inButton}
+          </span>
+        )}
         <ShadInput
           className={cx(
             " bg-neutral-650 rounded-lg !mt-0 border border-neutral-400 focus:ring-transparent focus-visible:ring-transparent",
+            { [`${className}`]: !!className },
             {
               "pl-[55px]": iconBefore,
             }

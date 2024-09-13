@@ -37,7 +37,7 @@ const Button = (props: IButton) => {
         className={cx(
           `font-geist-500 gap-1 rounded-[6px] h-10 px-[10px] ${className} `,
           {
-            "bg-neutral-150 cursor-not-allowed border-neutral-500": disabled,
+            "opacity-70 cursor-not-allowed border-neutral-500": disabled,
           },
           { "cursor-progress opacity-85": loading }
         )}

@@ -22,7 +22,7 @@ const Header = () => {
             </div>
           </Button>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="items-center gap-4 hidden">
           <div className="border border-[#32323240] rounded-[6px] bg-gradient-custom">
             <Button variant="invincible">
               <div className="flex items-center gap-1">

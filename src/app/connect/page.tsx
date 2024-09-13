@@ -1,35 +1,117 @@
 "use client";
 import { ChainPopover } from "@/components/connect/ChainPopover";
+import ReviewButton from "@/components/connect/ReviewButton";
+import RouteBlock from "@/components/connect/RouteBlock";
 import TransferBlock from "@/components/connect/TransferBlock";
 import BorderGradientContainer from "@/components/shared/BorderGradientContainer";
 import Button from "@/components/shared/Button";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
+import Loader from "@/components/shared/Loader";
+import Loader2 from "@/components/shared/Loader/loader2";
+import RenderIf from "@/components/shared/RenderIf";
 import Select from "@/components/shared/Select";
-import useLocalStorage from "@/hooks/useLocalStorage";
+import { useExchangeContext } from "@/context/ExchangeContext";
 import MainAssets from "@/lib/assets/main";
 import { Eth, Usdt } from "@/lib/svg";
-import { saveLocalStorage } from "@/utils/helpers";
+import {
+  useSocketChainRead,
+  useSocketQuoteRead,
+  useTokenBalanceRead,
+} from "@/services/queries/coins";
+import { CoinData } from "@/services/queries/coins/types";
+import {
+  debounce,
+  formatNumber,
+  removeDecimal,
+  reverseFormatNumber,
+  saveLocalStorage,
+} from "@/utils/helpers";
+import { chainBaseData, initialCoin } from "@/utils/static";
 import {
   useWalletInfo,
   useWeb3Modal,
   useWeb3ModalEvents,
 } from "@web3modal/wagmi/react";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 
 const Connect = () => {
   const { open } = useWeb3Modal();
   const { walletInfo } = useWalletInfo();
+  const { chainFrom, chainTo, recipientAddress } = useExchangeContext();
+  const { address } = useAccount();
+
+  const [value, setValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
+
+  const { data: quoteData, isPending } = useSocketQuoteRead(
+    chainFrom?.address,
+    chainTo?.address,
+    debouncedValue,
+    chainFrom?.decimals,
+    address,
+    recipientAddress || undefined
+  );
+
+  const { data: tokenBalance } = useTokenBalanceRead(
+    address,
+    chainFrom?.address
+  );
+
+  const handleDebouncedInputChange = useCallback(
+    debounce((value: string) => setDebouncedValue(value), 1000),
+    []
+  );
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    setValue(value);
+    handleDebouncedInputChange(value);
+  };
+
+  const [transferBlockState, setTransferBlockState] = useState<
+    Array<{ type: "from" | "to"; id: number }>
+  >([
+    { type: "from", id: 1 },
+    { type: "to", id: 2 },
+  ]);
+
+  // const calculatedValue =
+  //   chainFrom && chainTo
+  //     ? (
+  //         parseFloat(value || "0") *
+  //         (chainFrom.current_price / chainTo.current_price)
+  //       ).toString()
+  //     : "0.00";
+
+  const routeFetchActive =
+    !!chainFrom?.address &&
+    !!chainTo?.address &&
+    !!debouncedValue &&
+    !!address &&
+    !!chainFrom.decimals;
+
+  const calculatedValue =
+    quoteData && routeFetchActive
+      ? removeDecimal(quoteData.toAsset.decimals, quoteData.routes[0]?.toAmount)
+      : "0";
+
+  const isSufficientCalculationReady =
+    !!tokenBalance &&
+    !!quoteData?.routes &&
+    !!(quoteData.routes.length > 0) &&
+    !!value;
 
   return (
     <div className="max-w-[1200px] mx-auto">
       <Header />
       <main className="py-[100px]">
-        <div className="text-white max-w-[827px] mx-auto mt-14 radial_border py-[35px]">
-          <div className="w-full h-full max-w-[470px] mx-auto relative">
+        <div className="text-white max-w-[827px] mx-auto mt-14 radial_border py-[35px] relative border border-grey-200">
+          <div className="w-full h-full max-w-[470px] mx-auto ">
             <div className="flex items-center justify-between">
-              <h3 className="font-geist-bold text-2xl">Trade</h3>
+              <h3 className="font-geist-bold text-2xl">Swap</h3>
               <div className="flex gap-2">
                 <Button className="border border-grey-200 rounded-full w-6 h-6 p-0">
                   <div className="w-3 h-3">
@@ -48,76 +130,60 @@ const Connect = () => {
             </div>
             <div className="flex items-center gap-2 bg-primary-300 p-4 rounded-[10px] mt-[22px]">
               <div className="w-8 h-8">
-                <Image src={MainAssets.Chain} alt="Chain Base Icon" />
+                <Image
+                  src={chainBaseData.icon}
+                  alt="Chain Base Icon"
+                  width={32}
+                  height={32}
+                />
               </div>
               <div>
                 <h3 className="font-geist-thin text-xs text-grey-300 leading-[14px]">
                   Chain
                 </h3>
                 <h4 className="font-geist-medium text-[15px] leading-[18px]">
-                  Base
+                  {chainBaseData.name}
                 </h4>
               </div>
             </div>
 
-            {/* From tran */}
-            <TransferBlock type="from" />
+            {transferBlockState.map((block, i) => (
+              <TransferBlock
+                key={i}
+                type={block.type}
+                blockId={block.id}
+                value={value}
+                handleInputChange={handleInputChange}
+                calculatedValue={calculatedValue}
+                balance={tokenBalance}
+              />
+            ))}
 
-            {/* To tran */}
-            <TransferBlock type="to" />
+            {/* Route info */}
+            <RenderIf condition={routeFetchActive}>
+              <RouteBlock isPending={isPending} quoteData={quoteData} />
+            </RenderIf>
 
-            <div className="mt-[22px] rounded-[10px] border border-grey-200">
-              <div className="flex items-center justify-between bg-primary-300 px-4 py-3 rounded-t-[10px]">
-                <h3 className="font-geist-regular text-grey-300 text-sm">
-                  Recipient address
-                </h3>
-                <div className="flex items-center gap-2">
-                  <h3 className="font-geist-medium text-grey-400 text-sm">
-                    Connect wallet
-                  </h3>
-                  <div className="w-[14px] h-[14px]">
-                    <Image src={MainAssets.Plus} alt="Plus button" />
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center justify-between px-4 py-3 border-b border-grey-200">
-                <p className="font-geist-regular text-sm text-grey-300">
-                  Route
-                </p>
-                <p className="text-grey-400 font-geist-regular">-</p>
-              </div>
-              <div className="flex items-center justify-between px-4 py-3 border-b border-grey-200">
-                <p className="font-geist-regular text-sm text-grey-300">
-                  Est. Output
-                </p>
-                <p className="text-grey-400 font-geist-regular text-sm">
-                  ETH 0.00
-                </p>
-              </div>
-              <div className="flex items-center justify-between px-4 py-3 border-b border-grey-200">
-                <p className="font-geist-regular text-sm text-grey-300">
-                  Gas Fees
-                </p>
-                <p className="text-grey-300 font-geist-regular">
-                  $0.00314{"<"}0.001ETH
-                </p>
-              </div>
-              <div className="flex items-center gap-6 px-4 py-3">
-                <p className="font-geist-medium text-xs text-grey-500">
-                  Gas Fees are lowest at this point
-                </p>
-                <p className="font-geist-medium text-xs text-grey-500 underline">
-                  Superbase Ai
-                </p>
-              </div>
-            </div>
             <div className="mt-10 mx-[35px]">
               {walletInfo ? (
-                <Button className="w-full h-14 bg-primary-800">
-                  <p className="text-[#080808] font-geist-medium">
-                    Review Route
-                  </p>
-                </Button>
+                <div>
+                  {isSufficientCalculationReady ? (
+                    <ReviewButton
+                      balance={removeDecimal(
+                        tokenBalance.decimals,
+                        tokenBalance.balance
+                      )}
+                      activeRoute={quoteData.routes[0]}
+                      value={value}
+                    />
+                  ) : (
+                    <Button className="w-full h-14 bg-primary-800 hover:bg-primary-800">
+                      <p className="text-[#080808] font-geist-medium">
+                        Review Route
+                      </p>
+                    </Button>
+                  )}
+                </div>
               ) : (
                 <Button
                   className="w-full h-14 bg-primary-500"
@@ -132,7 +198,6 @@ const Connect = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
