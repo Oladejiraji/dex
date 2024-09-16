@@ -7,7 +7,7 @@ import { AppRoutes } from "@/utils/routes";
 
 const Header = () => {
   return (
-    <header className="font-geist-medium fixed left-0 top-0 w-full pt-14 ">
+    <header className="font-geist-medium fixed left-0 top-0 w-full py-7 px-8 z-[1000]  backdrop-blur-sm bg-black/30  ">
       <div className="flex items-center justify-between max-w-[1200px] mx-auto">
         <div>
           <Button>

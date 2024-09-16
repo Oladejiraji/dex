@@ -66,14 +66,14 @@ const RouteBlock = ({ isPending, quoteData }: IProps) => {
                 )}
               </button>
             </div>
-            <div className="flex items-center justify-between px-4 py-3 border-b border-grey-200">
+            <div className="flex items-center  justify-between px-4 py-3 border-b border-grey-200">
               <div className="flex items-center justify-center gap-1">
                 <div className="w-6 h-6">
                   <Image src={MainAssets.Ox} alt="Ox icon" />
                 </div>
-                <p className="font-geist-regular text-sm text-grey-300">OX</p>
+                <p className="font-geist-regular text-grey-300">OX</p>
               </div>
-              <p className="text-grey-400 font-geist-regular">
+              <p className="text-grey-400 text-sm font-geist-regular text-right">
                 {quoteData.routes[0]?.routeId}
               </p>
             </div>

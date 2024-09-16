@@ -123,11 +123,11 @@ const Review = () => {
           activeRoute={activeRoute}
           hashState={hashState}
         />
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1200px] mx-auto px-2 sm:px-8">
           <Header />
           <main className="py-[100px]">
-            <div className="text-white max-w-[827px] mx-auto mt-14 radial_border py-[35px] relative border border-grey-200">
-              <div className="w-full h-full max-w-[470px] mx-auto ">
+            <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14  py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
+              <div className="w-full h-full max-w-[470px] mx-auto px-2 ">
                 <div className="mb-4 flex items-center justify-between">
                   <h1 className="text-base font-geist-medium">
                     Review Transaction
@@ -142,11 +142,15 @@ const Review = () => {
                   </button>
                 </div>
                 <div className="flex items-center justify-center gap-4">
-                  <ReviewChain asset={fromAsset} amount={fromAmount} />
+                  <ReviewChain
+                    asset={fromAsset}
+                    amount={fromAmount}
+                    type="From"
+                  />
                   <div className="w-[10px] h-[10px] rotate-[270deg]">
                     <Image src={MainAssets.Up} alt="Up icon" />
                   </div>
-                  <ReviewChain asset={toAsset} amount={toAmount} />
+                  <ReviewChain asset={toAsset} amount={toAmount} type="To" />
                 </div>
                 <div className="mt-[22px] rounded-[10px] border border-grey-200">
                   <>

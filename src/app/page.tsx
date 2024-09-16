@@ -105,11 +105,11 @@ const Home = () => {
     !!value;
 
   return (
-    <div className="max-w-[1200px] mx-auto">
+    <div className="max-w-[1200px] mx-auto px-2 sm:px-8">
       <Header />
       <main className="py-[100px]">
-        <div className="text-white max-w-[827px] mx-auto mt-14  py-[35px] relative border border-grey-200 rounded-[10px]">
-          <div className="w-full h-full max-w-[470px] mx-auto ">
+        <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14  py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
+          <div className="w-full h-full max-w-[470px] mx-auto px-2 ">
             <div className="flex items-center justify-between">
               <h3 className="font-geist-bold text-2xl">Swap</h3>
               <div className="flex gap-2">

@@ -8,17 +8,18 @@ import { removeDecimal, stringToFixed } from "@/utils/helpers";
 interface IProps {
   asset: AssetType;
   amount: string;
+  type: "From" | "To";
 }
 
-const ReviewChain = ({ asset, amount }: IProps) => {
+const ReviewChain = ({ asset, amount, type }: IProps) => {
   return (
     <div className="flex items-center gap-4 bg-primary-200 rounded-[4px] px-3 py-2 w-[200px]">
       <div className="w-8 h-8">
         <RemoteImage src={asset.logoURI} width={32} height={32} />
       </div>
-      <div className="font-geist-medium text-sm">
+      <div className="font-geist-medium text-xs sm:text-sm">
         <h3>
-          <span className="text-grey-300">From:</span> Polygon
+          <span className="text-grey-300">{type}:</span> Polygon
         </h3>
         <h4>
           {stringToFixed(removeDecimal(asset.decimals, amount), 8)}{" "}
