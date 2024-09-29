@@ -1,26 +1,10 @@
-import { Label } from "@/components/ui/label";
 import MainAssets from "@/lib/assets/main";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
-import cx from "classnames";
-import Input from "../shared/Input";
-import { ChainOptions } from "@/data/ChainOptions";
-import RenderIf from "../shared/RenderIf";
-import { useCoinsRead, useSocketTokensRead } from "@/services/queries/coins";
-import {
-  CoinData,
-  RouteType,
-  SocketToken,
-} from "@/services/queries/coins/types";
+import { Dispatch, SetStateAction } from "react";
+
+import { RouteType } from "@/services/queries/coins/types";
 import { useExchangeContext } from "@/context/ExchangeContext";
-import { chainBaseData } from "@/utils/static";
 import RemoteImage from "../shared/RemoteImage";
 import { removeDecimal, stringToFixed } from "@/utils/helpers";
 import Button from "../shared/Button";

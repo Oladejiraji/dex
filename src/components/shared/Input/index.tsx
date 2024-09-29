@@ -39,7 +39,7 @@ const Input = ({
     >
       <div className="relative">
         {iconBefore && icon && (
-          <span className="absolute top-[50%] translate-y-[-50%] left-6">
+          <span className="absolute top-[50%] translate-y-[-50%] left-8">
             <Image src={icon} alt="icon" />
           </span>
         )}

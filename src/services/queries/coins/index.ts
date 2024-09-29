@@ -4,6 +4,7 @@ import api from "../../api";
 import keys from "./keys";
 import {
   BuildResponse,
+  ChainType,
   CoinData,
   QuoteResponse,
   RouteType,
@@ -54,7 +55,10 @@ export const useRatesRead = () => {
 
 export const useSocketChainRead = () => {
   const hash = ["socket read"];
-  const { data, isPending, error } = useQuery<CoinData[]>({
+  const { data, isPending, error } = useQuery<{
+    success: boolean;
+    result: ChainType[];
+  }>({
     queryKey: hash,
     queryFn: async () =>
       await api.get({
@@ -63,7 +67,7 @@ export const useSocketChainRead = () => {
       }),
   });
   return {
-    data,
+    data: data?.result,
     isPending,
     error,
   };

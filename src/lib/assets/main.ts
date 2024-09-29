@@ -20,6 +20,10 @@ import Broken from "../../../public/svgs/broken.svg";
 import Danger from "../../../public/svgs/danger.svg";
 import Success from "../../../public/svgs/success.svg";
 import Send from "../../../public/svgs/send.svg";
+import Panel from "../../../public/assets/panel.png";
+import Base from "../../../public/svgs/base.svg";
+import ImgBg from "../../../public/assets/img_bg.png";
+import Minus from "../../../public/svgs/minus.svg";
 
 const MainAssets = {
   Right,
@@ -44,6 +48,10 @@ const MainAssets = {
   Send,
   X,
   Up,
+  Panel,
+  Base,
+  ImgBg,
+  Minus,
 };
 
 export default MainAssets;

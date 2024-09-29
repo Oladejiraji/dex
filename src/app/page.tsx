@@ -1,205 +1,91 @@
 "use client";
-import { ChainPopover } from "@/components/connect/ChainPopover";
-import ReviewButton from "@/components/connect/ReviewButton";
-import RouteBlock from "@/components/connect/RouteBlock";
-import TransferBlock from "@/components/connect/TransferBlock";
-import BorderGradientContainer from "@/components/shared/BorderGradientContainer";
-import Button from "@/components/shared/Button";
-import Footer from "@/components/shared/Footer";
-import Header from "@/components/shared/Header";
-import Loader from "@/components/shared/Loader";
-import Loader2 from "@/components/shared/Loader/loader2";
-import RenderIf from "@/components/shared/RenderIf";
-import Select from "@/components/shared/Select";
-import { useExchangeContext } from "@/context/ExchangeContext";
-import MainAssets from "@/lib/assets/main";
-import { Eth, Usdt } from "@/lib/svg";
-import {
-  useSocketChainRead,
-  useSocketQuoteRead,
-  useTokenBalanceRead,
-} from "@/services/queries/coins";
-import { CoinData } from "@/services/queries/coins/types";
-import {
-  debounce,
-  formatNumber,
-  removeDecimal,
-  reverseFormatNumber,
-  saveLocalStorage,
-} from "@/utils/helpers";
-import { chainBaseData, initialCoin } from "@/utils/static";
-import {
-  useWalletInfo,
-  useWeb3Modal,
-  useWeb3ModalEvents,
-} from "@web3modal/wagmi/react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import MainAssets from "@/lib/assets/main";
+import Header from "@/components/shared/Header";
+import { ReactLenis, useLenis } from "lenis/react";
+import { motion } from "framer-motion";
+import Footer from "@/components/shared/Footer";
+
+const PANEL_NUMBER = 15;
+const PANEL_HEIGHT = 142;
+const PANEL_SECTION_HEIGHT = PANEL_HEIGHT * PANEL_NUMBER;
 
 const Home = () => {
-  const { open } = useWeb3Modal();
-  const { walletInfo } = useWalletInfo();
-  const { chainFrom, chainTo, recipientAddress } = useExchangeContext();
-  const { address } = useAccount();
-
-  const [value, setValue] = useState("");
-  const [debouncedValue, setDebouncedValue] = useState("");
-
-  const { data: quoteData, isPending } = useSocketQuoteRead(
-    chainFrom?.address,
-    chainTo?.address,
-    debouncedValue,
-    chainFrom?.decimals,
-    address,
-    recipientAddress || undefined
-  );
-
-  const { data: tokenBalance } = useTokenBalanceRead(
-    address,
-    chainFrom?.address
-  );
-
-  const handleDebouncedInputChange = useCallback(
-    debounce((value: string) => setDebouncedValue(value), 1000),
-    []
-  );
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    setValue(value);
-    handleDebouncedInputChange(value);
-  };
-
-  const [transferBlockState, setTransferBlockState] = useState<
-    Array<{ type: "from" | "to"; id: number }>
-  >([
-    { type: "from", id: 1 },
-    { type: "to", id: 2 },
-  ]);
-
-  // const calculatedValue =
-  //   chainFrom && chainTo
-  //     ? (
-  //         parseFloat(value || "0") *
-  //         (chainFrom.current_price / chainTo.current_price)
-  //       ).toString()
-  //     : "0.00";
-
-  const routeFetchActive =
-    !!chainFrom?.address &&
-    !!chainTo?.address &&
-    !!debouncedValue &&
-    !!address &&
-    !!chainFrom.decimals;
-
-  const calculatedValue =
-    quoteData && routeFetchActive
-      ? removeDecimal(quoteData.toAsset.decimals, quoteData.routes[0]?.toAmount)
-      : "0";
-
-  const isSufficientCalculationReady =
-    !!tokenBalance &&
-    !!quoteData?.routes &&
-    !!(quoteData.routes.length > 0) &&
-    !!value;
-
+  const [activeScroll, setActiveScroll] = useState(0);
   return (
-    <div className="max-w-[1200px] mx-auto px-2 sm:px-8">
-      <Header />
-      <main className="py-[100px]">
-        <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14  py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
-          <div className="w-full h-full max-w-[470px] mx-auto px-2 ">
-            <div className="flex items-center justify-between">
-              <h3 className="font-geist-bold text-2xl">Swap</h3>
-              <div className="flex gap-2">
-                <Button className="border border-grey-200 rounded-full w-6 h-6 p-0">
-                  <div className="w-3 h-3">
-                    <Image src={MainAssets.Refresh} alt="Refresh button icon" />
-                  </div>
-                </Button>
-                <Button className="border border-grey-200 rounded-full w-6 h-6 p-0">
-                  <div className="w-3 h-3">
-                    <Image
-                      src={MainAssets.Settings}
-                      alt="Refresh button icon"
-                    />
-                  </div>
-                </Button>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 bg-primary-300 p-4 rounded-[10px] mt-[22px]">
-              <div className="w-8 h-8">
-                <Image
-                  src={chainBaseData.icon}
-                  alt="Chain Base Icon"
-                  width={32}
-                  height={32}
-                />
-              </div>
-              <div>
-                <h3 className="font-geist-thin text-xs text-grey-300 leading-[14px]">
-                  Chain
-                </h3>
-                <h4 className="font-geist-medium text-[15px] leading-[18px]">
-                  {chainBaseData.name}
-                </h4>
-              </div>
-            </div>
-
-            {transferBlockState.map((block, i) => (
-              <TransferBlock
-                key={i}
-                type={block.type}
-                blockId={block.id}
-                value={value}
-                handleInputChange={handleInputChange}
-                calculatedValue={calculatedValue}
-                balance={tokenBalance}
-              />
-            ))}
-
-            {/* Route info */}
-            <RenderIf condition={routeFetchActive}>
-              <RouteBlock isPending={isPending} quoteData={quoteData} />
-            </RenderIf>
-
-            <div className="mt-10 mx-[35px]">
-              {walletInfo ? (
-                <div>
-                  {isSufficientCalculationReady ? (
-                    <ReviewButton
-                      balance={removeDecimal(
-                        tokenBalance.decimals,
-                        tokenBalance.balance
-                      )}
-                      activeRoute={quoteData.routes[0]}
-                      value={value}
-                    />
-                  ) : (
-                    <Button className="w-full h-14 bg-primary-800 hover:bg-primary-800">
-                      <p className="text-[#080808] font-geist-medium">
-                        Review Route
-                      </p>
-                    </Button>
-                  )}
-                </div>
-              ) : (
-                <Button
-                  className="w-full h-14 bg-primary-500"
-                  onClick={() => open({ view: "AllWallets" as any })}
+    <>
+      <Header type={1} />
+      <main className="w-screen min-h-screen mt-[200px]">
+        <ReactLenis root options={{ infinite: true }}>
+          <div className="max-w-[1000px] mx-auto relative">
+            {/* <div className=""> */}
+            {new Array(PANEL_NUMBER).fill(0).map((item, i) => {
+              const index = i + 1;
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute overflow-y-hidden h-[200px] "
+                  style={{ top: 142 * i, zIndex: index }}
+                  whileHover={{ scale: 1.02 }}
+                  onHoverStart={() => setActiveScroll(index)}
+                  onHoverEnd={() => setActiveScroll(0)}
+                  animate={{
+                    translateY:
+                      activeScroll > 0 &&
+                      index > activeScroll &&
+                      index <= activeScroll + 5
+                        ? 50
+                        : 0,
+                  }}
                 >
-                  <p className="text-grey-400 font-geist-medium">
-                    Connect Wallet
-                  </p>
-                </Button>
-              )}
-            </div>
+                  <Image src={MainAssets.Panel} alt="Panel" />
+                </motion.div>
+              );
+            })}
+            {/* </div> */}
+            {/* <div className="">
+              {new Array(PANEL_NUMBER).fill(0).map((item, i) => {
+                const index = i + PANEL_NUMBER;
+                return (
+                  <motion.div
+                    key={i}
+                    className="absolute overflow-y-hidden h-[200px] "
+                    style={{ top: 142 * index, zIndex: index }}
+                    whileHover={{ scale: 1.02 }}
+                    onHoverStart={() => setActiveScroll(index)}
+                    onHoverEnd={() => setActiveScroll(0)}
+                    animate={{
+                      translateY:
+                        activeScroll > 0 &&
+                        index > activeScroll &&
+                        index <= activeScroll + 5
+                          ? 50
+                          : 0,
+                    }}
+                  >
+                    <Image src={MainAssets.Panel} alt="Panel" />
+                  </motion.div>
+                );
+              })}
+            </div> */}
           </div>
-        </div>
+        </ReactLenis>
       </main>
-    </div>
+      <div className="fixed bottom-0 left-0 w-full z-[999] pointer-events-none ">
+        <Image src={MainAssets.Mask} alt="Mask" />
+      </div>
+      <Footer expand />
+    </>
   );
 };
+
+// const PanelItem = ({ key }: { key: number }) => {
+//   return (
+//     <motion.div className="absolute" style={{ top: 142 * key }}>
+//       <Image src={MainAssets.Panel} alt="Panel" />
+//     </motion.div>
+//   );
+// };
 
 export default Home;

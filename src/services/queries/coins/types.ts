@@ -180,3 +180,26 @@ export interface BuildResponse {
   result: TransactionType;
   statusCode: number;
 }
+
+export interface ChainType {
+  chainId: number;
+  name: string;
+  isL1: boolean;
+  sendingEnabled: boolean;
+  icon: string;
+  receivingEnabled: boolean;
+  refuel: {
+    sendingEnabled: boolean;
+    receivingEnabled: boolean;
+  };
+  currency: {
+    address: string;
+    icon: string;
+    name: string;
+    symbol: string;
+    decimals: number;
+    minNativeCurrencyForGas: string;
+  };
+  rpcs: Array<string>;
+  explorers: Array<string>;
+}
