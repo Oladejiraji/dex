@@ -6,69 +6,60 @@ import Header from "@/components/shared/Header";
 import { ReactLenis, useLenis } from "lenis/react";
 import { motion } from "framer-motion";
 import Footer from "@/components/shared/Footer";
+import cx from "classnames";
 
 const PANEL_NUMBER = 15;
-const PANEL_HEIGHT = 142;
-const PANEL_SECTION_HEIGHT = PANEL_HEIGHT * PANEL_NUMBER;
 
 const Home = () => {
+  const lenis = useLenis();
   const [activeScroll, setActiveScroll] = useState(0);
+  const [activePanel, setActivePanel] = useState(0);
+  const returnTransform = (index: number) => {
+    if (activePanel) {
+      return index > activePanel ? 450 : 0;
+    } else if (activeScroll) {
+      return index > activeScroll && index <= activeScroll + 5 ? 50 : 0;
+    }
+  };
   return (
     <>
       <Header type={1} />
       <main className="w-screen min-h-screen mt-[200px]">
         <ReactLenis root options={{ infinite: true }}>
           <div className="max-w-[1000px] mx-auto relative">
-            {/* <div className=""> */}
             {new Array(PANEL_NUMBER).fill(0).map((item, i) => {
               const index = i + 1;
               return (
                 <motion.div
                   key={i}
-                  className="absolute overflow-y-hidden h-[200px] "
+                  id={`panel-${index}`}
+                  className={cx("absolute overflow-y-hidden", {
+                    "h-[200px]": activePanel !== index,
+                    "h-[1000px]": activePanel === index,
+                  })}
                   style={{ top: 142 * i, zIndex: index }}
                   whileHover={{ scale: 1.02 }}
                   onHoverStart={() => setActiveScroll(index)}
                   onHoverEnd={() => setActiveScroll(0)}
+                  onClick={() => {
+                    if (activePanel === index) {
+                      setActivePanel(0);
+                    } else {
+                      setActivePanel(index);
+                    }
+                    console.log(lenis);
+                    setTimeout(() => {
+                      lenis?.scrollTo(`#panel-${index}`, { offset: -100 });
+                    }, 300);
+                  }}
                   animate={{
-                    translateY:
-                      activeScroll > 0 &&
-                      index > activeScroll &&
-                      index <= activeScroll + 5
-                        ? 50
-                        : 0,
+                    translateY: returnTransform(index),
                   }}
                 >
                   <Image src={MainAssets.Panel} alt="Panel" />
                 </motion.div>
               );
             })}
-            {/* </div> */}
-            {/* <div className="">
-              {new Array(PANEL_NUMBER).fill(0).map((item, i) => {
-                const index = i + PANEL_NUMBER;
-                return (
-                  <motion.div
-                    key={i}
-                    className="absolute overflow-y-hidden h-[200px] "
-                    style={{ top: 142 * index, zIndex: index }}
-                    whileHover={{ scale: 1.02 }}
-                    onHoverStart={() => setActiveScroll(index)}
-                    onHoverEnd={() => setActiveScroll(0)}
-                    animate={{
-                      translateY:
-                        activeScroll > 0 &&
-                        index > activeScroll &&
-                        index <= activeScroll + 5
-                          ? 50
-                          : 0,
-                    }}
-                  >
-                    <Image src={MainAssets.Panel} alt="Panel" />
-                  </motion.div>
-                );
-              })}
-            </div> */}
           </div>
         </ReactLenis>
       </main>
@@ -79,13 +70,5 @@ const Home = () => {
     </>
   );
 };
-
-// const PanelItem = ({ key }: { key: number }) => {
-//   return (
-//     <motion.div className="absolute" style={{ top: 142 * key }}>
-//       <Image src={MainAssets.Panel} alt="Panel" />
-//     </motion.div>
-//   );
-// };
 
 export default Home;

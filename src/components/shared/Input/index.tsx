@@ -14,6 +14,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: any;
   className?: string;
   inButton?: ReactNode;
+  inButtonClassNames?: string;
 }
 
 const Input = ({
@@ -27,6 +28,7 @@ const Input = ({
   className,
   iconBefore,
   inButton,
+  inButtonClassNames,
   ...rest
 }: InputProps) => {
   return (
@@ -39,21 +41,25 @@ const Input = ({
     >
       <div className="relative">
         {iconBefore && icon && (
-          <span className="absolute top-[50%] translate-y-[-50%] left-8">
+          <span className="absolute top-[50%] translate-y-[-50%] left-0">
             <Image src={icon} alt="icon" />
           </span>
         )}
         {inButton && (
-          <span className="absolute top-[50%] translate-y-[-50%] right-6">
+          <span
+            className={cx("absolute top-[50%] translate-y-[-50%] right-6", {
+              [`${inButtonClassNames}`]: !!inButtonClassNames,
+            })}
+          >
             {inButton}
           </span>
         )}
         <ShadInput
           className={cx(
-            " bg-neutral-650 rounded-lg !mt-0 border border-neutral-400 focus:ring-transparent focus-visible:ring-transparent",
+            " bg-neutral-650 rounded-lg !mt-0 border border-neutral-400 focus:ring-transparent focus-visible:ring-transparent w-full",
             { [`${className}`]: !!className },
             {
-              "pl-[55px]": iconBefore,
+              "pl-[14px]": iconBefore,
             }
           )}
           id={id}

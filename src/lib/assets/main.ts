@@ -24,6 +24,17 @@ import Panel from "../../../public/assets/panel.png";
 import Base from "../../../public/svgs/base.svg";
 import ImgBg from "../../../public/assets/img_bg.png";
 import Minus from "../../../public/svgs/minus.svg";
+import Tokens from "../../../public/svgs/tokens.svg";
+import Chains from "../../../public/svgs/chains.svg";
+import Address from "../../../public/svgs/address.svg";
+import RightGrey from "../../../public/svgs/right_grey.svg";
+import Eddy from "../../../public/svgs/eddy.svg";
+import Gas from "../../../public/svgs/gas.svg";
+import Docs from "../../../public/svgs/docs.svg";
+import Help from "../../../public/svgs/help.svg";
+import Subtract from "../../../public/svgs/Subtract.svg";
+import NetworkMask from "../../../public/svgs/network_mask.svg";
+import MenuMask from "../../../public/assets/menu_mask.png";
 
 const MainAssets = {
   Right,
@@ -52,6 +63,17 @@ const MainAssets = {
   Base,
   ImgBg,
   Minus,
+  Tokens,
+  Chains,
+  Address,
+  RightGrey,
+  Eddy,
+  Gas,
+  Docs,
+  Help,
+  NetworkMask,
+  MenuMask,
+  Subtract,
 };
 
 export default MainAssets;

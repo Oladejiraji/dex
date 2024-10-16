@@ -4,7 +4,52 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import MainAssets from "@/lib/assets/main";
 import Image from "next/image";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+const AnimatedWords = ({ word, index }: { word: string; index: number }) => {
+  const elementRef = useRef<HTMLSpanElement>(null);
+  const [classes, setClasses] = useState("#848A8C");
+  useEffect(() => {
+    // Function to update the distance of the element from the top
+    const updateDistance = () => {
+      const scrollAtTop = window.scrollY === 0;
+      const scrolledToEnd =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 1;
+      if (elementRef.current) {
+        const rect = elementRef.current.getBoundingClientRect();
+        if (scrolledToEnd) {
+          setClasses("white");
+          return;
+        }
+        if (scrollAtTop) {
+          setClasses("#848A8C");
+          return;
+        }
+        if (rect.top < 240) {
+          setClasses("white");
+        } else {
+          setClasses("#848A8C");
+        }
+      }
+    };
+
+    window.addEventListener("scroll", updateDistance);
+
+    return () => {
+      window.removeEventListener("scroll", updateDistance);
+    };
+  }, []);
+  return (
+    <span
+      ref={elementRef}
+      style={{ color: classes, transitionDelay: `${(index + 1) * 150}ms` }}
+      className="transition-all duration-500 animated_word"
+    >
+      {word}
+    </span>
+  );
+};
 
 const AnimatedLines = ({
   line,
@@ -16,10 +61,11 @@ const AnimatedLines = ({
   index: number;
 }) => {
   const elementRef = useRef<HTMLSpanElement>(null);
-  const [classes, setClasses] = useState("white");
+  const [classes, setClasses] = useState("#848A8C");
   useEffect(() => {
     // Function to update the distance of the element from the top
     const updateDistance = () => {
+      console.log("scroll", index);
       const scrollAtTop = window.scrollY === 0;
       const scrolledToEnd =
         window.innerHeight + window.scrollY >=
@@ -27,17 +73,17 @@ const AnimatedLines = ({
       if (elementRef.current) {
         const rect = elementRef.current.getBoundingClientRect();
         if (scrolledToEnd) {
-          setClasses("#848A8C");
+          setClasses("white");
           return;
         }
         if (scrollAtTop) {
-          setClasses("white");
+          setClasses("#848A8C");
           return;
         }
         if (rect.top < 240) {
-          setClasses("#848A8C");
-        } else {
           setClasses("white");
+        } else {
+          setClasses("#848A8C");
         }
       }
     };
@@ -66,13 +112,26 @@ const AnimatedCharacters = ({ children }: { children: string }) => {
   return (
     <span className="whitespace-pre-wrap">
       {lines.map((line, index) => (
-        <AnimatedLines key={index} line={line} index={index} lines={lines} />
+        // <AnimatedLines key={index} line={line} index={index} lines={lines} />
+        <p key={index}>{line}</p>
       ))}
     </span>
   );
 };
 
 const Terms = () => {
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log("scroll");
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <>
       <Header type={1} />

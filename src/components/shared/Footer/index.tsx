@@ -6,6 +6,7 @@ import MainAssets from "@/lib/assets/main";
 import Link from "next/link";
 import { AppRoutes } from "@/utils/routes";
 import RenderIf from "../RenderIf";
+import { motion } from "framer-motion";
 import { BasePopover } from "@/components/home/BasePopover";
 import cx from "classnames";
 
@@ -16,7 +17,7 @@ const Footer = ({
   expand?: boolean;
   fixed?: boolean;
 }) => {
-  const [isPopOpen, setIsPopOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <>
       <footer
@@ -25,8 +26,8 @@ const Footer = ({
           { fixed: !!fixed }
         )}
       >
-        <div className="grid grid-cols-2 items-center justify-between max-w-[1200px] mx-auto">
-          <div className="flex">
+        <div className="flex items-end justify-between max-w-[1200px] mx-auto">
+          <div className="flex flex-1">
             <div className="border border-[#32323240] rounded-[6px] bg-transparent flex items-center justify-between gap-4">
               <Link href={AppRoutes.terms.path}>
                 <Button variant="invincible">
@@ -58,31 +59,46 @@ const Footer = ({
             </div>
           </div>
           <RenderIf condition={!!expand}>
-            <div className="flex ">
-              <div className="relative border border-[#32323240] rounded-[6px] bg-transparent flex items-center justify-between gap-4">
-                <BasePopover
-                  isPopOpen={isPopOpen}
-                  setIsPopOpen={setIsPopOpen}
-                />
-                <Button variant="invincible" onClick={() => setIsPopOpen(true)}>
-                  <div className="flex items-center gap-1">
-                    <div className="h-[14px] w-[14px]  flex items-center justify-center ">
-                      <Image
-                        src={MainAssets.Base}
-                        alt="Left icon for the faq button"
-                      />
+            <div className="flex justify-center flex-1 ">
+              <motion.div
+                className="relative border border-[#32323240] rounded-[6px]  flex items-end justify-center gap-4 bg-transparent overflow-hidden"
+                animate={{
+                  width: isMenuOpen ? "351px" : "140px",
+                  height: isMenuOpen ? "329px" : "40px",
+                }}
+              >
+                <div className="flex flex-col gradient_border base_popover_gradient">
+                  <BasePopover
+                    isPopOpen={isMenuOpen}
+                    setIsPopOpen={setIsMenuOpen}
+                  />
+                  <Button
+                    variant="invincible"
+                    onClick={() => {
+                      setIsMenuOpen(!isMenuOpen);
+                    }}
+                    className="z-[1000]"
+                  >
+                    <div className="flex items-center gap-1">
+                      <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                        <Image
+                          src={MainAssets.Base}
+                          alt="Left icon for the faq button"
+                        />
+                      </div>
+                      <p className="text-[13px] text-grey-100">Base Onchain</p>
+                      <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                        <Image
+                          src={isMenuOpen ? MainAssets.Minus : MainAssets.Plus}
+                          alt="Left icon for the faq button"
+                        />
+                      </div>
                     </div>
-                    <p className="text-[13px] text-grey-100">Base Onchain</p>
-                    <div className="h-[14px] w-[14px]  flex items-center justify-center ">
-                      <Image
-                        src={MainAssets.Plus}
-                        alt="Left icon for the faq button"
-                      />
-                    </div>
-                  </div>
-                </Button>
-              </div>
+                  </Button>
+                </div>
+              </motion.div>
             </div>
+            <div className="flex-1"></div>
           </RenderIf>
         </div>
       </footer>

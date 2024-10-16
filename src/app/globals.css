@@ -284,9 +284,18 @@ html.lenis body {
 }
 
 .menu_gradient {
+}
+
+.menu_dropdown_bg {
   background: linear-gradient(
     180deg,
     rgba(13, 14, 15, 0.5) 37.5%,
     #0d0e0f 168.06%
   );
+  box-shadow: 0px 0px 0px 1px rgba(50, 50, 50, 0.25);
+  backdrop-filter: blur(24px);
+}
+
+.network_grid {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 2fr));
 }

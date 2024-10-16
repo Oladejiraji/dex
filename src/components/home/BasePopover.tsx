@@ -15,11 +15,22 @@ export function BasePopover({ isPopOpen, setIsPopOpen }: IProps) {
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="absolute left-[-50%] bottom-0 z-[10000000] base_popover_gradient gradient_border rounded-[6px] w-[351px] h-[371px]"
-          initial={{ opacity: 0, y: 100, x: -50 }}
-          animate={{ opacity: 1, y: 0, x: -50 }}
-          exit={{ opacity: 0, y: 100, x: -50 }}
-          transition={{ duration: 0.5, x: -50 }}
+          className="rounded-[6px] h-full"
+          initial="close"
+          animate="open"
+          exit="close"
+          variants={{
+            open: {
+              filter: "blur(0px)",
+              transition: { duration: 0.2, delay: 0.4 },
+              opacity: 1,
+            },
+            close: {
+              filter: "blur(20px)",
+              transition: { duration: 0.1 },
+              opacity: 1,
+            },
+          }}
         >
           <div className=" w-full relative p-4 h-full">
             <div>
@@ -41,7 +52,7 @@ export function BasePopover({ isPopOpen, setIsPopOpen }: IProps) {
                 <h1 className="text-base text-[#6E6E6E]">Base</h1>
               </div>
             </div>
-            <div className="mt-[48px] rounded-[6px] bg-transparent flex items-center justify-center gap-4">
+            {/* <div className="mt-[48px] rounded-[6px] bg-transparent flex items-center justify-center gap-4">
               <Button variant="invincible" onClick={() => setIsPopOpen(false)}>
                 <div className="flex items-center gap-1">
                   <div className="h-[14px] w-[14px]  flex items-center justify-center ">
@@ -59,7 +70,7 @@ export function BasePopover({ isPopOpen, setIsPopOpen }: IProps) {
                   </div>
                 </div>
               </Button>
-            </div>
+            </div> */}
           </div>
         </motion.div>
       ) : null}

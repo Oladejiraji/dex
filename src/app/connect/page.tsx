@@ -1,16 +1,10 @@
 "use client";
-import { ChainPopover } from "@/components/connect/ChainPopover";
 import ReviewButton from "@/components/connect/ReviewButton";
 import RouteBlock from "@/components/connect/RouteBlock";
 import TransferBlock from "@/components/connect/TransferBlock";
-import BorderGradientContainer from "@/components/shared/BorderGradientContainer";
 import Button from "@/components/shared/Button";
-import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
-import Loader from "@/components/shared/Loader";
-import Loader2 from "@/components/shared/Loader/loader2";
 import RenderIf from "@/components/shared/RenderIf";
-import Select from "@/components/shared/Select";
 import { useExchangeContext } from "@/context/ExchangeContext";
 import MainAssets from "@/lib/assets/main";
 import { Eth, Usdt } from "@/lib/svg";
@@ -77,14 +71,6 @@ const Home = () => {
     { type: "from", id: 1 },
     { type: "to", id: 2 },
   ]);
-
-  // const calculatedValue =
-  //   chainFrom && chainTo
-  //     ? (
-  //         parseFloat(value || "0") *
-  //         (chainFrom.current_price / chainTo.current_price)
-  //       ).toString()
-  //     : "0.00";
 
   const routeFetchActive =
     !!chainFrom?.address &&
