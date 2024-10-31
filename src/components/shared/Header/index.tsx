@@ -10,6 +10,9 @@ import RenderIf from "../RenderIf";
 import cx from "classnames";
 import { motion } from "framer-motion";
 import ConnectButton from "@/components/home/ConnectButton";
+import Question from "@/lib/svg/Question";
+import Simplify from "@/lib/svg/Simplify";
+import New from "@/lib/svg/New";
 
 const Header = ({ type }: { type?: number }) => {
   const [isPopOpen, setIsPopOpen] = useState(false);
@@ -70,16 +73,16 @@ const Header = ({ type }: { type?: number }) => {
                     <Button
                       variant="invincible"
                       onClick={() => setIsPopOpen(true)}
+                      className="group"
                     >
                       <div className="flex items-center gap-1">
                         <div className="h-4 w-3  flex items-center justify-center ">
-                          <Image
-                            src={MainAssets.Simplify}
-                            alt="Left icon for the new button"
-                          />
+                          <Simplify className="transition-colors fill-[#919191] group-hover:fill-white " />
                         </div>
 
-                        <p className="text-[13px] text-grey-100">Simplify</p>
+                        <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                          Simplify
+                        </p>
                       </div>
                     </Button>
                   </div>
@@ -102,13 +105,13 @@ const Header = ({ type }: { type?: number }) => {
                         </div>
                       }
                       placeholder="Search for a token, address or chain"
-                      className="bg-transparent border-none font-geist-medium text-[13px] text-grey-300 p-0"
+                      className="bg-transparent border-none font-geist-medium text-[13px] text-[white] p-0 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
                     />
                   </div>
                   <div>
                     <Link href={AppRoutes.networks.path}>
-                      <Button variant="invincible">
-                        <p className="text-[13px] text-grey-100">
+                      <Button variant="invincible" className="group">
+                        <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
                           Supported Networks
                         </p>
                       </Button>
@@ -131,19 +134,20 @@ const Header = ({ type }: { type?: number }) => {
               ) : null}
             </div>
             <div className="flex gap-3">
-              <Button variant="ghost">
-                <div className="flex items-center gap-1">
-                  <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">
-                    <div className="h-4 w-3  flex items-center justify-center ">
-                      <Image
-                        src={MainAssets.New}
-                        alt="Left icon for the new button"
-                      />
+              <Link href={AppRoutes.connect.path}>
+                <Button variant="ghost" className="group">
+                  <div className="flex items-center gap-1">
+                    <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">
+                      <div className="h-4 w-3  flex items-center justify-center ">
+                        <New className="transition-colors fill-[#919191] group-hover:fill-white " />
+                      </div>
                     </div>
+                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                      Trade
+                    </p>
                   </div>
-                  <p className="text-[13px] text-grey-100">New</p>
-                </div>
-              </Button>
+                </Button>
+              </Link>
               <ConnectButton />
             </div>
           </RenderIf>
@@ -152,16 +156,19 @@ const Header = ({ type }: { type?: number }) => {
             <div className="items-center gap-4  flex">
               <div className="border border-[#32323240] rounded-[6px] bg-gradient-custom flex items-center gap-8 relative">
                 <HeaderMenu isPopOpen={isPopOpen} setIsPopOpen={setIsPopOpen} />
-                <Button variant="invincible" onClick={() => setIsPopOpen(true)}>
+                <Button
+                  variant="invincible"
+                  onClick={() => setIsPopOpen(true)}
+                  className="group"
+                >
                   <div className="flex items-center gap-1">
                     <div className="h-4 w-3  flex items-center justify-center ">
-                      <Image
-                        src={MainAssets.Simplify}
-                        alt="Left icon for the new button"
-                      />
+                      <Simplify className="transition-colors fill-[#919191] group-hover:fill-white " />
                     </div>
 
-                    <p className="text-[13px] text-grey-100">Simplify</p>
+                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                      Simplify
+                    </p>
                   </div>
                 </Button>
                 <Button variant="invincible">
@@ -176,19 +183,20 @@ const Header = ({ type }: { type?: number }) => {
                   </div>
                 </Button>
               </div>
-              <Button variant="ghost">
-                <div className="flex items-center gap-1">
-                  <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">
-                    <div className="h-4 w-3  flex items-center justify-center ">
-                      <Image
-                        src={MainAssets.New}
-                        alt="Left icon for the new button"
-                      />
+              <Link href={AppRoutes.connect.path}>
+                <Button variant="ghost">
+                  <div className="flex items-center gap-1">
+                    <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">
+                      <div className="h-4 w-3  flex items-center justify-center ">
+                        <New className="transition-colors fill-[#919191] group-hover:fill-white " />
+                      </div>
                     </div>
+                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                      Trade
+                    </p>
                   </div>
-                  <p className="text-[13px] text-grey-100">New</p>
-                </div>
-              </Button>
+                </Button>
+              </Link>
               <ConnectButton />
             </div>
           </RenderIf>
@@ -212,7 +220,7 @@ const Header = ({ type }: { type?: number }) => {
                         </div>
                       }
                       placeholder="Search over 54 chains and protocol"
-                      className="bg-transparent border-none font-geist-medium text-[13px] text-grey-300 p-0 min-w-[340px]"
+                      className="bg-transparent border-none font-geist-medium text-[13px] min-w-[340px] text-[white] p-0 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
                     />
                   </div>
                 </div>

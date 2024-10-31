@@ -1,16 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import Select from "../shared/Select";
 import Image from "next/image";
 import MainAssets from "@/lib/assets/main";
-import { Eth, Usdt } from "@/lib/svg";
 import Input from "../shared/Input";
 import { useWalletInfo } from "@web3modal/wagmi/react";
 import RenderIf from "../shared/RenderIf";
-import { Combobox } from "../shared/Combobox";
 import { ChainSelect } from "./ChainSelect";
 import { ChainPopover } from "./ChainPopover";
 import { useSocketTokensRead } from "@/services/queries/coins";
-import { initialCoin } from "@/utils/static";
 import {
   CoinData,
   SocketToken,
@@ -23,7 +19,6 @@ import {
   stringToFixed,
 } from "@/utils/helpers";
 import { useExchangeContext } from "@/context/ExchangeContext";
-import { useAccount } from "wagmi";
 
 interface IProps {
   type: "from" | "to";

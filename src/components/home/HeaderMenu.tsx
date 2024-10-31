@@ -139,7 +139,7 @@ export function HeaderMenu({ isPopOpen, setIsPopOpen }: IProps) {
                   </div>
                 </div>
               </div>
-              <div className="w-[157px] flex-col justify-center items-center">
+              <div className="w-[157px] flex-col justify-between items-between">
                 <div className="pl-[18px] flex flex-col gap-2">
                   <div className="flex gap-1">
                     <div className="w-[10px] h-[14px] mt-[3px]">
@@ -168,9 +168,12 @@ export function HeaderMenu({ isPopOpen, setIsPopOpen }: IProps) {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <div>
-                    <Image src={MainAssets.MenuMask} alt="Menu mask" />
+                <div className="relative">
+                  <div className="absolute inset-0 z-[12]">
+                    <Image src={MainAssets.MenuMask1} alt="Menu mask" />
+                  </div>
+                  <div className="absolute inset-0 z-[10]">
+                    <Image src={MainAssets.MenuMask2} alt="Menu mask" />
                   </div>
                 </div>
               </div>

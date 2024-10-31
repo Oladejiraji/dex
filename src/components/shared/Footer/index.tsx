@@ -9,6 +9,8 @@ import RenderIf from "../RenderIf";
 import { motion } from "framer-motion";
 import { BasePopover } from "@/components/home/BasePopover";
 import cx from "classnames";
+import OnChain from "@/lib/svg/OnChain";
+import Question from "@/lib/svg/Question";
 
 const Footer = ({
   expand,
@@ -30,30 +32,26 @@ const Footer = ({
           <div className="flex flex-1">
             <div className="border border-[#32323240] rounded-[6px] bg-transparent flex items-center justify-between gap-4">
               <Link href={AppRoutes.terms.path}>
-                <Button variant="invincible">
+                <Button variant="invincible" className="group">
                   <div className="flex items-center gap-1">
                     <div className="h-[14px] w-[14px]  flex items-center justify-center ">
-                      <Image
-                        src={MainAssets.Faq}
-                        alt="Left icon for the terms and condition button"
-                      />
+                      <Question className="transition-colors fill-[#919191] group-hover:fill-white " />
                     </div>
 
-                    <p className="text-[13px] text-grey-100">
+                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
                       Terms and Privacy
                     </p>
                   </div>
                 </Button>
               </Link>
-              <Button variant="invincible">
+              <Button variant="invincible" className="group">
                 <div className="flex items-center gap-1">
                   <div className="h-[14px] w-[14px]  flex items-center justify-center ">
-                    <Image
-                      src={MainAssets.Faq}
-                      alt="Left icon for the faq button"
-                    />
+                    <Question className="transition-colors fill-[#919191] group-hover:fill-white " />
                   </div>
-                  <p className="text-[13px] text-grey-100">FAQs</p>
+                  <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                    FAQs
+                  </p>
                 </div>
               </Button>
             </div>
@@ -77,17 +75,16 @@ const Footer = ({
                     onClick={() => {
                       setIsMenuOpen(!isMenuOpen);
                     }}
-                    className="z-[1000]"
+                    className="z-[1000] group"
                   >
                     <div className="flex items-center gap-1">
                       <div className="h-[14px] w-[14px]  flex items-center justify-center ">
-                        <Image
-                          src={MainAssets.Base}
-                          alt="Left icon for the faq button"
-                        />
+                        <OnChain className="transition-colors fill-[#919191] group-hover:fill-white " />
                       </div>
-                      <p className="text-[13px] text-grey-100">Base Onchain</p>
-                      <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                      <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                        Base Onchain
+                      </p>
+                      <div className="h-[14px] w-[14px] flex items-center justify-center ">
                         <Image
                           src={isMenuOpen ? MainAssets.Minus : MainAssets.Plus}
                           alt="Left icon for the faq button"

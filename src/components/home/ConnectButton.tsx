@@ -16,8 +16,13 @@ const ConnectButton = () => {
       />
     </div>
   ) : (
-    <Button onClick={() => open({ view: "AllWallets" as any })}>
-      <p className="text-[13px] text-grey-100">Connect Wallet</p>
+    <Button
+      onClick={() => open({ view: "AllWallets" as any })}
+      className="group"
+    >
+      <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+        Connect Wallet
+      </p>
     </Button>
   );
 };

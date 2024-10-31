@@ -7,28 +7,19 @@ import Header from "@/components/shared/Header";
 import RenderIf from "@/components/shared/RenderIf";
 import { useExchangeContext } from "@/context/ExchangeContext";
 import MainAssets from "@/lib/assets/main";
-import { Eth, Usdt } from "@/lib/svg";
 import {
-  useSocketChainRead,
   useSocketQuoteRead,
   useTokenBalanceRead,
 } from "@/services/queries/coins";
-import { CoinData } from "@/services/queries/coins/types";
-import {
-  debounce,
-  formatNumber,
-  removeDecimal,
-  reverseFormatNumber,
-  saveLocalStorage,
-} from "@/utils/helpers";
-import { chainBaseData, initialCoin } from "@/utils/static";
+import { debounce, removeDecimal } from "@/utils/helpers";
+import { chainBaseData } from "@/utils/static";
 import {
   useWalletInfo,
   useWeb3Modal,
   useWeb3ModalEvents,
 } from "@web3modal/wagmi/react";
 import Image from "next/image";
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 
 const Home = () => {

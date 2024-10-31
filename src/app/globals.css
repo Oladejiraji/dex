@@ -250,7 +250,7 @@ html.lenis body {
 
 .network_gradient {
   background: linear-gradient(180deg, #0b0c0d 23.74%, #141a23 166.16%);
-  box-shadow: 0px 0.5px 1px 0px #b9b9b940 inset;
+  box-shadow: 0px 0.5px 1px 0px rgba(185, 185, 185, 0.25) inset;
 }
 
 .base_popover_gradient {
@@ -279,7 +279,6 @@ html.lenis body {
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
-  mask-composite: exclude;
   padding: 1px;
 }
 
@@ -298,4 +297,8 @@ html.lenis body {
 
 .network_grid {
   grid-template-columns: repeat(auto-fit, minmax(210px, 2fr));
+}
+
+.network_con_shadow {
+  /* box-shadow: 0px -1px 0px 0px rgba(100, 100, 100, 0.25) inset; */
 }

@@ -34,7 +34,10 @@ import Docs from "../../../public/svgs/docs.svg";
 import Help from "../../../public/svgs/help.svg";
 import Subtract from "../../../public/svgs/Subtract.svg";
 import NetworkMask from "../../../public/svgs/network_mask.svg";
+import NetworkMask2 from "../../../public/svgs/network_mask_2.svg";
 import MenuMask from "../../../public/assets/menu_mask.png";
+import MenuMask1 from "../../../public/assets/menu_mask_1.png";
+import MenuMask2 from "../../../public/assets/menu_mask_2.png";
 
 const MainAssets = {
   Right,
@@ -73,7 +76,10 @@ const MainAssets = {
   Help,
   NetworkMask,
   MenuMask,
+  MenuMask1,
+  MenuMask2,
   Subtract,
+  NetworkMask2,
 };
 
 export default MainAssets;

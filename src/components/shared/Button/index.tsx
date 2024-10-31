@@ -35,7 +35,7 @@ const Button = (props: IButton) => {
         disabled={loading || disabled}
         variant={variant}
         className={cx(
-          `font-geist-500 gap-1 rounded-[6px] h-10 px-[10px] ${className} `,
+          `font-geist-500 gap-1 rounded-[6px] h-10 px-[10px] transition-colors ${className} `,
           {
             "opacity-70 cursor-not-allowed border-neutral-500": disabled,
           },
