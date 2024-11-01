@@ -122,10 +122,10 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                     Enter Recipient Address
                   </h1>
                   <button
-                    className="w-10 h-10 rounded-full flex items-center justify-center border border-[#83838340]"
+                    className="w-8 h-8 rounded-full flex items-center justify-center border border-[#83838340]"
                     onClick={() => setIsPopOpen(false)}
                   >
-                    <div className="w-[11px] h-[11px]">
+                    <div className="w-[9px] h-[9px]">
                       <Image src={MainAssets.X} alt="X icon" />
                     </div>
                   </button>
@@ -179,6 +179,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                 </div>
                 <div className="mt-4">
                   <Button
+                    variant="invincible"
                     className="w-full h-14 bg-[#1E1E1E]"
                     disabled={!termsValue || !!valueError}
                     onClick={() => {
@@ -187,7 +188,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                     }}
                   >
                     <p className="text-grey-400 font-geist-medium">
-                      Save Address
+                      Save Wallet Address
                     </p>
                   </Button>
                 </div>

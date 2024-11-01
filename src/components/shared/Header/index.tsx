@@ -184,7 +184,7 @@ const Header = ({ type }: { type?: number }) => {
                 </Button>
               </div>
               <Link href={AppRoutes.connect.path}>
-                <Button variant="ghost">
+                <Button variant="ghost" className="group">
                   <div className="flex items-center gap-1">
                     <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">
                       <div className="h-4 w-3  flex items-center justify-center ">

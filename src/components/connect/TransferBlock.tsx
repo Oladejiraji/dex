@@ -19,6 +19,7 @@ import {
   stringToFixed,
 } from "@/utils/helpers";
 import { useExchangeContext } from "@/context/ExchangeContext";
+import NumberFlow from "@number-flow/react";
 
 interface IProps {
   type: "from" | "to";
@@ -62,7 +63,6 @@ const TransferBlock = ({
   };
 
   const activeChain = type === "from" ? chainFrom : chainTo;
-
   return (
     <>
       <ChainPopover
@@ -73,19 +73,31 @@ const TransferBlock = ({
       />
       <div className="flex flex-col gap-4 bg-primary-300 p-4 rounded-[10px] mt-[22px] relative">
         <div className="flex items-center justify-between w-full">
-          <div>
-            <Input
-              className="bg-transparent border-none font-geist-medium text-2xl text-grey-300 p-0"
-              onChange={handleInputChange}
-              value={
-                type === "from"
-                  ? formatNumber(value)
-                  : formatNumber(calculatedValue)
-              }
-              placeholder="0.00"
-              disabled={!walletInfo || type === "to"}
-            />
-          </div>
+          {type === "from" ? (
+            <div>
+              <Input
+                className="bg-transparent border-none font-geist-medium text-2xl text-grey-300 p-0"
+                onChange={handleInputChange}
+                value={
+                  type === "from"
+                    ? formatNumber(value)
+                    : formatNumber(calculatedValue)
+                }
+                placeholder="0.00"
+                // disabled={!walletInfo || type === "to"}
+              />
+            </div>
+          ) : (
+            <div>
+              <NumberFlow
+                value={parseFloat(calculatedValue)}
+                format={{ notation: "standard" }} // Intl.NumberFormat options
+                locales="en-US" // Intl.NumberFormat locales
+                className="text-grey-300 font-geist-medium text-2xl"
+              />
+            </div>
+          )}
+
           <div>
             <ChainSelect value={activeChain} setIsPopOpen={setIsPopOpen} />
           </div>

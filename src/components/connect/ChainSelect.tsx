@@ -21,7 +21,6 @@ interface IProps {
 
 export function ChainSelect(props: IProps) {
   const { setIsPopOpen, value } = props;
-  console.log(value?.logoURI);
 
   return (
     value && (

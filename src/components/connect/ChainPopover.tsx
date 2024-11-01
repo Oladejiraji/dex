@@ -75,8 +75,9 @@ export function ChainPopover({
             <div className="relative select_gradient py-6 rounded-[6px] h-full flex flex-col">
               <div className="flex items-center gap-2 px-6">
                 <Input
-                  className="bg-transparent border border-[#32323240] font-geist-medium text-[13px] text-[#919191] p-3 h-12  rounded-[6px]"
+                  className="bg-transparent border border-[#32323240] font-geist-medium text-[13px] text-[#919191] pl-[28px] h-12  rounded-[6px]"
                   containerClass="flex-1"
+                  iconBeforeClassNames="left-[10px]"
                   onChange={(e) => setSearchValue(e.target.value)}
                   value={searchValue}
                   placeholder="Search Token..."
