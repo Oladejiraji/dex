@@ -59,7 +59,7 @@ const Header = ({ type }: { type?: number }) => {
               <motion.div
                 className="flex flex-col items-center z-[1002] relative menu_dropdown_bg rounded-[6px]"
                 animate={{
-                  height: isPopOpen ? "371px" : "40px",
+                  height: isPopOpen ? "325px" : "40px",
                   width: "603px",
                 }}
                 transition={{ duration: 0.2 }}

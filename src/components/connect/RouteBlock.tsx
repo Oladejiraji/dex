@@ -22,7 +22,7 @@ const RouteBlock = ({ isPending, quoteData }: IProps) => {
   return (
     <>
       <RecipientPopover isPopOpen={isPopOpen} setIsPopOpen={setIsPopOpen} />
-      <div className="mt-[22px] rounded-[10px] border border-grey-200">
+      <div className="mt-4 rounded-[10px] border border-grey-200">
         {isPending && !quoteData && (
           <div className="flex justify-center py-4 items-center gap-2">
             <p>Finding the best route for you</p>
@@ -67,7 +67,7 @@ const RouteBlock = ({ isPending, quoteData }: IProps) => {
               </button>
             </div>
             <div className="flex items-center  justify-between px-4 py-3 border-b border-grey-200">
-              <div className="flex items-center justify-center gap-1">
+              <div className="flex items-center justify-center gap-2">
                 <div className="w-6 h-6">
                   <Image src={MainAssets.Ox} alt="Ox icon" />
                 </div>

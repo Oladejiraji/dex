@@ -13,11 +13,7 @@ import {
 } from "@/services/queries/coins";
 import { debounce, removeDecimal } from "@/utils/helpers";
 import { chainBaseData } from "@/utils/static";
-import {
-  useWalletInfo,
-  useWeb3Modal,
-  useWeb3ModalEvents,
-} from "@web3modal/wagmi/react";
+import { useWalletInfo, useWeb3Modal } from "@web3modal/wagmi/react";
 import Image from "next/image";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { useAccount } from "wagmi";
@@ -82,21 +78,21 @@ const Home = () => {
     !!value;
 
   return (
-    <div className="max-w-[1200px] mx-auto px-2 sm:px-8">
+    <div className="max-w-[827px] mx-auto px-2 sm:px-8">
       <Header type={2} />
-      <main className="py-[100px]">
+      <main className="my-[100px] connect_border">
         <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14  py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
           <div className="w-full h-full max-w-[470px] mx-auto px-2 ">
             <div className="flex items-center justify-between">
-              <h3 className="font-geist-bold text-2xl">Swap</h3>
+              <h3 className="font-geist-semibold text-xl">Swap</h3>
               <div className="flex gap-2">
-                <Button className="border border-grey-200 rounded-full w-6 h-6 p-0">
-                  <div className="w-3 h-3">
+                <Button className="border border-grey-200 rounded-full w-8 h-8 p-0">
+                  <div className="w-[12.4px] h-[12.4px]">
                     <Image src={MainAssets.Refresh} alt="Refresh button icon" />
                   </div>
                 </Button>
-                <Button className="border border-grey-200 rounded-full w-6 h-6 p-0">
-                  <div className="w-3 h-3">
+                <Button className="border border-grey-200 rounded-full w-8 h-8 p-0">
+                  <div className="w-[15.9px] h-[17.2px]">
                     <Image
                       src={MainAssets.Settings}
                       alt="Refresh button icon"
@@ -106,7 +102,7 @@ const Home = () => {
               </div>
             </div>
             <div className="flex items-center gap-2 bg-primary-300 p-4 rounded-[10px] mt-[22px]">
-              <div className="w-8 h-8">
+              <div className="w-8 h-8 rounded-[2px]">
                 <Image
                   src={chainBaseData.icon}
                   alt="Chain Base Icon"
@@ -115,7 +111,7 @@ const Home = () => {
                 />
               </div>
               <div>
-                <h3 className="font-geist-thin text-xs text-grey-300 leading-[14px]">
+                <h3 className="font-geist-regular text-xs text-grey-300 leading-[14px]">
                   Chain
                 </h3>
                 <h4 className="font-geist-medium text-[15px] leading-[18px]">
@@ -123,25 +119,26 @@ const Home = () => {
                 </h4>
               </div>
             </div>
-
-            {transferBlockState.map((block, i) => (
-              <TransferBlock
-                key={i}
-                type={block.type}
-                blockId={block.id}
-                value={value}
-                handleInputChange={handleInputChange}
-                calculatedValue={calculatedValue}
-                balance={tokenBalance}
-              />
-            ))}
+            <div className="mt-1 flex flex-col gap-4">
+              {transferBlockState.map((block, i) => (
+                <TransferBlock
+                  key={i}
+                  type={block.type}
+                  blockId={block.id}
+                  value={value}
+                  handleInputChange={handleInputChange}
+                  calculatedValue={calculatedValue}
+                  balance={tokenBalance}
+                />
+              ))}
+            </div>
 
             {/* Route info */}
             <RenderIf condition={routeFetchActive}>
               <RouteBlock isPending={isPending} quoteData={quoteData} />
             </RenderIf>
 
-            <div className="mt-10 mx-[35px]">
+            <div className="mt-4 ">
               {walletInfo ? (
                 <div>
                   {isSufficientCalculationReady ? (

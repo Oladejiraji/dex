@@ -4,6 +4,7 @@ import Button from "../shared/Button";
 import Image from "next/image";
 import MainAssets from "@/lib/assets/main";
 import RemoteImage from "../shared/RemoteImage";
+import ExternalLink from "../shared/ExternalLink";
 
 interface IProps {
   isPopOpen: boolean;
@@ -42,9 +43,11 @@ export function BasePopover({ isPopOpen, setIsPopOpen }: IProps) {
                 creating an open, global crypto economy that is accessible to
                 everyone.
               </p>
-              <h3 className="text-[#D7D7D7] text-sm font-geist-medium underline text-center pt-8 pb-4  border-b border-[#272727]">
-                Read Docs Here
-              </h3>
+              <ExternalLink href="https://docs.base.org/">
+                <h3 className="text-[#D7D7D7] text-sm font-geist-medium underline text-center pt-8 pb-4  border-b border-[#272727]">
+                  Read Docs Here
+                </h3>
+              </ExternalLink>
               <div className="flex items-center justify-center gap-2 mt-6">
                 <div className="flex items-center justify-center opacity-50 ">
                   <RemoteImage src={MainAssets.Base} width={16} height={16} />

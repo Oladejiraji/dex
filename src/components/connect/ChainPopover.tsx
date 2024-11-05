@@ -75,7 +75,7 @@ export function ChainPopover({
             <div className="relative select_gradient py-6 rounded-[6px] h-full flex flex-col">
               <div className="flex items-center gap-2 px-6">
                 <Input
-                  className="bg-transparent border border-[#32323240] font-geist-medium text-[13px] text-[#919191] pl-[28px] h-12  rounded-[6px]"
+                  className="bg-transparent border border-[#32323240] font-geist-medium text-[13px] placeholder:text-[#919191] text-white pl-[28px] h-12  rounded-[6px]"
                   containerClass="flex-1"
                   iconBeforeClassNames="left-[10px]"
                   onChange={(e) => setSearchValue(e.target.value)}
@@ -100,12 +100,17 @@ export function ChainPopover({
                     onClick={() => handleChain(chain)}
                     disabled={prevChain === chain.symbol}
                     className={cx(
-                      "flex items-center gap-1 p-[6px] border border-[#32323240] rounded-[40px]",
+                      "flex items-center gap-1 px-[6px] h-[30px] border border-[#32323240] rounded-[40px]",
                       { "bg-primary-200": prevChain === chain.symbol }
                     )}
                   >
                     <div className="w-4 h-4">
-                      <RemoteImage src={chain.logoURI} width={16} height={16} />
+                      <RemoteImage
+                        src={chain.logoURI}
+                        width={16}
+                        height={16}
+                        className="rounded-full"
+                      />
                     </div>
                     <p className="font-geist-medium text-[15px]">
                       {chain.symbol.toUpperCase()}
@@ -132,6 +137,7 @@ export function ChainPopover({
                             src={chain.logoURI}
                             width={32}
                             height={32}
+                            className="rounded-full"
                           />
                         </div>
                         <div>

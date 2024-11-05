@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 import { config } from "@/config/wagmi";
 import { cookieToInitialState } from "wagmi";
 import AppKitProvider from "@/context/wagmiContext";
-import ExchangeContexttProvider from "@/context/ExchangeContext";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer } from "react-toastify";
+import NextTopLoader from "nextjs-toploader";
 import "react-toastify/dist/ReactToastify.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-primary-100 relative h-screen">
+        <NextTopLoader color="#fff" />
         <ToastContainer
           position="top-right"
           autoClose={5000}

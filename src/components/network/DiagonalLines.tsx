@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
+import cx from "classnames";
 
 const TOTAL_RECT = 74;
 const DiagonalLines = ({ isHover }: { isHover: boolean }) => {
+  const [isShow, setIsShow] = useState(false);
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      setIsShow(true);
+    }, 1000);
+  }, []);
   return (
-    <div className="relative h-full w-full flex items-center justify-center overflow-hidden">
+    <div
+      className={cx(
+        "relative h-full w-full flex items-center justify-center overflow-hidden",
+        { "opacity-1": isShow },
+        { "opacity-0": !isShow }
+      )}
+    >
       {new Array(TOTAL_RECT).fill(0).map((_, i) => {
         const dim = i + 40 + i * 3;
         const zIndex = Math.abs(i - TOTAL_RECT) + 20;

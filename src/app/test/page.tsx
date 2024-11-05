@@ -4,9 +4,9 @@ import React from "react";
 
 const Test = () => {
   return (
-    <div>
-      <div className="h-[100px]">
-        <Image src={MainAssets.Panel} alt="Panel" />
+    <div className="bg-white w-screen h-screen">
+      <div className="">
+        <Image src={MainAssets.StraightPanel} alt="Panel" />
       </div>
     </div>
   );

@@ -7,11 +7,7 @@ import RenderIf from "../shared/RenderIf";
 import { ChainSelect } from "./ChainSelect";
 import { ChainPopover } from "./ChainPopover";
 import { useSocketTokensRead } from "@/services/queries/coins";
-import {
-  CoinData,
-  SocketToken,
-  TokenBalance,
-} from "@/services/queries/coins/types";
+import { SocketToken, TokenBalance } from "@/services/queries/coins/types";
 import {
   formatNumber,
   formatNumberWithComma,
@@ -71,7 +67,7 @@ const TransferBlock = ({
         setIsPopOpen={setIsPopOpen}
         handleChainUpdate={handleChainUpdate}
       />
-      <div className="flex flex-col gap-4 bg-primary-300 p-4 rounded-[10px] mt-[22px] relative">
+      <div className="flex flex-col gap-4 bg-primary-300 px-4 py-[18px] rounded-[10px]  relative">
         <div className="flex items-center justify-between w-full">
           {type === "from" ? (
             <div>
@@ -129,7 +125,7 @@ const TransferBlock = ({
         </div>
         <RenderIf condition={blockId === 1}>
           <button
-            className="absolute bottom-[-24px] translate-x-[-50%] bg-primary-700 border border-primary-600 flex items-center justify-center rounded-full left-[50%] w-8 h-8"
+            className="absolute bottom-[-18px] translate-x-[-50%] bg-primary-700 border border-primary-600 flex items-center justify-center rounded-full left-[50%] w-8 h-8"
             onClick={reverseChain}
           >
             <div className="w-[10px] h-[10px]">

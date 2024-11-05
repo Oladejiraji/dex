@@ -47,7 +47,6 @@ const Home = () => {
                     } else {
                       setActivePanel(index);
                     }
-                    console.log(lenis);
                     setTimeout(() => {
                       lenis?.scrollTo(`#panel-${index}`, { offset: -100 });
                     }, 300);

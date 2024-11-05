@@ -22,7 +22,7 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
         </Button>
       </div>
       <div
-        className="w-[200px] h-[200px] rounded-[10px] flex flex-col justify-between bg-[#040506] network_con_shadow relative p-4 group"
+        className="w-[200px] h-[200px] rounded-[10px] flex flex-col justify-between bg-[#040506] relative p-4 group"
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >

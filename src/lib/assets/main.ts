@@ -21,6 +21,7 @@ import Danger from "../../../public/svgs/danger.svg";
 import Success from "../../../public/svgs/success.svg";
 import Send from "../../../public/svgs/send.svg";
 import Panel from "../../../public/assets/panel.png";
+import StraightPanel from "../../../public/assets/straight_panel.png";
 import Base from "../../../public/svgs/base.svg";
 import ImgBg from "../../../public/assets/img_bg.png";
 import Minus from "../../../public/svgs/minus.svg";
@@ -38,6 +39,7 @@ import NetworkMask2 from "../../../public/svgs/network_mask_2.svg";
 import MenuMask from "../../../public/assets/menu_mask.png";
 import MenuMask1 from "../../../public/assets/menu_mask_1.png";
 import MenuMask2 from "../../../public/assets/menu_mask_2.png";
+import MenuMask3 from "../../../public/svgs/mask_3.svg";
 
 const MainAssets = {
   Right,
@@ -78,8 +80,10 @@ const MainAssets = {
   MenuMask,
   MenuMask1,
   MenuMask2,
+  MenuMask3,
   Subtract,
   NetworkMask2,
+  StraightPanel,
 };
 
 export default MainAssets;

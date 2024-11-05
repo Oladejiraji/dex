@@ -6,6 +6,7 @@ import Image from "next/image";
 const ConnectButton = () => {
   const { open } = useWeb3Modal();
   const { walletInfo } = useWalletInfo();
+  console.log(walletInfo);
   return walletInfo ? (
     <div>
       <Image

@@ -282,9 +282,6 @@ html.lenis body {
   padding: 1px;
 }
 
-.menu_gradient {
-}
-
 .menu_dropdown_bg {
   background: linear-gradient(
     180deg,
@@ -299,6 +296,28 @@ html.lenis body {
   grid-template-columns: repeat(auto-fit, minmax(210px, 2fr));
 }
 
-.network_con_shadow {
-  /* box-shadow: 0px -1px 0px 0px rgba(100, 100, 100, 0.25) inset; */
+.connect_border {
+  position: relative;
+  background: linear-gradient(327.6deg, #08090a 75.73%, #434343 158.51%),
+    linear-gradient(
+      129.43deg,
+      rgba(0, 0, 0, 0) 36.01%,
+      rgba(80, 80, 80, 0.2) 88.25%
+    );
+  border-radius: 16px;
+}
+
+.connect_border::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 16px;
+
+  background: radial-gradient(
+    180.27% 180.27% at 50.06% -14.2%,
+    #060708 39.65%,
+    #0a0a0a 57.08%,
+    rgba(9, 9, 9, 0.7) 70.84%,
+    #52606e 83.61%
+  );
 }

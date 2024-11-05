@@ -28,16 +28,23 @@ export function ChainSelect(props: IProps) {
         <Button
           variant="outline"
           role="combobox"
-          className="border-none rounded-full bg-primary-400 font-geist-medium text-[15px] hover:bg-inherit hover:text-inherit"
+          className="border-none rounded-full bg-primary-400 font-geist-medium text-[15px]  py-0 h-10"
           onClick={() => setIsPopOpen(true)}
         >
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8">
-              <RemoteImage src={value.logoURI} width={32} height={32} />
+            <div className="w-6 h-6">
+              <RemoteImage
+                src={value.logoURI}
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
             </div>
-            <p>{value.symbol.toUpperCase()}</p>
+            <p className="text-[15px] font-geist-medium">
+              {value.symbol.toUpperCase()}
+            </p>
           </div>
-          <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronDownIcon className="ml-4 h-[14px] w-[14px] shrink-0 opacity-50" />
         </Button>
       </div>
     )
