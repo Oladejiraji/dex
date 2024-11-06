@@ -72,7 +72,7 @@ const Header = ({ type }: { type?: number }) => {
                   <div>
                     <Button
                       variant="invincible"
-                      onClick={() => setIsPopOpen(true)}
+                      // onClick={() => setIsPopOpen(true)}
                       className="group"
                     >
                       <div className="flex items-center gap-1">
@@ -158,7 +158,7 @@ const Header = ({ type }: { type?: number }) => {
                 <HeaderMenu isPopOpen={isPopOpen} setIsPopOpen={setIsPopOpen} />
                 <Button
                   variant="invincible"
-                  onClick={() => setIsPopOpen(true)}
+                  // onClick={() => setIsPopOpen(true)}
                   className="group"
                 >
                   <div className="flex items-center gap-1">

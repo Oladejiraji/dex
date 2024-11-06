@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-primary-100 relative h-screen">
-        <NextTopLoader color="#fff" />
+        <NextTopLoader color="#fff" showSpinner={false} />
         <ToastContainer
           position="top-right"
           autoClose={5000}
