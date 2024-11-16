@@ -40,6 +40,7 @@ import MenuMask from "../../../public/assets/menu_mask.png";
 import MenuMask1 from "../../../public/assets/menu_mask_1.png";
 import MenuMask2 from "../../../public/assets/menu_mask_2.png";
 import MenuMask3 from "../../../public/svgs/mask_3.svg";
+import CustomAvatarAsset from "../../../public/svgs/custom_avatar.svg";
 
 const MainAssets = {
   Right,
@@ -84,6 +85,7 @@ const MainAssets = {
   Subtract,
   NetworkMask2,
   StraightPanel,
+  CustomAvatarAsset,
 };
 
 export default MainAssets;

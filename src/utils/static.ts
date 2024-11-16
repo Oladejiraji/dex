@@ -1,3 +1,5 @@
+import { Theme } from "@rainbow-me/rainbowkit";
+
 export const initialCoin = {
   id: "bitcoin",
   symbol: "btc",
@@ -89,3 +91,42 @@ export const chainBaseData = {
 const myAddress = "0x9b22E8bEb2c991D9417ABCA77F9266E5e483E6a3";
 
 export const baseAddress = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+
+export const faqData = [
+  {
+    id: 1,
+    question: "What is Superbase?",
+    answer:
+      "Superbase is a bridge aggregator powered by socket. Superbase enables users to find the best route for bridging tokens to chains, or swapping onchain. It finds multiple bridging routes via supported DEXes & Bridges, considering any swaps that may be needed before/after bridging.",
+  },
+  {
+    id: 2,
+    question: "How does Superbase work?",
+    answer:
+      "Superbase enables seamless cross-chain asset transfers. It unifies liquidity across chains by aggregating all asset bridges & DEXs.",
+  },
+  {
+    id: 3,
+    question: "Is Superbase Safe?",
+    answer:
+      "Yes, Superbase is safe. Only you have access to your credentials and, consequently, your wallet and its assets.",
+  },
+  {
+    id: 4,
+    question: "Does Superbase charge fees?",
+    answer:
+      "No we do not, any fees incurred are either gas fees or bridging fees.",
+  },
+  {
+    id: 5,
+    question: "What chains and bridges does Superbase support?",
+    answer:
+      "Superbase supports a variety of bridges and chains, with more coming soon, view supported chains here.",
+  },
+  {
+    id: 6,
+    question: "Can I bridge on Superbase?",
+    answer:
+      "This depends on our backend engineer @Oladeji is it safe to bridge on superbase.",
+  },
+];

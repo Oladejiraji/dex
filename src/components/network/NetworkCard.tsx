@@ -5,6 +5,8 @@ import Image from "next/image";
 import MainAssets from "@/lib/assets/main";
 import { useMotionTemplate, motion, useMotionValue } from "framer-motion";
 import DiagonalLines from "./DiagonalLines";
+import Link from "next/link";
+import { AppRoutes } from "@/utils/routes";
 
 const NetworkCard = ({ chain }: { chain: ChainType }) => {
   const [isHover, setIsHover] = useState(false);
@@ -15,11 +17,13 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
   return (
     <div className="flex flex-col items-center gap-3">
       <div>
-        <Button className="border border-[#272727] px-[10px] py-[9px] rounded-[6px]">
-          <p className="text-[13px] font-geist-medium text-[#CDCDCD] ">
-            Bridge {chain.name}
-          </p>
-        </Button>
+        <Link href={AppRoutes.connect.path(chain.chainId)}>
+          <Button className="border border-[#272727] px-[10px] py-[9px] rounded-[6px]">
+            <p className="text-[13px] font-geist-medium text-[#CDCDCD] ">
+              Bridge {chain.name}
+            </p>
+          </Button>
+        </Link>
       </div>
       <div
         className="w-[200px] h-[200px] rounded-[10px] flex flex-col justify-between bg-[#040506] relative p-4 group"

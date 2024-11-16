@@ -3,13 +3,16 @@ export const AppRoutes = {
     path: "/terms",
   },
   connect: {
-    path: "/connect",
+    path: (chainId: number) => `/connect/${chainId}`,
   },
   home: {
     path: "/",
   },
   review: {
     path: "/review",
+  },
+  faq: {
+    path: "/faq",
   },
   networks: {
     path: "/networks",

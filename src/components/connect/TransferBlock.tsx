@@ -2,12 +2,15 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import MainAssets from "@/lib/assets/main";
 import Input from "../shared/Input";
-import { useWalletInfo } from "@web3modal/wagmi/react";
 import RenderIf from "../shared/RenderIf";
 import { ChainSelect } from "./ChainSelect";
 import { ChainPopover } from "./ChainPopover";
 import { useSocketTokensRead } from "@/services/queries/coins";
-import { SocketToken, TokenBalance } from "@/services/queries/coins/types";
+import {
+  ChainType,
+  SocketToken,
+  TokenBalance,
+} from "@/services/queries/coins/types";
 import {
   formatNumber,
   formatNumberWithComma,
@@ -24,6 +27,7 @@ interface IProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   blockId: number;
   balance?: TokenBalance;
+  currChain: ChainType;
 }
 
 const TransferBlock = ({
@@ -32,24 +36,23 @@ const TransferBlock = ({
   calculatedValue,
   handleInputChange,
   blockId,
+  currChain,
   balance,
 }: IProps) => {
-  const { walletInfo } = useWalletInfo();
   const { updateChain, reverseChain, chainFrom, chainTo } =
     useExchangeContext();
 
   const [isPopOpen, setIsPopOpen] = useState(false);
-
-  const { data, isSuccess } = useSocketTokensRead();
+  const { data, isSuccess } = useSocketTokensRead(currChain.chainId);
   useEffect(() => {
     if (isSuccess && data) {
-      if (type === "from" && !chainFrom) {
-        const usdcData = data.find((ed) => ed.symbol === "MATIC");
-        updateChain("from", usdcData || data[0]);
+      if (type === "from") {
+        // const usdcData = data.find((ed) => ed.symbol === "MATIC");
+        updateChain("from", data[0]);
       }
-      if (type === "to" && !chainTo) {
-        const ethData = data.find((ed) => ed.symbol === "USDC");
-        updateChain("to", ethData || data[1]);
+      if (type === "to") {
+        // const ethData = data.find((ed) => ed.symbol === "USDC");
+        updateChain("to", data[1]);
       }
     }
   }, [isSuccess]);
@@ -66,6 +69,7 @@ const TransferBlock = ({
         isPopOpen={isPopOpen}
         setIsPopOpen={setIsPopOpen}
         handleChainUpdate={handleChainUpdate}
+        currChain={currChain}
       />
       <div className="flex flex-col gap-4 bg-primary-300 px-4 py-[18px] rounded-[10px]  relative">
         <div className="flex items-center justify-between w-full">
@@ -87,7 +91,7 @@ const TransferBlock = ({
             <div>
               <NumberFlow
                 value={parseFloat(calculatedValue)}
-                format={{ notation: "standard" }} // Intl.NumberFormat options
+                format={{ notation: "standard", maximumFractionDigits: 10 }} // Intl.NumberFormat options
                 locales="en-US" // Intl.NumberFormat locales
                 className="text-grey-300 font-geist-medium text-2xl"
               />
@@ -125,7 +129,7 @@ const TransferBlock = ({
         </div>
         <RenderIf condition={blockId === 1}>
           <button
-            className="absolute bottom-[-18px] translate-x-[-50%] bg-primary-700 border border-primary-600 flex items-center justify-center rounded-full left-[50%] w-8 h-8"
+            className="absolute bottom-[-18px] translate-x-[-50%] bg-[#0D0E0F] border-[3px] border-[#060708] flex items-center justify-center rounded-[8px] left-[50%] w-8 h-8 z-[10]"
             onClick={reverseChain}
           >
             <div className="w-[10px] h-[10px]">

@@ -84,8 +84,7 @@ export const appendDecimal = (amount?: string, decimal?: number): string => {
   if (!decimal || !amount) return "0";
   const multiplier = Math.pow(10, decimal);
   const fixed = parseFloat(amount) * multiplier;
-
-  return fixed.toString();
+  return fixed.toLocaleString("fullwide", { useGrouping: false });
 };
 
 export const removeDecimal = (decimal: number, amount?: string): string => {
@@ -111,7 +110,7 @@ export function minimizeAddress(address: string): string {
 }
 
 export const stringToFixed = (number: string, decimal?: number) => {
-  return parseFloat(parseFloat(number).toFixed(decimal || 4)).toString();
+  return parseFloat(parseFloat(number).toFixed(decimal || 8)).toString();
 };
 
 export const successToast = (message: string) => {

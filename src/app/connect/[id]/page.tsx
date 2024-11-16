@@ -8,26 +8,33 @@ import RenderIf from "@/components/shared/RenderIf";
 import { useExchangeContext } from "@/context/ExchangeContext";
 import MainAssets from "@/lib/assets/main";
 import {
+  useSocketChainRead,
   useSocketQuoteRead,
   useTokenBalanceRead,
 } from "@/services/queries/coins";
 import { debounce, removeDecimal } from "@/utils/helpers";
 import { chainBaseData } from "@/utils/static";
-import { useWalletInfo, useWeb3Modal } from "@web3modal/wagmi/react";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
-import React, { ChangeEvent, useCallback, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 
 const Home = () => {
-  const { open } = useWeb3Modal();
-  const { walletInfo } = useWalletInfo();
+  const { data: chainsData, isPending: chainsIsPending } = useSocketChainRead();
+  const { openConnectModal } = useConnectModal();
+  const account = useAccount();
+
+  const router = useRouter();
+  const params = useParams();
+  const paramsIdFallback = (params.id as string) || "137";
   const { chainFrom, chainTo, recipientAddress } = useExchangeContext();
   const { address } = useAccount();
 
   const [value, setValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
-
   const { data: quoteData, isPending } = useSocketQuoteRead(
+    paramsIdFallback,
     chainFrom?.address,
     chainTo?.address,
     debouncedValue,
@@ -37,6 +44,7 @@ const Home = () => {
   );
 
   const { data: tokenBalance } = useTokenBalanceRead(
+    paramsIdFallback,
     address,
     chainFrom?.address
   );
@@ -77,12 +85,22 @@ const Home = () => {
     !!(quoteData.routes.length > 0) &&
     !!value;
 
+  if (chainsIsPending || !chainsData) {
+    return <div>Loading</div>;
+  }
+  // const currChain = useMemo(() => {
+  //   return chainsData.map
+  // }, [params.id, chainsData])
+  const currChain = chainsData.filter(
+    (ch) => ch.chainId === parseInt(paramsIdFallback)
+  )[0];
+
   return (
     <div className="max-w-[827px] mx-auto px-2 sm:px-8">
       <Header type={2} />
-      <main className="my-[100px] connect_border">
-        <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14  py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
-          <div className="w-full h-full max-w-[470px] mx-auto px-2 ">
+      <main className=" h-[calc(100vh-100px)] mt-[100px] connect_border">
+        <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14 py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
+          <div className="w-full h-full max-w-[420px] mx-auto px-0 ">
             <div className="flex items-center justify-between">
               <h3 className="font-geist-semibold text-xl">Swap</h3>
               <div className="flex gap-2">
@@ -102,10 +120,11 @@ const Home = () => {
               </div>
             </div>
             <div className="flex items-center gap-2 bg-primary-300 p-4 rounded-[10px] mt-[22px]">
-              <div className="w-8 h-8 rounded-[2px]">
+              <div className="w-8 h-8 ">
                 <Image
-                  src={chainBaseData.icon}
+                  src={currChain.icon}
                   alt="Chain Base Icon"
+                  className="rounded-[4px]"
                   width={32}
                   height={32}
                 />
@@ -115,11 +134,11 @@ const Home = () => {
                   Chain
                 </h3>
                 <h4 className="font-geist-medium text-[15px] leading-[18px]">
-                  {chainBaseData.name}
+                  {currChain.name}
                 </h4>
               </div>
             </div>
-            <div className="mt-1 flex flex-col gap-4">
+            <div className="mt-1 flex flex-col gap-2">
               {transferBlockState.map((block, i) => (
                 <TransferBlock
                   key={i}
@@ -129,6 +148,7 @@ const Home = () => {
                   handleInputChange={handleInputChange}
                   calculatedValue={calculatedValue}
                   balance={tokenBalance}
+                  currChain={currChain}
                 />
               ))}
             </div>
@@ -139,7 +159,7 @@ const Home = () => {
             </RenderIf>
 
             <div className="mt-4 ">
-              {walletInfo ? (
+              {account.status === "connected" ? (
                 <div>
                   {isSufficientCalculationReady ? (
                     <ReviewButton
@@ -151,7 +171,7 @@ const Home = () => {
                       value={value}
                     />
                   ) : (
-                    <Button className="w-full h-14 bg-primary-800 hover:bg-primary-800">
+                    <Button className="w-full h-12 bg-primary-800 hover:bg-primary-800">
                       <p className="text-[#080808] font-geist-medium">
                         Review Route
                       </p>
@@ -160,8 +180,8 @@ const Home = () => {
                 </div>
               ) : (
                 <Button
-                  className="w-full h-14 bg-primary-500"
-                  onClick={() => open({ view: "AllWallets" as any })}
+                  className="w-full h-10 bg-primary-500"
+                  onClick={openConnectModal}
                 >
                   <p className="text-grey-400 font-geist-medium">
                     Connect Wallet

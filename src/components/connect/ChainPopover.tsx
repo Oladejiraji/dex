@@ -6,7 +6,7 @@ import cx from "classnames";
 import Input from "../shared/Input";
 import RenderIf from "../shared/RenderIf";
 import { useSocketTokensRead } from "@/services/queries/coins";
-import { SocketToken } from "@/services/queries/coins/types";
+import { ChainType, SocketToken } from "@/services/queries/coins/types";
 import { useExchangeContext } from "@/context/ExchangeContext";
 import RemoteImage from "../shared/RemoteImage";
 
@@ -15,16 +15,18 @@ interface IProps {
   isPopOpen: boolean;
   setIsPopOpen: Dispatch<SetStateAction<boolean>>;
   handleChainUpdate: (chain: SocketToken) => void;
+  currChain: ChainType;
 }
 
 export function ChainPopover({
   isPopOpen,
   setIsPopOpen,
   handleChainUpdate,
+  currChain,
   type,
 }: IProps) {
   const [searchValue, setSearchValue] = useState("");
-  const { data } = useSocketTokensRead();
+  const { data } = useSocketTokensRead(currChain.chainId);
 
   const { chainFrom, chainTo } = useExchangeContext();
 

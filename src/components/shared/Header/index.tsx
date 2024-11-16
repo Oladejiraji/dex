@@ -134,7 +134,7 @@ const Header = ({ type }: { type?: number }) => {
               ) : null}
             </div>
             <div className="flex gap-3">
-              <Link href={AppRoutes.connect.path}>
+              <Link href={AppRoutes.connect.path(137)}>
                 <Button variant="ghost" className="group">
                   <div className="flex items-center gap-1">
                     <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">
@@ -183,7 +183,7 @@ const Header = ({ type }: { type?: number }) => {
                   </div>
                 </Button>
               </div>
-              <Link href={AppRoutes.connect.path}>
+              <Link href={AppRoutes.connect.path(137)}>
                 <Button variant="ghost" className="group">
                   <div className="flex items-center gap-1">
                     <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">

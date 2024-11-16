@@ -44,16 +44,18 @@ const Footer = ({
                   </div>
                 </Button>
               </Link>
-              <Button variant="invincible" className="group">
-                <div className="flex items-center gap-1">
-                  <div className="h-[14px] w-[14px]  flex items-center justify-center ">
-                    <Question className="transition-colors fill-[#919191] group-hover:fill-white " />
+              <Link href={AppRoutes.faq.path}>
+                <Button variant="invincible" className="group">
+                  <div className="flex items-center gap-1">
+                    <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                      <Question className="transition-colors fill-[#919191] group-hover:fill-white " />
+                    </div>
+                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                      FAQs
+                    </p>
                   </div>
-                  <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
-                    FAQs
-                  </p>
-                </div>
-              </Button>
+                </Button>
+              </Link>
             </div>
           </div>
           <RenderIf condition={!!expand}>

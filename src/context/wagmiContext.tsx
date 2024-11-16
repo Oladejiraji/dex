@@ -3,13 +3,13 @@
 import React, { ReactNode } from "react";
 import { config, projectId, metadata } from "@/config/wagmi";
 
-import { createWeb3Modal } from "@web3modal/wagmi/react";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { State, WagmiProvider } from "wagmi";
 import ExchangeContexttProvider from "./ExchangeContext";
+import { darkTheme, RainbowKitProvider, Theme } from "@rainbow-me/rainbowkit";
+import merge from "lodash.merge";
 
 // Setup queryClient
 const queryClient = new QueryClient({
@@ -28,25 +28,32 @@ const queryClient = new QueryClient({
 if (!projectId) throw new Error("Project ID is not defined");
 
 // Create modal
-createWeb3Modal({
-  metadata,
-  wagmiConfig: config,
-  projectId,
-  enableAnalytics: true, // Optional - defaults to your Cloud configuration
-});
+// createWeb3Modal({
+//   metadata,
+//   wagmiConfig: config,
+//   projectId,
+//   enableAnalytics: true,
+// });
 
 export default function AppKitProvider({
   children,
-  initialState,
 }: {
   children: ReactNode;
   initialState?: State;
 }) {
+  const myTheme = merge(darkTheme(), {
+    colors: {
+      accentColor: "red",
+    },
+  } as Theme);
+
   return (
-    <WagmiProvider config={config} initialState={initialState}>
+    <WagmiProvider config={config}>
       <ExchangeContexttProvider>
         <QueryClientProvider client={queryClient}>
-          {children} <ReactQueryDevtools initialIsOpen={false} />
+          <RainbowKitProvider theme={myTheme}>
+            {children} <ReactQueryDevtools initialIsOpen={false} />
+          </RainbowKitProvider>
         </QueryClientProvider>
       </ExchangeContexttProvider>
     </WagmiProvider>

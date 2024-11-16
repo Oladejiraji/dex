@@ -28,7 +28,7 @@ const DiagonalLines = ({ isHover }: { isHover: boolean }) => {
             style={{ width: `${dim}px`, height: `${dim}px`, zIndex }}
             animate={{
               opacity: isHover ? 0.1 : 0.02,
-              transition: { delay: 0.01 * i },
+              transition: { delay: 0.01 * i, duration: 0.1 },
             }}
           />
         );

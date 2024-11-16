@@ -1,6 +1,14 @@
-import { defaultWagmiConfig } from "@web3modal/wagmi/react";
-
-import { mainnet, sepolia, polygon } from "wagmi/chains";
+"use client";
+import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { http } from "wagmi";
+import {
+  mainnet,
+  sepolia,
+  polygon,
+  optimism,
+  arbitrum,
+  base,
+} from "wagmi/chains";
 
 // Get projectId from https://cloud.walletconnect.com
 export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
@@ -15,13 +23,21 @@ export const metadata = {
 };
 
 // Create wagmiConfig
-const chains = [mainnet, sepolia, polygon] as const;
-export const config = defaultWagmiConfig({
-  chains,
+const chains = [mainnet, polygon, optimism, arbitrum, base] as const;
+// export const config = defaultWagmiConfig({
+//   chains,
+//   projectId,
+//   metadata,
+//   ssr: true,
+// });
+
+export const config = getDefaultConfig({
+  appName: "Superbase",
   projectId,
-  metadata,
-  ssr: true,
-  // storage: createStorage({
-  //   storage: cookieStorage,
-  // }),
+  chains,
+  transports: chains.reduce(
+    (obj, chain) => ({ ...obj, [chain.id]: http() }),
+    {}
+  ),
+  ssr: true, // If your dApp uses server side rendering (SSR)
 });

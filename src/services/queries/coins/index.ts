@@ -73,8 +73,8 @@ export const useSocketChainRead = () => {
   };
 };
 
-export const useSocketTokensRead = () => {
-  const hash = ["socket tokens read"];
+export const useSocketTokensRead = (chainId: number) => {
+  const hash = ["socket tokens read", chainId];
   const { data, isPending, error, isSuccess } = useQuery<{
     result: SocketToken[];
     success: boolean;
@@ -82,7 +82,7 @@ export const useSocketTokensRead = () => {
     queryKey: hash,
     queryFn: async () =>
       await api.get({
-        url: `https://api.socket.tech/v2/token-lists/to-token-list?fromChainId=${chainBaseData.chainId}&toChainId=${chainBaseData.chainId}&singleTxOnly=true&isShortList=true`,
+        url: `https://api.socket.tech/v2/token-lists/to-token-list?fromChainId=${chainId}&toChainId=${chainId}&singleTxOnly=true&isShortList=true`,
         auth: true,
       }),
   });
@@ -95,6 +95,7 @@ export const useSocketTokensRead = () => {
 };
 
 export const useSocketQuoteRead = (
+  chainId: string,
   fromAddress?: string,
   toAddress?: string,
   amount?: string,
@@ -110,10 +111,11 @@ export const useSocketQuoteRead = (
     toAddress,
     fromAddress,
     recipient,
+    chainId,
   ];
   const sendUrl = buildUrl("https://api.socket.tech/v2/quote", [
-    { key: "fromChainId", value: chainBaseData.chainId },
-    { key: "toChainId", value: chainBaseData.chainId },
+    { key: "fromChainId", value: chainId },
+    { key: "toChainId", value: chainId },
     { key: "fromTokenAddress", value: fromAddress },
     { key: "toTokenAddress", value: toAddress },
     { key: "fromAmount", value: appendDecimal(amount, decimal) },
@@ -179,16 +181,22 @@ export const useCheckAllowanceRead = (
 };
 
 export const useTokenBalanceRead = (
+  chainId: string,
   userAddress?: string,
   tokenAddress?: string
 ) => {
-  const hash = ["socket token balance read", userAddress, tokenAddress];
+  const hash = [
+    "socket token balance read",
+    userAddress,
+    tokenAddress,
+    chainId,
+  ];
   const { data, isPending, error, isSuccess, refetch } =
     useQuery<TokenBalanceResponse>({
       queryKey: hash,
       queryFn: async () =>
         await api.get({
-          url: `https://api.socket.tech/v2/balances/token-balance?tokenAddress=${tokenAddress}&chainId=${chainBaseData.chainId}&userAddress=${userAddress}`,
+          url: `https://api.socket.tech/v2/balances/token-balance?tokenAddress=${tokenAddress}&chainId=${chainId}&userAddress=${userAddress}`,
           auth: true,
         }),
       enabled: !!userAddress && !!tokenAddress,

@@ -7,6 +7,7 @@ import AppKitProvider from "@/context/wagmiContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import NextTopLoader from "nextjs-toploader";
 import "react-toastify/dist/ReactToastify.css";
+import "@rainbow-me/rainbowkit/styles.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,11 +19,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialState = cookieToInitialState(config, headers().get("cookie"));
-
   return (
     <html lang="en">
-      <body className="bg-primary-100 relative h-screen">
+      <body className="bg-primary-100 relative">
         <NextTopLoader color="#fff" showSpinner={false} />
         <ToastContainer
           position="top-right"
@@ -37,7 +36,7 @@ export default function RootLayout({
           theme="light"
           transition={Bounce}
         />
-        <AppKitProvider initialState={initialState}>{children}</AppKitProvider>
+        <AppKitProvider>{children}</AppKitProvider>
       </body>
     </html>
   );
