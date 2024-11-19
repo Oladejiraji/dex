@@ -3,6 +3,7 @@ import ReviewButton from "@/components/connect/ReviewButton";
 import RouteBlock from "@/components/connect/RouteBlock";
 import TransferBlock from "@/components/connect/TransferBlock";
 import Button from "@/components/shared/Button";
+import ConnectFooter from "@/components/shared/Footer/ConnectFooter";
 import Header from "@/components/shared/Header";
 import RenderIf from "@/components/shared/RenderIf";
 import { useExchangeContext } from "@/context/ExchangeContext";
@@ -192,6 +193,7 @@ const Home = () => {
           </div>
         </div>
       </main>
+      <ConnectFooter />
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { minimizeAddress, removeDecimal, stringToFixed } from "@/utils/helpers";
 import { ChainPopover } from "./ChainPopover";
 import { RecipientPopover } from "./RecipientPopover";
 import { useExchangeContext } from "@/context/ExchangeContext";
+import RemoteImage from "../shared/RemoteImage";
 
 interface IProps {
   isPending: boolean;
@@ -75,9 +76,15 @@ const RouteBlock = ({ isPending, quoteData }: IProps) => {
             <div className="flex items-center  justify-between px-4 py-3 border-b border-grey-200">
               <div className="flex items-center justify-center gap-2">
                 <div className="w-6 h-6">
-                  <Image src={MainAssets.Ox} alt="Ox icon" />
+                  <RemoteImage
+                    src={quoteData.routes[0].userTxs[0].protocol.icon}
+                    width={24}
+                    height={24}
+                  />
                 </div>
-                <p className="font-geist-regular text-grey-300">OX</p>
+                <p className="font-geist-regular text-grey-300">
+                  {quoteData.routes[0].userTxs[0].protocol.displayName}
+                </p>
               </div>
               <p className="text-grey-400 text-sm font-geist-regular text-right">
                 {quoteData.routes[0]?.routeId}

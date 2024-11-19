@@ -80,6 +80,12 @@ export const debounce = <T extends (...args: any[]) => void>(
   };
 };
 
+/**
+ * Function to append decimal places to an amount
+ * @param amount amount to be operated on
+ * @param decimal decimal places to be added
+ * @returns
+ */
 export const appendDecimal = (amount?: string, decimal?: number): string => {
   if (!decimal || !amount) return "0";
   const multiplier = Math.pow(10, decimal);
@@ -87,7 +93,16 @@ export const appendDecimal = (amount?: string, decimal?: number): string => {
   return fixed.toLocaleString("fullwide", { useGrouping: false });
 };
 
-export const removeDecimal = (decimal: number, amount?: string): string => {
+/**
+ * Function to remove decimal places from an amount based on the decimal param
+ * @param decimal the decimal places to be removed
+ * @param amount amount to be operated on
+ * @returns
+ */
+export const removeDecimal = (
+  decimal: number,
+  amount?: string | number
+): string => {
   if (!amount) return "0.0";
   let strAmount = amount.toString();
 
@@ -109,6 +124,13 @@ export function minimizeAddress(address: string): string {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
+/**
+ *
+ * Removes trailing zeros in a decimal according to the decimal param e.g 0.00044000000 returns 0.00044000
+ * @param number
+ * @param decimal optional and defaults to 8
+ * @returns
+ */
 export const stringToFixed = (number: string, decimal?: number) => {
   return parseFloat(parseFloat(number).toFixed(decimal || 8)).toString();
 };

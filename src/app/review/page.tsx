@@ -10,17 +10,20 @@ import { useExchangeContext } from "@/context/ExchangeContext";
 import { redirect, useRouter } from "next/navigation";
 import { AppRoutes } from "@/utils/routes";
 import { errorToast, removeDecimal, stringToFixed } from "@/utils/helpers";
-import { useBuildPost } from "@/services/queries/coins";
+import { useBuildPost, useSocketChainRead } from "@/services/queries/coins";
 import { useChainId, useSwitchChain } from "wagmi";
 import { ethers } from "ethers";
 import { chainBaseData } from "@/utils/static";
 import { SuccessPopover } from "@/components/connect/SuccessPopover";
 import { getBridgeStatus } from "@/services/queries/coins/alternate";
+import RemoteImage from "@/components/shared/RemoteImage";
+import SuperbaseFeesTooltip from "@/components/review/SuperbaseFeesTooltip";
 
 const Review = () => {
+  const { data: chainsData, isPending: chainsIsPending } = useSocketChainRead();
   const { activeRoute, activeTransaction } = useExchangeContext();
   const router = useRouter();
-  if (!activeRoute) redirect(AppRoutes.connect.path);
+  if (!activeRoute) redirect(AppRoutes.home.path);
   // console.log(activeRoute);
   const { userTxs, fromAmount, toAmount } = activeRoute;
   const { fromAsset, toAsset, gasFees, swapSlippage } = userTxs[0];
@@ -113,7 +116,9 @@ const Review = () => {
       }
     }
   };
-
+  const activeChain = chainsData?.filter(
+    (chain) => chain.chainId === activeTransaction?.chainId
+  )[0];
   return (
     activeRoute && (
       <>
@@ -122,87 +127,116 @@ const Review = () => {
           setIsPopOpen={setIsPopOpen}
           activeRoute={activeRoute}
           hashState={hashState}
+          activeChain={activeChain}
         />
-        <div className="max-w-[1200px] mx-auto px-2 sm:px-8">
+        <div className="max-w-[827px] mx-auto px-2 sm:px-8">
           <Header type={2} />
-          <main className="py-[100px]">
-            <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14  py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
+          <main className=" h-[calc(100vh-100px)] mt-[100px] connect_border">
+            <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14 py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
               <div className="w-full h-full max-w-[470px] mx-auto px-2 ">
                 <div className="mb-4 flex items-center justify-between">
-                  <h1 className="text-base font-geist-medium">
-                    Review Transaction
+                  <h1 className="text-[20px] font-geist-semibold text-[#F9F9F9]">
+                    Review Route
                   </h1>
                   <button
-                    className="w-10 h-10 rounded-full flex items-center justify-center border border-[#83838340]"
-                    onClick={() => router.push(AppRoutes.connect.path)}
+                    className="w-8 h-8 rounded-full flex items-center justify-center border border-[#83838340]"
+                    onClick={() => router.back()}
                   >
-                    <div className="w-[11px] h-[11px]">
-                      <Image src={MainAssets.X} alt="X icon" />
+                    <div className="w-[10px] h-[10px] flex items-center justify-center relative">
+                      <Image src={MainAssets.X} alt="X icon" fill />
                     </div>
                   </button>
                 </div>
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center justify-center gap-2 relative">
                   <ReviewChain
                     asset={fromAsset}
                     amount={fromAmount}
                     type="From"
+                    activeRoute={activeRoute}
                   />
-                  <div className="w-[10px] h-[10px] rotate-[270deg]">
-                    <Image src={MainAssets.Up} alt="Up icon" />
+                  <div className="absolute bottom-[50%] left-[50%] translate-x-[-50%] translate-y-[50%] rotate-[-90deg] bg-[#0D0E0F] border-[3px] border-[#060708] flex items-center justify-center rounded-[8px] w-8 h-8 z-[10]">
+                    <div className="w-[10px] h-[10px]">
+                      <Image src={MainAssets.Up} alt="Up icon" />
+                    </div>
                   </div>
-                  <ReviewChain asset={toAsset} amount={toAmount} type="To" />
+                  <ReviewChain
+                    asset={toAsset}
+                    amount={toAmount}
+                    type="To"
+                    activeRoute={activeRoute}
+                  />
                 </div>
-                <div className="mt-[22px] rounded-[10px] border border-grey-200">
-                  <>
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-grey-200">
-                      <p className="text-grey-400 font-geist-regular">Dex: </p>
-                      <div className="flex items-center justify-center gap-1">
-                        <div className="w-6 h-6">
-                          <Image src={MainAssets.Ox} alt="Ox icon" />
-                        </div>
-                        <p className="font-geist-regular text-sm text-grey-300">
-                          OX
-                        </p>
+                <div className="mt-[32px] rounded-[10px] flex flex-col gap-4">
+                  <div className="flex items-center justify-between  ">
+                    <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                      Liquidity Provider:{" "}
+                    </p>
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-6 h-6">
+                        <RemoteImage
+                          src={activeRoute.userTxs[0].protocol.icon}
+                          width={24}
+                          height={24}
+                        />
                       </div>
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-grey-200">
-                      <p className="font-geist-regular text-sm text-grey-300">
-                        Est. Output
-                      </p>
-                      <p className="text-grey-400 font-geist-regular text-sm">
-                        {stringToFixed(
-                          removeDecimal(toAsset.decimals, toAmount),
-                          8
-                        )}{" "}
-                        {toAsset.symbol}
+                      <p className="font-geist-medium text-[14px] text-[#D7D7D7]">
+                        {activeRoute.userTxs[0].protocol.displayName}
                       </p>
                     </div>
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-grey-200">
-                      <p className="font-geist-regular text-sm text-grey-300">
-                        Gas Fees
+                  </div>
+
+                  <div className="flex items-center justify-between  ">
+                    <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                      Estimated Fees
+                    </p>
+                    <p className="font-geist-medium text-[14px] text-[#D7D7D7]">
+                      ${stringToFixed(gasFees.feesInUsd.toString())}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-between  ">
+                    <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                      Est. Output
+                    </p>
+                    <p className="text-grey-400 font-geist-regular text-sm">
+                      {stringToFixed(
+                        removeDecimal(toAsset.decimals, toAmount),
+                        8
+                      )}{" "}
+                      {toAsset.symbol}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between  ">
+                    <div className="flex items-center gap-2">
+                      <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                        Estimated Superbase fees
                       </p>
-                      <p className="text-grey-300 font-geist-regular">
-                        ${stringToFixed(gasFees.feesInUsd.toString())}
-                      </p>
+                      <SuperbaseFeesTooltip />
                     </div>
-                    <div className="flex items-center justify-between px-4 py-3">
-                      <p className="font-geist-regular text-sm text-grey-300">
-                        Swap Slippage
-                      </p>
-                      <p className="text-grey-300 font-geist-regular">
-                        {swapSlippage}
-                      </p>
-                    </div>
-                  </>
+                    <p className="text-grey-400 font-geist-regular text-sm">
+                      $0.00
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-between ">
+                    <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                      Swap Slippage
+                    </p>
+                    <p className="font-geist-medium text-[14px] text-[#D7D7D7]">
+                      {activeRoute.userTxs[0].swapSlippage}%
+                    </p>
+                  </div>
                 </div>
-                <div className="mt-4">
+                <div className="mt-16">
                   <Button
-                    className="w-full h-14 bg-primary-800 hover:bg-primary-800"
+                    className="w-full h-14 bg-primary-800 hover:bg-primary-800 rounded-[10px]"
                     loading={isPending}
                     onClick={swapFn}
                   >
-                    <p className="text-[#080808] font-geist-medium">
-                      {isRightChain ? "Swap" : "Switch Network To Polygon"}
+                    <p className="text-[#080808] text-[15px] font-geist-medium">
+                      {isRightChain
+                        ? "Place Order"
+                        : "Switch Network To Polygon"}
                     </p>
                   </Button>
                 </div>
