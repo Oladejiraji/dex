@@ -78,6 +78,11 @@ const Home = () => {
       ? removeDecimal(quoteData.toAsset.decimals, quoteData.routes[0]?.toAmount)
       : "0";
 
+  if (quoteData) {
+    console.log(quoteData.toAsset.decimals);
+    console.log(typeof quoteData.routes[0]?.toAmount);
+  }
+
   const isSufficientCalculationReady =
     !!tokenBalance &&
     !!quoteData?.routes &&

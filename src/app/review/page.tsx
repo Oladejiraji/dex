@@ -38,7 +38,7 @@ const Review = () => {
 
   const isRightChain = activeTransaction?.chainId === chainId;
 
-  const { switchChain, chains } = useSwitchChain();
+  const { switchChain } = useSwitchChain();
   const [isPopOpen, setIsPopOpen] = useState(false);
   const [hashState, setHashTaste] = useState("");
 
@@ -107,7 +107,7 @@ const Review = () => {
           }
         }, 20000);
       } else {
-        switchChain({ chainId: chains[2].id });
+        switchChain({ chainId: activeTransaction.chainId });
       }
     } catch (error: any) {
       if (error?.message?.includes("user rejected action")) {

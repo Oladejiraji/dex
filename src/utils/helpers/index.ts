@@ -1,4 +1,4 @@
-import { appKey } from "./constants";
+import { appKey } from "../constants";
 import { toast } from "react-toastify";
 
 export const saveLocalStorage = (key: string, data: any) => {
@@ -33,20 +33,27 @@ export const clearLocalStorage = (key: string) => {
   return null;
 };
 
+/**
+ * Function to format a string so that it only contains numbers, only has one decimal places and it removes other decimal places
+ * @param value string
+ * @returns string
+ */
 export const formatNumber = (value: string) => {
   const cleanValue = value.replace(/[^0-9.]/g, "");
 
   const [integerPart, decimalPart] = cleanValue.split(".");
 
-  // const formattedInteger = integerPart
-  //   ? parseInt(integerPart, 10).toLocaleString()
-  //   : "";
   const formattedInteger = integerPart || "";
   return decimalPart !== undefined
     ? `${formattedInteger}.${decimalPart}`
     : formattedInteger;
 };
 
+/**
+ * Function to format a string like in formatNumber function but also add appropriate commas
+ * @param value string
+ * @returns string
+ */
 export const formatNumberWithComma = (value: string) => {
   const cleanValue = value.replace(/[^0-9.]/g, "");
 
@@ -60,16 +67,13 @@ export const formatNumberWithComma = (value: string) => {
     : formattedInteger;
 };
 
-export const reverseFormatNumber = (formattedValue: string) => {
-  const cleanedValue = formattedValue.replace(/,/g, "").trim();
-
-  return isNaN(Number(cleanedValue)) ? "" : cleanedValue;
-};
-
-export function float(equation: any, precision = 9) {
-  return Math.floor(equation * 10 ** precision) / 10 ** precision;
-}
-
+/**
+ *
+ * Function to debounce a function
+ * @param func
+ * @param delay
+ * @returns
+ */
 export const debounce = <T extends (...args: any[]) => void>(
   func: T,
   delay: number
@@ -90,7 +94,8 @@ export const debounce = <T extends (...args: any[]) => void>(
  * @returns
  */
 export const appendDecimal = (amount?: string, decimal?: number): string => {
-  if (!decimal || !amount) return "0";
+  if (!amount) return "0";
+  if (!decimal) return amount;
   const multiplier = Math.pow(10, decimal);
   const fixed = parseFloat(amount) * multiplier;
   return fixed.toLocaleString("fullwide", { useGrouping: false });
@@ -106,22 +111,41 @@ export const removeDecimal = (
   decimal: number,
   amount?: string | number
 ): string => {
-  if (!amount) return "0.0";
+  if (!amount || amount === "0") return "0.0";
+  if (isNaN(Number(amount))) return "0.0";
   const strAmount = amount.toString();
-
-  const position = strAmount.length - decimal;
-
-  if (position <= 0) {
-    return "0." + "0".repeat(Math.abs(position)) + strAmount;
+  let isNegative = false;
+  if (amount.toString().split("")[0] === "-") {
+    isNegative = true;
   }
 
-  return strAmount.slice(0, position) + "." + strAmount.slice(position);
+  const absStrAmount = Math.abs(Number(strAmount)).toString();
+  const position = absStrAmount.length - decimal;
+
+  let retValue;
+  if (position <= 0) {
+    retValue = "0." + "0".repeat(Math.abs(position)) + absStrAmount;
+  } else {
+    retValue =
+      absStrAmount.slice(0, position) + "." + absStrAmount.slice(position);
+  }
+  return isNegative ? "-" + retValue : retValue;
 };
 
+/**
+ * Function to remove new line characters \n and trim white spaces
+ * @param text
+ * @returns
+ */
 export const cleanText = (text: string) => {
   return text.replace(/\n/g, "").trim();
 };
 
+/**
+ * Function to trim address eg 0x3c3e1f5d3c6f4d8b5c32fd8de12433d34b1bcf94 will return 0x3c3e...cf94
+ * @param address
+ * @returns
+ */
 export function minimizeAddress(address: string): string {
   if (!address) return "";
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -135,7 +159,10 @@ export function minimizeAddress(address: string): string {
  * @returns
  */
 export const stringToFixed = (number: string, decimal?: number) => {
-  return parseFloat(parseFloat(number).toFixed(decimal || 8)).toString();
+  const retValue = parseFloat(
+    parseFloat(number).toFixed(decimal || 8)
+  ).toString();
+  return isNaN(Number(retValue)) ? "0" : retValue;
 };
 
 export const successToast = (message: string) => {

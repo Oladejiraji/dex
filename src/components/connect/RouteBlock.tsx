@@ -16,12 +16,7 @@ interface IProps {
 const RouteBlock = ({ isPending, quoteData }: IProps) => {
   const [isPopOpen, setIsPopOpen] = useState(false);
   const { recipientAddress } = useExchangeContext();
-  if (quoteData) {
-    console.log({
-      al: quoteData.toAsset.decimals,
-      als: quoteData.routes[0]?.toAmount,
-    });
-  }
+
   return (
     <>
       <RecipientPopover isPopOpen={isPopOpen} setIsPopOpen={setIsPopOpen} />
