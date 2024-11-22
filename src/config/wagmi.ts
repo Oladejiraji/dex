@@ -1,5 +1,5 @@
 "use client";
-import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { http } from "wagmi";
 import {
   mainnet,
@@ -23,13 +23,7 @@ export const metadata = {
 };
 
 // Create wagmiConfig
-const chains = [mainnet, polygon, optimism, arbitrum, base] as const;
-// export const config = defaultWagmiConfig({
-//   chains,
-//   projectId,
-//   metadata,
-//   ssr: true,
-// });
+const chains = [mainnet, polygon, optimism, arbitrum, base, sepolia] as const;
 
 export const config = getDefaultConfig({
   appName: "Superbase",
@@ -39,5 +33,5 @@ export const config = getDefaultConfig({
     (obj, chain) => ({ ...obj, [chain.id]: http() }),
     {}
   ),
-  ssr: true, // If your dApp uses server side rendering (SSR)
+  ssr: true,
 });

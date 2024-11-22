@@ -10,7 +10,6 @@ import RenderIf from "../RenderIf";
 import cx from "classnames";
 import { motion } from "framer-motion";
 import ConnectButton from "@/components/home/ConnectButton";
-import Question from "@/lib/svg/Question";
 import Simplify from "@/lib/svg/Simplify";
 import New from "@/lib/svg/New";
 
@@ -118,11 +117,11 @@ const Header = ({ type }: { type?: number }) => {
                     </Link>
                   </div>
                 </div>
-                <HeaderMenu isPopOpen={isPopOpen} setIsPopOpen={setIsPopOpen} />
+                <HeaderMenu isPopOpen={isPopOpen} />
               </motion.div>
               {isPopOpen ? (
                 <div
-                  onClick={(e) => {
+                  onClick={() => {
                     setIsPopOpen(false);
                   }}
                   className={cx(
@@ -155,7 +154,7 @@ const Header = ({ type }: { type?: number }) => {
           <RenderIf condition={type === 2}>
             <div className="items-center gap-4  flex">
               <div className="border border-[#32323240] rounded-[6px] bg-gradient-custom flex items-center gap-8 relative">
-                <HeaderMenu isPopOpen={isPopOpen} setIsPopOpen={setIsPopOpen} />
+                <HeaderMenu isPopOpen={isPopOpen} />
                 <Button
                   variant="invincible"
                   // onClick={() => setIsPopOpen(true)}

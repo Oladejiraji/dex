@@ -9,7 +9,6 @@ import { Input as ShadInput } from "../../ui/input";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   containerClass?: string;
-  subText?: string;
   iconBefore?: boolean;
   icon?: any;
   className?: string;
@@ -22,9 +21,7 @@ const Input = ({
   label,
   containerClass,
   id,
-  required,
   type = "text",
-  subText,
   icon,
   className,
   iconBefore,

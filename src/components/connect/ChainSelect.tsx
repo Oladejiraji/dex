@@ -1,17 +1,10 @@
 "use client";
 
 import React, { Dispatch, SetStateAction } from "react";
-import {
-  CaretSortIcon,
-  CheckIcon,
-  ChevronDownIcon,
-} from "@radix-ui/react-icons";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useCoinsRead } from "@/services/queries/coins";
-import { CoinData, SocketToken } from "@/services/queries/coins/types";
-import Image from "next/image";
+import { SocketToken } from "@/services/queries/coins/types";
 import RemoteImage from "../shared/RemoteImage";
 
 interface IProps {

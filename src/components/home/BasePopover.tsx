@@ -1,17 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Dispatch, SetStateAction } from "react";
-import Button from "../shared/Button";
-import Image from "next/image";
 import MainAssets from "@/lib/assets/main";
 import RemoteImage from "../shared/RemoteImage";
 import ExternalLink from "../shared/ExternalLink";
 
 interface IProps {
   isPopOpen: boolean;
-  setIsPopOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function BasePopover({ isPopOpen, setIsPopOpen }: IProps) {
+export function BasePopover({ isPopOpen }: IProps) {
   return (
     <AnimatePresence>
       {isPopOpen ? (

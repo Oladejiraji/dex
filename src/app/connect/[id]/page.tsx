@@ -14,11 +14,10 @@ import {
   useTokenBalanceRead,
 } from "@/services/queries/coins";
 import { debounce, removeDecimal } from "@/utils/helpers";
-import { chainBaseData } from "@/utils/static";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
-import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { useParams } from "next/navigation";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 
 const Home = () => {
@@ -26,7 +25,6 @@ const Home = () => {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
 
-  const router = useRouter();
   const params = useParams();
   const paramsIdFallback = (params.id as string) || "137";
   const { chainFrom, chainTo, recipientAddress } = useExchangeContext();
@@ -56,12 +54,12 @@ const Home = () => {
   );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
+    const value = e.target.value;
     setValue(value);
     handleDebouncedInputChange(value);
   };
 
-  const [transferBlockState, setTransferBlockState] = useState<
+  const [transferBlockState, _] = useState<
     Array<{ type: "from" | "to"; id: number }>
   >([
     { type: "from", id: 1 },

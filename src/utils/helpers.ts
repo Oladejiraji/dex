@@ -7,6 +7,7 @@ export const saveLocalStorage = (key: string, data: any) => {
     localStorage.setItem(`${appKey}${key}`, jsonData);
     return true;
   } catch (error) {
+    console.log(error);
     return false;
   }
 };
@@ -17,6 +18,7 @@ export const getLocalStorage = (key: string) => {
     if (!jsonData) return null;
     return JSON.parse(jsonData);
   } catch (error) {
+    console.log(error);
     return null;
   }
 };
@@ -25,6 +27,7 @@ export const clearLocalStorage = (key: string) => {
   try {
     localStorage.removeItem(`${appKey}${key}`);
   } catch (error) {
+    console.log(error);
     return null;
   }
   return null;
@@ -104,9 +107,9 @@ export const removeDecimal = (
   amount?: string | number
 ): string => {
   if (!amount) return "0.0";
-  let strAmount = amount.toString();
+  const strAmount = amount.toString();
 
-  let position = strAmount.length - decimal;
+  const position = strAmount.length - decimal;
 
   if (position <= 0) {
     return "0." + "0".repeat(Math.abs(position)) + strAmount;

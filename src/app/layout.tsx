@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import "./globals.css";
-import { config } from "@/config/wagmi";
-import { cookieToInitialState } from "wagmi";
 import AppKitProvider from "@/context/wagmiContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import NextTopLoader from "nextjs-toploader";

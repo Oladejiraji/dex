@@ -25,6 +25,7 @@ const DiagonalLines = ({ isHover }: { isHover: boolean }) => {
       {new Array(TOTAL_RECT).fill(0).map((_, i) => {
         const dim = i + 40 + i * 8;
         const zIndex = Math.abs(i - TOTAL_RECT) + 20;
+        const delay = isHover ? 0.01 * i : 0.004 * i;
         return (
           <motion.div
             key={i}
@@ -33,8 +34,11 @@ const DiagonalLines = ({ isHover }: { isHover: boolean }) => {
             animate={{
               opacity: isHover ? 0.2 : 0,
               transition: {
-                delay: isHover ? 0.01 * i : 0.004 * i,
+                delay,
                 duration: isHover ? 0.1 : 0.04,
+                // repeatType: "mirror",
+                // repeat: 3,
+                // repeatDelay: delay * (TOTAL_RECT / 10),
               },
             }}
           />

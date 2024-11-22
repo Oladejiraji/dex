@@ -4,11 +4,10 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import MainAssets from "@/lib/assets/main";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 const Terms = () => {
   const contentRef = useRef<HTMLDivElement>(null!);
-  const [wordsToShow, setWordsToShow] = useState(0);
 
   const wrapTextInSpans = (node: HTMLDivElement | ChildNode) => {
     node.childNodes.forEach((child) => {
@@ -31,7 +30,6 @@ const Terms = () => {
   };
 
   const handleScroll = () => {
-    console.log("scroll");
     const scrollTop = window.scrollY;
     const docHeight =
       document.documentElement.scrollHeight - window.innerHeight;

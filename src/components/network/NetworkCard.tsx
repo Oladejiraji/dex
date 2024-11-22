@@ -3,15 +3,12 @@ import React, { useState } from "react";
 import Button from "../shared/Button";
 import Image from "next/image";
 import MainAssets from "@/lib/assets/main";
-import { useMotionTemplate, motion, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import DiagonalLines from "./DiagonalLines";
 import Link from "next/link";
 import { AppRoutes } from "@/utils/routes";
 
 const NetworkCard = ({ chain }: { chain: ChainType }) => {
-  let maskImage = useMotionTemplate`radial-gradient(200px at 50% 50%, white, transparent)`;
-  let style = { maskImage, WebkitMaskImage: maskImage };
-
   const [isHover, setIsHover] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const handleMouseEnter = () => {

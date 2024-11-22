@@ -20,13 +20,13 @@ import RemoteImage from "@/components/shared/RemoteImage";
 import SuperbaseFeesTooltip from "@/components/review/SuperbaseFeesTooltip";
 
 const Review = () => {
-  const { data: chainsData, isPending: chainsIsPending } = useSocketChainRead();
+  const { data: chainsData } = useSocketChainRead();
   const { activeRoute, activeTransaction } = useExchangeContext();
   const router = useRouter();
   if (!activeRoute) redirect(AppRoutes.home.path);
   // console.log(activeRoute);
   const { userTxs, fromAmount, toAmount } = activeRoute;
-  const { fromAsset, toAsset, gasFees, swapSlippage } = userTxs[0];
+  const { fromAsset, toAsset, gasFees } = userTxs[0];
 
   const { mutate, isPending } = useBuildPost();
   const chainId = useChainId();

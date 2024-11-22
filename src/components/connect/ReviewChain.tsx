@@ -1,5 +1,3 @@
-import MainAssets from "@/lib/assets/main";
-import Image from "next/image";
 import React from "react";
 import RemoteImage from "../shared/RemoteImage";
 import { AssetType, RouteType } from "@/services/queries/coins/types";

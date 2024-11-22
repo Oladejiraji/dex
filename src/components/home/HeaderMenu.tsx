@@ -1,14 +1,12 @@
 import MainAssets from "@/lib/assets/main";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 
 interface IProps {
   isPopOpen: boolean;
-  setIsPopOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function HeaderMenu({ isPopOpen, setIsPopOpen }: IProps) {
+export function HeaderMenu({ isPopOpen }: IProps) {
   return (
     <AnimatePresence>
       {isPopOpen ? (

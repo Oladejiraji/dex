@@ -1,14 +1,9 @@
 "use client";
 import NetworkCard from "@/components/network/NetworkCard";
-import Button from "@/components/shared/Button";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import { Skeleton } from "@/components/ui/skeleton";
-import MainAssets from "@/lib/assets/main";
 import { useSocketChainRead } from "@/services/queries/coins";
-import { useNetworksRead } from "@/services/queries/networks";
-
-import Image from "next/image";
 import React from "react";
 
 const Networks = () => {
@@ -31,9 +26,7 @@ const Networks = () => {
               </>
             ) : (
               <>
-                {data?.map((chain, i) => (
-                  <NetworkCard key={i} chain={chain} />
-                ))}
+                {data?.map((chain, i) => <NetworkCard key={i} chain={chain} />)}
               </>
             )}
           </div>

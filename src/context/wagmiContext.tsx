@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { config, projectId, metadata } from "@/config/wagmi";
+import { config, projectId } from "@/config/wagmi";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -26,14 +26,6 @@ const queryClient = new QueryClient({
 });
 
 if (!projectId) throw new Error("Project ID is not defined");
-
-// Create modal
-// createWeb3Modal({
-//   metadata,
-//   wagmiConfig: config,
-//   projectId,
-//   enableAnalytics: true,
-// });
 
 export default function AppKitProvider({
   children,

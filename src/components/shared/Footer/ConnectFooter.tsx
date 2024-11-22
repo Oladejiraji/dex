@@ -1,20 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import Button from "../Button";
-import Image from "next/image";
-import MainAssets from "@/lib/assets/main";
-import Link from "next/link";
-import { AppRoutes } from "@/utils/routes";
-import RenderIf from "../RenderIf";
-import { motion } from "framer-motion";
-import { BasePopover } from "@/components/home/BasePopover";
+import React from "react";
 import cx from "classnames";
-import OnChain from "@/lib/svg/OnChain";
-import Question from "@/lib/svg/Question";
 import ExternalLink from "../ExternalLink";
 
 const ConnectFooter = ({ fixed = true }: { fixed?: boolean }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <>
       <footer
@@ -45,7 +34,6 @@ const ConnectFooter = ({ fixed = true }: { fixed?: boolean }) => {
               <div className="flex flex-col gradient_border base_popover_gradient">
                 <BasePopover
                   isPopOpen={isMenuOpen}
-                  setIsPopOpen={setIsMenuOpen}
                 />
                 <Button
                   variant="invincible"

@@ -11,12 +11,7 @@ import {
   SocketToken,
   TokenBalance,
 } from "@/services/queries/coins/types";
-import {
-  formatNumber,
-  formatNumberWithComma,
-  removeDecimal,
-  stringToFixed,
-} from "@/utils/helpers";
+import { formatNumber, removeDecimal, stringToFixed } from "@/utils/helpers";
 import { useExchangeContext } from "@/context/ExchangeContext";
 import NumberFlow from "@number-flow/react";
 

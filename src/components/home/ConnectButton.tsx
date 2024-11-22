@@ -1,7 +1,6 @@
 import { ConnectButton as RainbowConnectButton } from "@rainbow-me/rainbowkit";
 import Button from "../shared/Button";
 import Image from "next/image";
-import { convertAddressToColor } from "@/services/helper";
 import MainAssets from "@/lib/assets/main";
 const ConnectButton = () => {
   return (

@@ -1,13 +1,9 @@
-import {
-  QuoteResponse,
-  QuoteResponseResult,
-} from "@/services/queries/coins/types";
+import { QuoteResponseResult } from "@/services/queries/coins/types";
 import React, { useState } from "react";
 import Loader2 from "../shared/Loader/loader2";
 import Image from "next/image";
 import MainAssets from "@/lib/assets/main";
 import { minimizeAddress, removeDecimal, stringToFixed } from "@/utils/helpers";
-import { ChainPopover } from "./ChainPopover";
 import { RecipientPopover } from "./RecipientPopover";
 import { useExchangeContext } from "@/context/ExchangeContext";
 import RemoteImage from "../shared/RemoteImage";

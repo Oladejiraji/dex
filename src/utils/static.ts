@@ -1,5 +1,3 @@
-import { Theme } from "@rainbow-me/rainbowkit";
-
 export const initialCoin = {
   id: "bitcoin",
   symbol: "btc",
@@ -87,8 +85,6 @@ export const chainBaseData = {
   ],
   explorers: ["https://polygonscan.com"],
 };
-
-const myAddress = "0x9b22E8bEb2c991D9417ABCA77F9266E5e483E6a3";
 
 export const baseAddress = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 

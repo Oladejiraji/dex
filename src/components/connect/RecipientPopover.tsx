@@ -1,25 +1,12 @@
-import { Label } from "@/components/ui/label";
 import MainAssets from "@/lib/assets/main";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import cx from "classnames";
 import Input from "../shared/Input";
 import { ethers } from "ethers";
-import { ChainOptions } from "@/data/ChainOptions";
 import RenderIf from "../shared/RenderIf";
-import { useCoinsRead, useSocketTokensRead } from "@/services/queries/coins";
-import { CoinData, SocketToken } from "@/services/queries/coins/types";
 import { useExchangeContext } from "@/context/ExchangeContext";
-import { chainBaseData } from "@/utils/static";
-import RemoteImage from "../shared/RemoteImage";
 import { Checkbox } from "../ui/checkbox";
 import { useAccount } from "wagmi";
 import { cleanText } from "@/utils/helpers";

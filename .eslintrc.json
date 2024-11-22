@@ -1,6 +1,70 @@
 {
-  "extends": "next/core-web-vitals",
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier"],
   "rules": {
-    "import/no-anonymous-default-export": "off"
+    "linebreak-style": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "no-use-before-define": [0],
+    "react/no-array-index-key": 0,
+    "react/jsx-fragments": ["off", "element"],
+    "react/jsx-props-no-spreading": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": 0,
+    "react/require-default-props": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
+    "@typescript-eslint/no-use-before-define": [1],
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/label-has-for": "off",
+    "default-param-last": "off",
+    "react/function-component-definition": [0],
+    "arrow-body-style": "off",
+    "no-param-reassign": "off",
+    "react/no-unstable-nested-components": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/array-type": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/consistent-type-imports": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/consistent-type-assertions": "off",
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-object-type": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "no-console": "off",
+    "react/no-unknown-property": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   }
 }

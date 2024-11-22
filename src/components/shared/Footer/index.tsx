@@ -68,10 +68,7 @@ const Footer = ({
                 }}
               >
                 <div className="flex flex-col gradient_border base_popover_gradient">
-                  <BasePopover
-                    isPopOpen={isMenuOpen}
-                    setIsPopOpen={setIsMenuOpen}
-                  />
+                  <BasePopover isPopOpen={isMenuOpen} />
                   <Button
                     variant="invincible"
                     onClick={() => {

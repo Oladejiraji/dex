@@ -27,22 +27,22 @@ interface ContextType {
   restartSwap: () => void;
 }
 
-const ImageContext = createContext<ContextType>({
+const ExchangeContext = createContext<ContextType>({
   chainFrom: null,
   chainTo: null,
   activeRoute: null,
   activeTransaction: null,
   recipientAddress: null,
-  updateChain: (type: "from" | "to", chain: SocketToken) => {},
-  updateRecipientAddress: (address: string) => {},
-  updateActiveRoute: (route: RouteType) => {},
-  updateActiveTransaction: (transaction: TransactionType) => {},
+  updateChain: () => {},
+  updateRecipientAddress: () => {},
+  updateActiveRoute: () => {},
+  updateActiveTransaction: () => {},
   reverseChain: () => {},
   restartSwap: () => {},
 });
 
 export const useExchangeContext = () => {
-  return useContext(ImageContext);
+  return useContext(ExchangeContext);
 };
 
 const ExchangeContexttProvider = ({ children }: { children: ReactNode }) => {
@@ -98,9 +98,9 @@ const ExchangeContexttProvider = ({ children }: { children: ReactNode }) => {
   );
 
   return (
-    <ImageContext.Provider value={memoizedValue}>
+    <ExchangeContext.Provider value={memoizedValue}>
       {children}
-    </ImageContext.Provider>
+    </ExchangeContext.Provider>
   );
 };
 

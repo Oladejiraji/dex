@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import api from "../../api";
 import keys from "./keys";
@@ -11,12 +11,10 @@ import {
   SocketToken,
   TokenBalanceResponse,
 } from "./types";
-import { baseAddress, chainBaseData } from "@/utils/static";
+import { chainBaseData } from "@/utils/static";
 import { appendDecimal } from "@/utils/helpers";
 import { buildUrl } from "@/services/helper";
 import { useExchangeContext } from "@/context/ExchangeContext";
-
-const BASE_URL = "/coins";
 
 export const useCoinsRead = () => {
   const hash = [keys.read];
@@ -211,7 +209,7 @@ export const useTokenBalanceRead = (
 };
 
 export const useBuildPost = () => {
-  const { activeRoute, updateActiveTransaction } = useExchangeContext();
+  const { updateActiveTransaction } = useExchangeContext();
   const { mutate, isPending, isError } = useMutation({
     mutationFn: async (body: { route: RouteType }): Promise<any> => {
       return await api.post({
