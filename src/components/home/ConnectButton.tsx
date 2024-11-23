@@ -56,6 +56,7 @@ const ConnectButton = () => {
                       alt="Wallet Icon"
                       width={40}
                       height={40}
+                      priority
                     />
                   ) : (
                     <Image
@@ -63,6 +64,7 @@ const ConnectButton = () => {
                       alt="Wallet Icon"
                       width={40}
                       height={40}
+                      priority
                     />
                   )}
                 </button>

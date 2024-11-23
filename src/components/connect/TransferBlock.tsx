@@ -60,7 +60,6 @@ const TransferBlock = ({
   return (
     <>
       <ChainPopover
-        type={type}
         isPopOpen={isPopOpen}
         setIsPopOpen={setIsPopOpen}
         handleChainUpdate={handleChainUpdate}

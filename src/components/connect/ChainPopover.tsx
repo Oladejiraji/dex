@@ -11,7 +11,6 @@ import { useExchangeContext } from "@/context/ExchangeContext";
 import RemoteImage from "../shared/RemoteImage";
 
 interface IProps {
-  type: "from" | "to";
   isPopOpen: boolean;
   setIsPopOpen: Dispatch<SetStateAction<boolean>>;
   handleChainUpdate: (chain: SocketToken) => void;
@@ -23,7 +22,6 @@ export function ChainPopover({
   setIsPopOpen,
   handleChainUpdate,
   currChain,
-  type,
 }: IProps) {
   const [searchValue, setSearchValue] = useState("");
   const { data } = useSocketTokensRead(currChain.chainId);
@@ -35,7 +33,7 @@ export function ChainPopover({
     setIsPopOpen(false);
   };
 
-  const prevChain = type === "from" ? chainFrom?.symbol : chainTo?.symbol;
+  const chainsToNotSelect = [chainFrom?.symbol, chainTo?.symbol];
 
   const sortedData = useMemo(() => {
     return [...(data || [])].sort((a, b) => {
@@ -54,7 +52,7 @@ export function ChainPopover({
 
     if (!trimSearch) return data;
 
-    return sortedData?.filter((filt) => {
+    return [...sortedData]?.filter((filt) => {
       return (
         filt.name.trim().toLowerCase().includes(trimSearch) ||
         filt.symbol.trim().toLowerCase().includes(trimSearch)
@@ -100,10 +98,14 @@ export function ChainPopover({
                   <button
                     key={i}
                     onClick={() => handleChain(chain)}
-                    disabled={prevChain === chain.symbol}
+                    disabled={chainsToNotSelect.includes(chain.symbol)}
                     className={cx(
                       "flex items-center gap-1 px-[6px] h-[30px] border border-[#32323240] rounded-[40px]",
-                      { "bg-primary-200": prevChain === chain.symbol }
+                      {
+                        "bg-primary-200": chainsToNotSelect.includes(
+                          chain.symbol
+                        ),
+                      }
                     )}
                   >
                     <div className="w-4 h-4">
@@ -129,7 +131,7 @@ export function ChainPopover({
                   <>
                     {filteredData?.map((chain, i) => (
                       <button
-                        disabled={prevChain === chain.symbol}
+                        disabled={chainsToNotSelect.includes(chain.symbol)}
                         key={i}
                         className="flex items-center gap-4 "
                         onClick={() => handleChain(chain)}
@@ -139,7 +141,7 @@ export function ChainPopover({
                             src={chain.logoURI}
                             width={32}
                             height={32}
-                            className="rounded-full"
+                            className="rounded-full w-auto h-auto"
                           />
                         </div>
                         <div>
@@ -150,7 +152,9 @@ export function ChainPopover({
                             {chain.name}
                           </p>
                         </div>
-                        <RenderIf condition={prevChain === chain.symbol}>
+                        <RenderIf
+                          condition={chainsToNotSelect.includes(chain.symbol)}
+                        >
                           <div className="w-6 h-6">
                             <Image src={MainAssets.Check} alt="check asset" />
                           </div>

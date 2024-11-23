@@ -19,11 +19,12 @@ const RemoteImage = (props: IProps) => {
   return (
     <Image
       src={imageError ? fallbackUrl : src}
-      unoptimized
       alt="Chain Image"
       width={width}
       height={height}
       className={className}
+      unoptimized
+      style={{ width, height }}
       onError={() => setImageError(true)}
       onLoad={() => setImageError(false)}
     />
