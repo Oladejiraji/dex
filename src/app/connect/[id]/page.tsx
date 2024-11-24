@@ -1,6 +1,7 @@
 "use client";
 import ReviewButton from "@/components/connect/ReviewButton";
 import RouteBlock from "@/components/connect/RouteBlock";
+import { SettingsPopover } from "@/components/connect/SettingsPopover";
 import TransferBlock from "@/components/connect/TransferBlock";
 import Button from "@/components/shared/Button";
 import ConnectFooter from "@/components/shared/Footer/ConnectFooter";
@@ -20,10 +21,11 @@ import { useParams } from "next/navigation";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 
-const Home = () => {
+const ConnectPage = () => {
   const { data: chainsData, isPending: chainsIsPending } = useSocketChainRead();
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
+  const [isOpen, setIsOpen] = useState(false);
 
   const params = useParams();
   const paramsIdFallback = (params.id as string) || "137";
@@ -92,9 +94,7 @@ const Home = () => {
   if (chainsIsPending || !chainsData) {
     return <div>Loading</div>;
   }
-  // const currChain = useMemo(() => {
-  //   return chainsData.map
-  // }, [params.id, chainsData])
+
   const currChain = chainsData.filter(
     (ch) => ch.chainId === parseInt(paramsIdFallback)
   )[0];
@@ -102,6 +102,7 @@ const Home = () => {
   return (
     <div className="max-w-[827px] mx-auto px-2 sm:px-8">
       <Header type={2} />
+      <SettingsPopover isPopOpen={isOpen} setIsPopOpen={setIsOpen} />
       <main className=" h-[calc(100vh-100px)] mt-[100px] connect_border">
         <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14 py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
           <div className="w-full h-full max-w-[420px] mx-auto px-0 ">
@@ -113,7 +114,10 @@ const Home = () => {
                     <Image src={MainAssets.Refresh} alt="Refresh button icon" />
                   </div>
                 </Button>
-                <Button className="border border-grey-200 rounded-full w-8 h-8 p-0">
+                <Button
+                  className="border border-grey-200 rounded-full w-8 h-8 p-0"
+                  onClick={() => setIsOpen(true)}
+                >
                   <div className="w-[15.9px] h-[17.2px]">
                     <Image
                       src={MainAssets.Settings}
@@ -201,4 +205,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ConnectPage;

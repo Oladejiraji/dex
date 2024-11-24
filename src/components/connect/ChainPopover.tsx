@@ -9,6 +9,7 @@ import { useSocketTokensRead } from "@/services/queries/coins";
 import { ChainType, SocketToken } from "@/services/queries/coins/types";
 import { useExchangeContext } from "@/context/ExchangeContext";
 import RemoteImage from "../shared/RemoteImage";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface IProps {
   isPopOpen: boolean;
@@ -24,6 +25,7 @@ export function ChainPopover({
   currChain,
 }: IProps) {
   const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 300);
   const { data } = useSocketTokensRead(currChain.chainId);
 
   const { chainFrom, chainTo } = useExchangeContext();
@@ -35,35 +37,27 @@ export function ChainPopover({
 
   const chainsToNotSelect = [chainFrom?.symbol, chainTo?.symbol];
 
-  const sortedData = useMemo(() => {
-    return [...(data || [])].sort((a, b) => {
-      if (a.logoURI === null && b.logoURI !== null) {
-        return 1; // a comes after b
-      } else if (a.logoURI !== null && b.logoURI === null) {
-        return -1; // a comes before b
-      } else {
-        return 0; // no change in order
-      }
-    });
-  }, [data]); // recompute only when companies change
+  const processedData = useMemo(() => {
+    if (!data) return [];
 
-  const filteredData = useMemo(() => {
-    const trimSearch = searchValue.trim().toLowerCase();
+    const trimSearch = debouncedSearchValue.trim().toLowerCase();
 
-    if (!trimSearch) return data;
-
-    return [...sortedData]?.filter((filt) => {
-      return (
-        filt.name.trim().toLowerCase().includes(trimSearch) ||
-        filt.symbol.trim().toLowerCase().includes(trimSearch)
-      );
-    });
-  }, [sortedData, searchValue]);
+    return [...data]
+      .sort((a, b) => (a.logoURI === null ? 1 : b.logoURI === null ? -1 : 0))
+      .filter((item) => {
+        if (!trimSearch) return true;
+        return (
+          item.name.trim().toLowerCase().includes(trimSearch) ||
+          item.symbol.trim().toLowerCase().includes(trimSearch)
+        );
+      });
+  }, [data, debouncedSearchValue]);
 
   return (
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
+          style={{ willChange: "opacity, transform" }}
           className="absolute left-0 top-0 z-[50] backdrop-blur-[4px] bg-transparent w-full h-full pt-[66px] pb-[43px]"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
@@ -94,7 +88,7 @@ export function ChainPopover({
                 </button>
               </div>
               <div className="flex flex-wrap mt-4 mb-8 gap-x-4 gap-y-[10px] px-6">
-                {sortedData?.slice(0, 7).map((chain, i) => (
+                {processedData?.slice(0, 7).map((chain, i) => (
                   <button
                     key={i}
                     onClick={() => handleChain(chain)}
@@ -123,13 +117,13 @@ export function ChainPopover({
                 ))}
               </div>
               <div className="pt-8 border-t border-[#32323240] px-6 flex flex-col gap-4 overflow-y-auto">
-                {filteredData?.length === 0 ? (
+                {processedData?.length === 0 ? (
                   <div>
                     <p className="font-geist-medium">NO TOKENS FOUND</p>
                   </div>
                 ) : (
                   <>
-                    {filteredData?.map((chain, i) => (
+                    {processedData?.map((chain, i) => (
                       <button
                         disabled={chainsToNotSelect.includes(chain.symbol)}
                         key={i}
