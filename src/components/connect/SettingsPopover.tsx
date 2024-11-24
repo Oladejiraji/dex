@@ -10,12 +10,13 @@ interface IProps {
 }
 
 const priorityOptions = [
-  { value: "max", label: "Maximum Return" },
-  { value: "fastest", label: "Fastest Route" },
+  { value: "output", label: "Maximum Return", info: "Sort by Highest Output" },
+  { value: "time", label: "Fastest Route", info: "Sort by Fastest Time" },
 ];
 
 export function SettingsPopover({ isPopOpen, setIsPopOpen }: IProps) {
   const [priority, setPriority] = useState(priorityOptions[0].value);
+  const activePriority = priorityOptions.find((pr) => pr.value === priority);
   return (
     <AnimatePresence>
       {isPopOpen ? (
@@ -50,7 +51,7 @@ export function SettingsPopover({ isPopOpen, setIsPopOpen }: IProps) {
                       Route Sorting priority
                     </p>
                     <p className="text-[14px] font-geist-medium leading-[17px] text-[#7D7D7D]">
-                      Sort by highest output
+                      {activePriority?.info}
                     </p>
                   </div>
                   <div>
@@ -59,7 +60,7 @@ export function SettingsPopover({ isPopOpen, setIsPopOpen }: IProps) {
                       value={priority}
                       onChange={(value: string) => setPriority(value)}
                       className="border border-solid border-[#272727] rounded-[6px] text-[15px] font-geist-medium text-[#AFAFAF] h-10 w-[173px] gap-0"
-                      itemClassName="text-[#5F5F5F] font-geist-medium text-[15px] px-0 justify-center  h-10 w-[173px]"
+                      itemClassName="text-[#5F5F5F] font-geist-medium text-[15px] px-0 justify-center  h-10 w-[173px] focus:bg-[#0A0B0C]"
                       listClassName="bg-[#0F0F0F] border border-[#272727] rounded-[6px]"
                     />
                   </div>

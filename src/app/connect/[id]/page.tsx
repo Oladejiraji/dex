@@ -108,7 +108,7 @@ const ConnectPage = () => {
           <div className="w-full h-full max-w-[420px] mx-auto px-0 ">
             <div className="flex items-center justify-between">
               <h3 className="font-geist-semibold text-xl">Swap</h3>
-              <div className="flex gap-2">
+              <div className="flex gap-2 hidden">
                 <Button className="border border-grey-200 rounded-full w-8 h-8 p-0">
                   <div className="w-[12.4px] h-[12.4px]">
                     <Image src={MainAssets.Refresh} alt="Refresh button icon" />

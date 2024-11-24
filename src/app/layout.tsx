@@ -5,6 +5,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import NextTopLoader from "nextjs-toploader";
 import "react-toastify/dist/ReactToastify.css";
 import "@rainbow-me/rainbowkit/styles.css";
+import MobileIndicator from "@/components/shared/MobileIndicator";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -33,7 +34,12 @@ export default function RootLayout({
           theme="light"
           transition={Bounce}
         />
-        <AppKitProvider>{children}</AppKitProvider>
+        <AppKitProvider>
+          <div className="w-full h-full hidden lg:block">{children}</div>
+          <div className="block lg:hidden h-full w-full">
+            <MobileIndicator />
+          </div>
+        </AppKitProvider>
       </body>
     </html>
   );

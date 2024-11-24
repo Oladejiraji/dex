@@ -32,7 +32,7 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
         <Link href={AppRoutes.connect.path(chain.chainId)}>
           <Button className="border border-[#272727] px-[10px] py-[9px] rounded-[6px]">
             <p className="text-[13px] font-geist-medium text-[#CDCDCD] ">
-              Bridge {chain.name}
+              Swap {chain.name}
             </p>
           </Button>
         </Link>

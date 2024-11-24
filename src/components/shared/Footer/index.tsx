@@ -25,7 +25,8 @@ const Footer = ({
       <footer
         className={cx(
           "font-geist-medium  bottom-0 left-0 w-full pb-14 z-[1000] ",
-          { fixed: !!fixed }
+          { fixed: !!fixed },
+          { relative: !fixed }
         )}
       >
         <div className="flex items-end justify-between max-w-[1200px] mx-auto">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Button from "../Button";
 import Image from "next/image";
 import MainAssets from "@/lib/assets/main";
@@ -12,8 +12,25 @@ import { motion } from "framer-motion";
 import ConnectButton from "@/components/home/ConnectButton";
 import Simplify from "@/lib/svg/Simplify";
 import New from "@/lib/svg/New";
+import { useSocketChainRead } from "@/services/queries/coins";
+import { useDebounce } from "@/hooks/useDebounce";
 
 const Header = ({ type }: { type?: number }) => {
+  const { data } = useSocketChainRead();
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 300);
+
+  const processedData = useMemo(() => {
+    if (!data) return [];
+
+    const trimSearch = debouncedSearchValue.trim().toLowerCase();
+
+    return [...data].filter((item) => {
+      if (!trimSearch) return true;
+      return item.name.trim().toLowerCase().includes(trimSearch);
+    });
+  }, [data, debouncedSearchValue]);
+
   const [isPopOpen, setIsPopOpen] = useState(false);
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.metaKey && event.key === "/") {
@@ -90,6 +107,8 @@ const Header = ({ type }: { type?: number }) => {
                     <Input
                       onFocus={() => setIsPopOpen(true)}
                       // onBlur={() => setIsPopOpen(false)}
+                      value={searchValue}
+                      onChange={(e) => setSearchValue(e.target.value)}
                       iconBefore
                       icon={MainAssets.Search}
                       inButtonClassNames="right-[0px]"
@@ -104,7 +123,7 @@ const Header = ({ type }: { type?: number }) => {
                         </div>
                       }
                       placeholder="Search for a token, address or chain"
-                      className="bg-transparent border-none font-geist-medium text-[13px] text-[white] p-0 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
+                      className="bg-transparent border-none font-geist-medium text-[13px] text-[white] p-0 pl-4 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
                     />
                   </div>
                   <div>
@@ -117,7 +136,10 @@ const Header = ({ type }: { type?: number }) => {
                     </Link>
                   </div>
                 </div>
-                <HeaderMenu isPopOpen={isPopOpen} />
+                <HeaderMenu
+                  isPopOpen={isPopOpen}
+                  processedData={processedData}
+                />
               </motion.div>
               {isPopOpen ? (
                 <div
@@ -153,7 +175,7 @@ const Header = ({ type }: { type?: number }) => {
           {/* Menu 2 */}
           <RenderIf condition={type === 2}>
             <div className="items-center gap-4  flex">
-              <div className="border border-[#32323240] rounded-[6px] bg-gradient-custom flex items-center gap-8 relative">
+              <div className="border border-[#32323240] rounded-[6px] bg-gradient-custom flex items-center gap-8 relative hidden">
                 <HeaderMenu isPopOpen={isPopOpen} />
                 <Button
                   variant="invincible"
