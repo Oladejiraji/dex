@@ -15,8 +15,6 @@ import RenderIf from "@/components/shared/RenderIf";
 import Button from "@/components/shared/Button";
 import New from "@/lib/svg/New";
 
-const PANEL_NUMBER = 15;
-
 const Home = () => {
   const lenis = useLenis();
   const { data, isPending } = useSocketChainRead();

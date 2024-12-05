@@ -1,20 +1,12 @@
 "use client";
 
 import Panels from "@/components/3d/panels";
-import useWindowDimensions from "@/hooks/useWindowDimensions";
-import {
-  Environment,
-  OrbitControls,
-  OrthographicCamera,
-  ScrollControls,
-} from "@react-three/drei";
+import { OrbitControls, ScrollControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import * as Three from "three";
 import React from "react";
 
 const scale = 5;
-const PANEL_HEIGHT = scale * 1;
-const PANEL_WIDTH = scale * 1.4;
 const NUMBER_OF_CARDS = 15;
 const PANEL_OFFSET = scale * 0.2;
 
@@ -24,13 +16,6 @@ const panelArray = Array.from({ length: NUMBER_OF_CARDS }, (_, i) => ({
 }));
 
 const Asc = () => {
-  const { height: _h, width: _w } = useWindowDimensions();
-
-  const ratio = _h / _w;
-
-  const frustum = 800;
-  const horizonal = ratio < 1 ? frustum / ratio : frustum;
-  const vertical = ratio < 1 ? frustum : frustum * ratio;
   return (
     <div className="h-screen w-screen">
       <Canvas>
@@ -52,7 +37,7 @@ const Asc = () => {
         {/* <directionalLight position={[0, 10, 40]} intensity={3} /> */}
         <ambientLight intensity={50} />
         <ScrollControls pages={4} infinite>
-          {panelArray.map((panel, index) => (
+          {panelArray.map((panel, _) => (
             <Panels key={panel.id} position={panel.position} />
           ))}
         </ScrollControls>

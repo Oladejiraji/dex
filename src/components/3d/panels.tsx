@@ -1,8 +1,8 @@
-import { RoundedBox } from "@react-three/drei";
 import React, { useEffect, useRef } from "react";
 import * as Three from "three";
 
 const Panels = ({ position }: { position: Three.Vector3 }) => {
+  console.log(position);
   const ref = useRef<any>(null);
   useEffect(() => {
     if (!ref) return;
