@@ -15,6 +15,7 @@ import {
   useTokenBalanceRead,
 } from "@/services/queries/coins";
 import { debounce, removeDecimal } from "@/utils/helpers";
+import { priorityOptions } from "@/utils/static";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -26,6 +27,7 @@ const ConnectPage = () => {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
   const [isOpen, setIsOpen] = useState(false);
+  const [priority, setPriority] = useState(priorityOptions[0].value);
 
   const params = useParams();
   const paramsIdFallback = (params.id as string) || "137";
@@ -34,14 +36,20 @@ const ConnectPage = () => {
 
   const [value, setValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
-  const { data: quoteData, isPending } = useSocketQuoteRead(
+  const {
+    data: quoteData,
+    isPending,
+    isFetching,
+  } = useSocketQuoteRead(
     paramsIdFallback,
+    isOpen,
     chainFrom?.address,
     chainTo?.address,
     debouncedValue,
     chainFrom?.decimals,
     address,
-    recipientAddress || undefined
+    recipientAddress || undefined,
+    priority
   );
 
   const { data: tokenBalance } = useTokenBalanceRead(
@@ -68,23 +76,17 @@ const ConnectPage = () => {
     { type: "to", id: 2 },
   ]);
 
-  const routeFetchActive =
-    !!chainFrom?.address &&
-    !!chainTo?.address &&
-    !!debouncedValue &&
-    !!address &&
-    !!chainFrom.decimals;
+  // const routeFetchActive =
+  //   !!chainFrom?.address &&
+  //   !!chainTo?.address &&
+  //   !!debouncedValue &&
+  //   !!address &&
+  //   !!chainFrom.decimals &&
+  //   !isOpen;
 
-  const calculatedValue =
-    quoteData && routeFetchActive
-      ? removeDecimal(quoteData.toAsset.decimals, quoteData.routes[0]?.toAmount)
-      : "0";
-
-  if (quoteData) {
-    console.log(quoteData.toAsset.decimals);
-    console.log(typeof quoteData.routes[0]?.toAmount);
-  }
-
+  const calculatedValue = quoteData
+    ? removeDecimal(quoteData.toAsset.decimals, quoteData.routes[0]?.toAmount)
+    : "0";
   const isSufficientCalculationReady =
     !!tokenBalance &&
     !!quoteData?.routes &&
@@ -102,13 +104,18 @@ const ConnectPage = () => {
   return (
     <div className="max-w-[827px] mx-auto px-2 sm:px-8">
       <Header type={2} />
-      <SettingsPopover isPopOpen={isOpen} setIsPopOpen={setIsOpen} />
+      <SettingsPopover
+        isPopOpen={isOpen}
+        setIsPopOpen={setIsOpen}
+        priority={priority}
+        setPriority={setPriority}
+      />
       <main className=" h-[calc(100vh-100px)] mt-[100px] connect_border">
         <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14 py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
           <div className="w-full h-full max-w-[420px] mx-auto px-0 ">
             <div className="flex items-center justify-between">
               <h3 className="font-geist-semibold text-xl">Swap</h3>
-              <div className="flex gap-2 hidden">
+              <div className="flex gap-2 ">
                 <Button className="border border-grey-200 rounded-full w-8 h-8 p-0">
                   <div className="w-[12.4px] h-[12.4px]">
                     <Image src={MainAssets.Refresh} alt="Refresh button icon" />
@@ -162,7 +169,7 @@ const ConnectPage = () => {
             </div>
 
             {/* Route info */}
-            <RenderIf condition={routeFetchActive}>
+            <RenderIf condition={!!quoteData || isFetching}>
               <RouteBlock isPending={isPending} quoteData={quoteData} />
             </RenderIf>
 

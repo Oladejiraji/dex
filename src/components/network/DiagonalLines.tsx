@@ -29,7 +29,7 @@ const DiagonalLines = ({ isHover }: { isHover: boolean }) => {
         return (
           <motion.div
             key={i}
-            className="bg-[transparent] border border-[grey] absolute rotate-45 "
+            className="bg-[transparent] border border-[#272727] absolute rotate-45 "
             style={{ width: `${dim}px`, height: `${dim}px`, zIndex }}
             animate={{
               opacity: isHover ? 0.2 : 0,

@@ -126,3 +126,8 @@ export const faqData = [
       "This depends on our backend engineer @Oladeji is it safe to bridge on superbase.",
   },
 ];
+
+export const priorityOptions = [
+  { value: "output", label: "Maximum Return", info: "Sort by Highest Output" },
+  { value: "time", label: "Fastest Route", info: "Sort by Fastest Time" },
+];

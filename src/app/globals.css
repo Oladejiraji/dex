@@ -115,7 +115,9 @@ input::-webkit-inner-spin-button {
   aspect-ratio: 1;
   border-radius: 50%;
   border: 4px solid #7d7d7d;
-  animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
+  animation:
+    l20-1 0.8s infinite linear alternate,
+    l20-2 1.6s infinite linear;
 }
 @keyframes l20-1 {
   0% {
@@ -276,7 +278,9 @@ html.lenis body {
     linear-gradient(327.6deg, #08090a 75.73%, #434343 158.51%);
 
   border-radius: inherit;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
   padding: 1px;
@@ -320,4 +324,19 @@ html.lenis body {
     rgba(9, 9, 9, 0.7) 70.84%,
     #52606e 83.61%
   );
+}
+
+.panel_con {
+  transform-style: preserve-3d;
+  transform: rotateY(180deg);
+}
+
+.test-rotate {
+  transform-style: preserve-3d;
+  transform: rotateX(-40deg);
+  transform-origin: "top";
+}
+
+.test-con {
+  perspective: 1000px;
 }

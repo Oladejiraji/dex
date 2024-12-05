@@ -94,12 +94,14 @@ export const useSocketTokensRead = (chainId: number) => {
 
 export const useSocketQuoteRead = (
   chainId: string,
+  isModalOpen: boolean,
   fromAddress?: string,
   toAddress?: string,
   amount?: string,
   decimal?: number,
   userAddress?: string,
-  recipient?: string
+  recipient?: string,
+  sort: string = "output"
 ) => {
   const hash = [
     "socket quote read",
@@ -110,6 +112,7 @@ export const useSocketQuoteRead = (
     fromAddress,
     recipient,
     chainId,
+    sort,
   ];
   const sendUrl = buildUrl("https://api.socket.tech/v2/quote", [
     { key: "fromChainId", value: chainId },
@@ -121,9 +124,9 @@ export const useSocketQuoteRead = (
     { key: "recipient", value: recipient },
     { key: "singleTxOnly", value: "true" },
     { key: "uniqueRoutesPerBridge", value: "true" },
-    { key: "sort", value: "output" },
+    { key: "sort", value: sort },
   ]);
-  const { data, isPending, error, isSuccess, refetch } =
+  const { data, isPending, error, isSuccess, refetch, isFetching, isLoading } =
     useQuery<QuoteResponse>({
       queryKey: hash,
       queryFn: async () =>
@@ -132,7 +135,13 @@ export const useSocketQuoteRead = (
           auth: true,
         }),
       enabled:
-        !!fromAddress && !!toAddress && !!amount && !!userAddress && !!decimal,
+        !!fromAddress &&
+        !!toAddress &&
+        !!amount &&
+        !!userAddress &&
+        !!decimal &&
+        !!sort &&
+        !isModalOpen,
     });
   return {
     data: data?.result,
@@ -140,6 +149,8 @@ export const useSocketQuoteRead = (
     isSuccess,
     error,
     refetch,
+    isFetching,
+    isLoading,
   };
 };
 

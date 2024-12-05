@@ -14,6 +14,7 @@ import {
 import { formatNumber, removeDecimal, stringToFixed } from "@/utils/helpers";
 import { useExchangeContext } from "@/context/ExchangeContext";
 import NumberFlow from "@number-flow/react";
+import { useAccount } from "wagmi";
 
 interface IProps {
   type: "from" | "to";
@@ -34,6 +35,7 @@ const TransferBlock = ({
   currChain,
   balance,
 }: IProps) => {
+  const account = useAccount();
   const { updateChain, reverseChain, chainFrom, chainTo } =
     useExchangeContext();
 
@@ -42,11 +44,9 @@ const TransferBlock = ({
   useEffect(() => {
     if (isSuccess && data) {
       if (type === "from") {
-        // const usdcData = data.find((ed) => ed.symbol === "MATIC");
         updateChain("from", data[0]);
       }
       if (type === "to") {
-        // const ethData = data.find((ed) => ed.symbol === "USDC");
         updateChain("to", data[1]);
       }
     }
@@ -78,7 +78,7 @@ const TransferBlock = ({
                     : formatNumber(calculatedValue)
                 }
                 placeholder="0.00"
-                // disabled={!walletInfo || type === "to"}
+                disabled={!account.address}
               />
             </div>
           ) : (

@@ -1,21 +1,23 @@
 import MainAssets from "@/lib/assets/main";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import Select from "../shared/Select";
+import { priorityOptions } from "@/utils/static";
 
 interface IProps {
   isPopOpen: boolean;
   setIsPopOpen: Dispatch<SetStateAction<boolean>>;
+  priority: string;
+  setPriority: Dispatch<SetStateAction<string>>;
 }
 
-const priorityOptions = [
-  { value: "output", label: "Maximum Return", info: "Sort by Highest Output" },
-  { value: "time", label: "Fastest Route", info: "Sort by Fastest Time" },
-];
-
-export function SettingsPopover({ isPopOpen, setIsPopOpen }: IProps) {
-  const [priority, setPriority] = useState(priorityOptions[0].value);
+export function SettingsPopover({
+  isPopOpen,
+  setIsPopOpen,
+  priority,
+  setPriority,
+}: IProps) {
   const activePriority = priorityOptions.find((pr) => pr.value === priority);
   return (
     <AnimatePresence>
