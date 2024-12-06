@@ -1,3 +1,8 @@
+/**
+ * Function to return the generic request types for react query
+ * @param namespace
+ * @returns
+ */
 export const getQueryKeys = (namespace: string) => ({
   create: `${namespace}/create`,
   createOne: `${namespace}/createOne`,
@@ -9,6 +14,11 @@ export const getQueryKeys = (namespace: string) => ({
   delete: `${namespace}/delete`,
 });
 
+/**
+ * This function takes in queries and appends them to a base url
+ * @param base   url string
+ * @param queries   an array of objects of queries
+ */
 export const buildUrl = (
   base: string,
   queries: Array<{ key: string; value: string | number | undefined }>
@@ -27,6 +37,11 @@ export const buildUrl = (
   return init;
 };
 
+/**
+ * Function to convert a wallet address to a color
+ * @param walletAddress
+ * @returns
+ */
 export function convertAddressToColor(walletAddress: string) {
   // Remove the '0x' prefix if present
   walletAddress = walletAddress.replace(/^0x/, "");
@@ -43,3 +58,21 @@ export function convertAddressToColor(walletAddress: string) {
 
   return `rgb(${r}, ${g}, ${b})`;
 }
+
+/**
+ * Function that takes an array of positions on x axis and a perspective value and returns an array of perspective rotations on the x axis
+ * @param squares
+ * @param d
+ * @returns
+ */
+export const calculatePerceivedRotationX = (
+  squares: Array<number>,
+  d: number
+) => {
+  const angles = squares.map((square) => {
+    const x = square; // Position along the X-axis
+    return Math.atan(x / d) * (180 / Math.PI); // Convert radians to degrees
+  });
+
+  return angles;
+};

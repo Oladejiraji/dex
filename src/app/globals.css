@@ -326,9 +326,15 @@ html.lenis body {
   );
 }
 
+.panel_wrap {
+  perspective: 5000px;
+}
+
 .panel_con {
   transform-style: preserve-3d;
-  transform: rotateY(180deg);
+  transform-origin: top;
+  /* transform: rotateX(-40deg);
+  transform-origin: "top"; */
 }
 
 .test-rotate {
