@@ -36,8 +36,9 @@ const PanelComponent = ({
 
   return (
     <motion.div
-      style={{ top: 142 * (index - 1), zIndex: isActive ? 1000 : index }}
+      style={{ top: 142 * (index - 1), zIndex: index }}
       className="absolute flex gap-4"
+      animate={{ translateY: returnTransform(index) }}
     >
       {/* Info for stability */}
       <div className="opacity-0">
@@ -66,7 +67,7 @@ const PanelComponent = ({
         id={`panel-${index}`}
         className={cx(" overflow-y-hidden panel_con cursor-pointer", {
           "h-[300px]": !isActive,
-          "h-[1000px]": isActive,
+          "h-[585px]": isActive,
         })}
         // whileHover={{ scale: 1.02 }}
         onHoverStart={() => setActiveScroll(index)}
@@ -85,7 +86,6 @@ const PanelComponent = ({
           }, 300);
         }}
         animate={{
-          translateY: returnTransform(index),
           scale: isHover ? 1.02 : 1,
           rotateX: isActive
             ? "0deg"
