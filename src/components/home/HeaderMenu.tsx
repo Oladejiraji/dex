@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import RemoteImage from "../shared/RemoteImage";
 import RenderIf from "../shared/RenderIf";
+import ExternalLink from "../shared/ExternalLink";
 
 interface IProps {
   isPopOpen: boolean;
@@ -136,32 +137,36 @@ export function HeaderMenu({ isPopOpen, processedData }: IProps) {
                   <p className="text-[10px] text-[#4B4B4B] font-geist-regular">
                     Interact to earn
                   </p>
-                  <div className="flex items-center gap-2">
-                    <div className=" w-6 h-6">
-                      <Image src={MainAssets.Eddy} alt="chain icon" />
+                  <ExternalLink href="https://eddy.finance/">
+                    <div className="flex items-center gap-2">
+                      <div className=" w-6 h-6">
+                        <Image src={MainAssets.Eddy} alt="chain icon" />
+                      </div>
+                      <div>
+                        <p className="text-[13px] leading-[16px] font-geist-medium text-[#F9F9F9] ">
+                          Eddy Finance
+                        </p>
+                        <p className="text-[10px] leading-[12px] font-geist-medium text-[#5F5F5F]">
+                          Zetachain
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[13px] leading-[16px] font-geist-medium text-[#F9F9F9] ">
-                        Eddy Finance
-                      </p>
-                      <p className="text-[10px] leading-[12px] font-geist-medium text-[#5F5F5F]">
-                        Zetachain
-                      </p>
+                  </ExternalLink>
+                  <ExternalLink href="https://www.gas.zip/">
+                    <div className="flex items-center gap-2">
+                      <div className=" w-6 h-6">
+                        <Image src={MainAssets.Gas} alt="chain icon" />
+                      </div>
+                      <div>
+                        <p className="text-[13px] leading-[16px] font-geist-medium text-[#F9F9F9] ">
+                          GAS.ZIP
+                        </p>
+                        <p className="text-[10px] leading-[12px] font-geist-medium text-[#5F5F5F]">
+                          Bridge
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className=" w-6 h-6">
-                      <Image src={MainAssets.Gas} alt="chain icon" />
-                    </div>
-                    <div>
-                      <p className="text-[13px] leading-[16px] font-geist-medium text-[#F9F9F9] ">
-                        GAS.ZIP
-                      </p>
-                      <p className="text-[10px] leading-[12px] font-geist-medium text-[#5F5F5F]">
-                        Bridge
-                      </p>
-                    </div>
-                  </div>
+                  </ExternalLink>
                 </div>
               </div>
               <div className="w-[157px] flex flex-col justify-between items-between">

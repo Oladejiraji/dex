@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { cn } from "@/lib/utils";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -27,12 +27,14 @@ const AccordionTrigger = React.forwardRef<
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 items-center justify-start gap-4 py-6 text-sm font-medium transition-all  text-left [&[data-state=open]>svg]:rotate-180",
+        "flex flex-1 items-center justify-start gap-4 py-6 text-sm font-medium transition-all  text-left group",
         className
       )}
       {...props}
     >
-      <PlusIcon className="h-4 w-4 shrink-0 text-neutral-500 transition-transform duration-200 dark:text-neutral-400" />
+      <PlusIcon className="h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]:hidden" />
+      <MinusIcon className="h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=closed]:hidden" />
+
       {children}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
