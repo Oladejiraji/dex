@@ -14,9 +14,11 @@ import Simplify from "@/lib/svg/Simplify";
 import New from "@/lib/svg/New";
 import { useSocketChainRead } from "@/services/queries/coins";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useGeneralContext } from "@/context/GeneralContext";
 
 const Header = ({ type }: { type?: number }) => {
   const { data } = useSocketChainRead();
+  const { networkSearchValue, updateNetworkSearchValue } = useGeneralContext();
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 300);
 
@@ -233,6 +235,10 @@ const Header = ({ type }: { type?: number }) => {
                     <Input
                       iconBefore
                       icon={MainAssets.Search}
+                      value={networkSearchValue}
+                      onChange={(e) => {
+                        updateNetworkSearchValue(e.target.value);
+                      }}
                       inButton={
                         <div className="flex items-center text-[#5F6368] font-geist-regular text-xs gap-[4px]">
                           <p className="bg-[#2A2A2A] w-[22px] h-5 flex items-center justify-center rounded-[3px]">
@@ -243,8 +249,9 @@ const Header = ({ type }: { type?: number }) => {
                           </p>
                         </div>
                       }
-                      placeholder="Search over 54 chains and protocol"
-                      className="bg-transparent border-none font-geist-medium text-[13px] min-w-[340px] text-[white] p-0 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
+                      inButtonClassNames="right-[0px]"
+                      placeholder="Search our supported chains"
+                      className=" bg-transparent border-none font-geist-medium text-[13px] min-w-[340px] text-[white] p-0 pl-4 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
                     />
                   </div>
                 </div>

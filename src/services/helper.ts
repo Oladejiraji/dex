@@ -76,3 +76,6 @@ export const calculatePerceivedRotationX = (
 
   return angles;
 };
+
+export const delay = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

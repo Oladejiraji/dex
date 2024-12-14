@@ -45,7 +45,7 @@ const Input = ({
               [`${iconBeforeClassNames}`]: !!iconBeforeClassNames,
             })}
           >
-            <Image src={icon} alt="icon" />
+            <Image src={icon} alt="icon" width={11} height={11} />
           </span>
         )}
         {inButton && (

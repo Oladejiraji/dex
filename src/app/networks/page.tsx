@@ -1,39 +1,15 @@
-"use client";
-import NetworkCard from "@/components/network/NetworkCard";
-import Footer from "@/components/shared/Footer";
-import Header from "@/components/shared/Header";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useSocketChainRead } from "@/services/queries/coins";
-import React from "react";
+import NetworkComponent from "@/components/network/NetworkComponent";
+import { fetchSocketNetworks } from "@/server-side-services/home";
+import { ChainType } from "@/services/queries/coins/types";
+import React, { Suspense } from "react";
 
-const Networks = () => {
-  const { data, isPending } = useSocketChainRead();
-
+const Networks = async () => {
+  const data = await fetchSocketNetworks();
+  const result: ChainType[] = data.result;
   return (
-    <>
-      <Header type={3} />
-      <main className="my-[140px] max-w-[1200px] mx-auto">
-        <div className="border border-[#131313] border-dashed p-8 rounded-[10px]">
-          <div className="grid network_grid place-items-center gap-y-8 border border-[#131313] py-9">
-            {isPending ? (
-              <>
-                {new Array(12).fill(0).map((_, i) => (
-                  <Skeleton
-                    key={i}
-                    className="w-[200px] h-[200px] bg-primary-500 rounded-[12px]"
-                  />
-                ))}
-              </>
-            ) : (
-              <>
-                {data?.map((chain, i) => <NetworkCard key={i} chain={chain} />)}
-              </>
-            )}
-          </div>
-        </div>
-      </main>
-      <Footer fixed={false} />
-    </>
+    <Suspense fallback={<p>Loading...</p>}>
+      <NetworkComponent result={result} />
+    </Suspense>
   );
 };
 

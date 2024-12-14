@@ -29,7 +29,6 @@ const HomeComponent = ({ data }: { data: ChainType[] }) => {
   return (
     <>
       <Header type={1} />
-
       <main className="w-screen min-h-screen mt-[200px]">
         <ReactLenis root options={{ infinite: true }}>
           <div className="max-w-[1100px] mx-auto relative panel_wrap">

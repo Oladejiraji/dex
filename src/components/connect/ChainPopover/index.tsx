@@ -3,12 +3,12 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import cx from "classnames";
-import Input from "../shared/Input";
-import RenderIf from "../shared/RenderIf";
+import Input from "../../shared/Input";
+import RenderIf from "../../shared/RenderIf";
 import { useSocketTokensRead } from "@/services/queries/coins";
 import { ChainType, SocketToken } from "@/services/queries/coins/types";
 import { useExchangeContext } from "@/context/ExchangeContext";
-import RemoteImage from "../shared/RemoteImage";
+import RemoteImage from "../../shared/RemoteImage";
 import { useDebounce } from "@/hooks/useDebounce";
 
 interface IProps {
@@ -83,52 +83,60 @@ export function ChainPopover({
                   onClick={() => setIsPopOpen(false)}
                 >
                   <div className="w-[11px] h-[11px]">
-                    <Image src={MainAssets.X} alt="X icon" />
+                    <Image
+                      src={MainAssets.X}
+                      alt="X icon"
+                      width={11}
+                      height={11}
+                    />
                   </div>
                 </button>
               </div>
               <div className="flex flex-wrap mt-4 mb-8 gap-x-4 gap-y-[10px] px-6">
-                {processedData?.slice(0, 7).map((chain, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleChain(chain)}
-                    disabled={chainsToNotSelect.includes(chain.symbol)}
-                    className={cx(
-                      "flex items-center gap-1 px-[6px] h-[30px] border border-[#32323240] rounded-[40px]",
-                      {
-                        "bg-primary-200": chainsToNotSelect.includes(
-                          chain.symbol
-                        ),
-                      }
-                    )}
-                  >
-                    <div className="w-4 h-4">
-                      <RemoteImage
-                        src={chain.logoURI}
-                        width={16}
-                        height={16}
-                        className="rounded-full"
-                      />
-                    </div>
-                    <p className="font-geist-medium text-[15px]">
-                      {chain.symbol.toUpperCase()}
-                    </p>
-                  </button>
-                ))}
+                {processedData.slice(0, 7).map((chain, i) => {
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => handleChain(chain)}
+                      disabled={chainsToNotSelect.includes(chain.symbol)}
+                      className={cx(
+                        "flex items-center gap-1 px-[6px] h-[30px] border border-[#32323240] rounded-[40px]",
+                        {
+                          "bg-primary-200": chainsToNotSelect.includes(
+                            chain.symbol
+                          ),
+                        }
+                      )}
+                    >
+                      <div className="w-4 h-4">
+                        <RemoteImage
+                          src={chain.logoURI}
+                          width={16}
+                          height={16}
+                          className="rounded-full"
+                        />
+                      </div>
+                      <p className="font-geist-medium text-[15px]">
+                        {chain.symbol.toUpperCase()}
+                      </p>
+                    </button>
+                  );
+                })}
               </div>
               <div className="pt-8 border-t border-[#32323240] px-6 flex flex-col gap-4 overflow-y-auto">
-                {processedData?.length === 0 ? (
+                {processedData.length === 0 ? (
                   <div>
                     <p className="font-geist-medium">NO TOKENS FOUND</p>
                   </div>
                 ) : (
                   <>
-                    {processedData?.map((chain, i) => (
+                    {processedData.map((chain, i) => (
                       <button
                         disabled={chainsToNotSelect.includes(chain.symbol)}
                         key={i}
                         className="flex items-center gap-4 "
                         onClick={() => handleChain(chain)}
+                        data-testid="data-full-list-button"
                       >
                         <div className="w-8 h-8">
                           <RemoteImage
@@ -140,7 +148,7 @@ export function ChainPopover({
                         </div>
                         <div>
                           <p className="font-geist-medium text-[15px] text-left">
-                            {chain.symbol.toUpperCase()}
+                            {/* {chain.symbol.toUpperCase()} */}
                           </p>
                           <p className="font-geist-regular text-[13px] text-[#7D7D7D] text-left">
                             {chain.name}

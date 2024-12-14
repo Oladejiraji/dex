@@ -131,3 +131,26 @@ export const priorityOptions = [
   { value: "output", label: "Maximum Return", info: "Sort by Highest Output" },
   { value: "time", label: "Fastest Route", info: "Sort by Fastest Time" },
 ];
+
+export const initialChain = {
+  chainId: 1,
+  name: "Ethereum",
+  isL1: true,
+  sendingEnabled: true,
+  icon: "https://media.socket.tech/networks/ethereum.svg",
+  receivingEnabled: true,
+  refuel: {
+    sendingEnabled: true,
+    receivingEnabled: false,
+  },
+  currency: {
+    address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    icon: "https://maticnetwork.github.io/polygon-token-assets/assets/eth.svg",
+    name: "Ether",
+    symbol: "ETH",
+    decimals: 18,
+    minNativeCurrencyForGas: "15000000000000000",
+  },
+  rpcs: ["https://rpc.ankr.com/eth"],
+  explorers: ["https://etherscan.io"],
+};

@@ -10,6 +10,7 @@ import { State, WagmiProvider } from "wagmi";
 import ExchangeContexttProvider from "./ExchangeContext";
 import { darkTheme, RainbowKitProvider, Theme } from "@rainbow-me/rainbowkit";
 import merge from "lodash.merge";
+import GeneralContextProvider from "./GeneralContext";
 
 // Setup queryClient
 const queryClient = new QueryClient({
@@ -42,11 +43,13 @@ export default function AppKitProvider({
   return (
     <WagmiProvider config={config}>
       <ExchangeContexttProvider>
-        <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider theme={myTheme}>
-            {children} <ReactQueryDevtools initialIsOpen={false} />
-          </RainbowKitProvider>
-        </QueryClientProvider>
+        <GeneralContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <RainbowKitProvider theme={myTheme}>
+              {children} <ReactQueryDevtools initialIsOpen={false} />
+            </RainbowKitProvider>
+          </QueryClientProvider>
+        </GeneralContextProvider>
       </ExchangeContexttProvider>
     </WagmiProvider>
   );

@@ -1,4 +1,5 @@
 import { formatNumber, appendDecimal, removeDecimal } from ".";
+import { describe, it, expect } from "vitest";
 
 describe("Test for the formatNumber function", () => {
   it("should return a valid formatted number when given a numeric string", () => {
