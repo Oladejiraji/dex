@@ -28,6 +28,7 @@ const ConnectPage = () => {
   const account = useAccount();
   const [isOpen, setIsOpen] = useState(false);
   const [priority, setPriority] = useState(priorityOptions[0].value);
+  const [slippage, setSlippage] = useState({ value: 0.5, custom: false });
 
   const params = useParams();
   const paramsIdFallback = (params.id as string) || "137";
@@ -40,6 +41,7 @@ const ConnectPage = () => {
     data: quoteData,
     isPending,
     isFetching,
+    refetch,
   } = useSocketQuoteRead(
     paramsIdFallback,
     isOpen,
@@ -49,7 +51,8 @@ const ConnectPage = () => {
     chainFrom?.decimals,
     address,
     recipientAddress || undefined,
-    priority
+    priority,
+    slippage.value
   );
 
   const { data: tokenBalance } = useTokenBalanceRead(
@@ -109,6 +112,8 @@ const ConnectPage = () => {
         setIsPopOpen={setIsOpen}
         priority={priority}
         setPriority={setPriority}
+        slippage={slippage}
+        setSlippage={setSlippage}
       />
       <main className=" h-[calc(100vh-100px)] mt-[100px] connect_border">
         <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14 py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
@@ -116,7 +121,10 @@ const ConnectPage = () => {
             <div className="flex items-center justify-between">
               <h3 className="font-geist-semibold text-xl">Swap</h3>
               <div className="flex gap-2 ">
-                <Button className="border border-grey-200 rounded-full w-8 h-8 p-0">
+                <Button
+                  className="border border-grey-200 rounded-full w-8 h-8 p-0"
+                  onClick={() => refetch()}
+                >
                   <div className="w-[12.4px] h-[12.4px]">
                     <Image src={MainAssets.Refresh} alt="Refresh button icon" />
                   </div>

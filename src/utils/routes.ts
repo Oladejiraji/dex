@@ -2,6 +2,9 @@ export const AppRoutes = {
   terms: {
     path: "/terms",
   },
+  privacy: {
+    path: "/privacy",
+  },
   connect: {
     path: (chainId: number) => `/connect/${chainId}`,
   },

@@ -79,3 +79,7 @@ export const calculatePerceivedRotationX = (
 
 export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
+
+export const delayFunction = (dependent: number, level: number) => {
+  return Math.sqrt(dependent) * level + level * dependent + level;
+};

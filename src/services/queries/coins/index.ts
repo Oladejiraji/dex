@@ -101,7 +101,8 @@ export const useSocketQuoteRead = (
   decimal?: number,
   userAddress?: string,
   recipient?: string,
-  sort: string = "output"
+  sort: string = "output",
+  slippage: number = 0.5
 ) => {
   const hash = [
     "socket quote read",
@@ -113,6 +114,7 @@ export const useSocketQuoteRead = (
     recipient,
     chainId,
     sort,
+    slippage,
   ];
   const sendUrl = buildUrl("https://api.socket.tech/v2/quote", [
     { key: "fromChainId", value: chainId },
@@ -125,6 +127,7 @@ export const useSocketQuoteRead = (
     { key: "singleTxOnly", value: "true" },
     { key: "uniqueRoutesPerBridge", value: "true" },
     { key: "sort", value: sort },
+    { key: "defaultSwapSlippage", value: slippage },
   ]);
   const { data, isPending, error, isSuccess, refetch, isFetching, isLoading } =
     useQuery<QuoteResponse>({
@@ -141,7 +144,8 @@ export const useSocketQuoteRead = (
         !!userAddress &&
         !!decimal &&
         !!sort &&
-        !isModalOpen,
+        !isModalOpen &&
+        !!slippage,
     });
   return {
     data: data?.result,

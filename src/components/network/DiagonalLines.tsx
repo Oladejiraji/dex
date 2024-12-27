@@ -32,7 +32,7 @@ const DiagonalLines = ({ isHover }: { isHover: boolean }) => {
             className="bg-[transparent] border border-[#272727] absolute rotate-45 "
             style={{ width: `${dim}px`, height: `${dim}px`, zIndex }}
             animate={{
-              opacity: isHover ? 0.2 : 0,
+              opacity: isHover ? 0.8 : 0,
               transition: {
                 delay,
                 duration: isHover ? 0.1 : 0.04,
