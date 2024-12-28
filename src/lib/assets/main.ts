@@ -29,6 +29,7 @@ import Tokens from "../../../public/svgs/tokens.svg";
 import Chains from "../../../public/svgs/chains.svg";
 import Address from "../../../public/svgs/address.svg";
 import RightGrey from "../../../public/svgs/right_grey.svg";
+import RightGreyThick from "../../../public/svgs/right_grey_thick.svg";
 import Eddy from "../../../public/svgs/eddy.svg";
 import Gas from "../../../public/svgs/gas.svg";
 import Docs from "../../../public/svgs/docs.svg";
@@ -76,6 +77,7 @@ const MainAssets = {
   Chains,
   Address,
   RightGrey,
+  RightGreyThick,
   Eddy,
   Gas,
   Docs,
