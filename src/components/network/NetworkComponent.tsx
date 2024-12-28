@@ -23,8 +23,8 @@ const NetworkComponent = ({ result }: { result: ChainType[] }) => {
   return (
     <>
       <Header type={3} />
-      <main className="my-[140px] max-w-[1200px] mx-auto">
-        <div className="border border-[#131313] border-dashed p-8 rounded-[10px]">
+      <main className="my-[8.75rem] max-w-[75.00rem] mx-auto">
+        <div className="border border-[#131313] border-dashed p-8 rounded-[0.63rem]">
           <div className="grid network_grid place-items-center gap-y-8 border border-[#131313] py-9">
             {filterNetworks.map((chain, i) => (
               <NetworkCard key={i} chain={chain} />

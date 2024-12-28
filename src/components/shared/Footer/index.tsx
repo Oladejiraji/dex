@@ -29,17 +29,17 @@ const Footer = ({
           { relative: !fixed }
         )}
       >
-        <div className="flex items-end justify-between max-w-[1200px] mx-auto">
+        <div className="flex items-end justify-between max-w-[75.00rem] mx-auto">
           <div className="flex flex-1">
-            <div className="border border-[#32323240] rounded-[6px] bg-transparent flex items-center justify-between gap-4">
+            <div className="border border-[#32323240] rounded-[0.38rem] bg-transparent flex items-center justify-between gap-4">
               <Link href={AppRoutes.terms.path}>
                 <Button variant="invincible" className="group">
                   <div className="flex items-center gap-1">
-                    <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                    <div className="h-[0.88rem] w-[0.88rem]  flex items-center justify-center ">
                       <Question className="transition-colors fill-[#919191] group-hover:fill-white " />
                     </div>
 
-                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                    <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                       Terms and Privacy
                     </p>
                   </div>
@@ -48,10 +48,10 @@ const Footer = ({
               <Link href={AppRoutes.faq.path}>
                 <Button variant="invincible" className="group">
                   <div className="flex items-center gap-1">
-                    <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                    <div className="h-[0.88rem] w-[0.88rem]  flex items-center justify-center ">
                       <Question className="transition-colors fill-[#919191] group-hover:fill-white " />
                     </div>
-                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                    <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                       FAQs
                     </p>
                   </div>
@@ -62,7 +62,7 @@ const Footer = ({
           <RenderIf condition={!!expand}>
             <div className="flex justify-center flex-1 ">
               <motion.div
-                className="relative border border-[#32323240] rounded-[6px]  flex items-end justify-center gap-4 bg-transparent overflow-hidden"
+                className="relative border border-[#32323240] rounded-[0.38rem]  flex items-end justify-center gap-4 bg-transparent overflow-hidden"
                 animate={{
                   width: isMenuOpen ? "351px" : "140px",
                   height: isMenuOpen ? "329px" : "40px",
@@ -78,13 +78,13 @@ const Footer = ({
                     className="z-[1000] group"
                   >
                     <div className="flex items-center gap-1">
-                      <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                      <div className="h-[0.88rem] w-[0.88rem]  flex items-center justify-center ">
                         <OnChain className="transition-colors fill-[#919191] group-hover:fill-white " />
                       </div>
-                      <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                      <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                         Base Onchain
                       </p>
-                      <div className="h-[14px] w-[14px] flex items-center justify-center ">
+                      <div className="h-[0.88rem] w-[0.88rem] flex items-center justify-center ">
                         <Image
                           src={isMenuOpen ? MainAssets.Minus : MainAssets.Plus}
                           alt="Left icon for the faq button"

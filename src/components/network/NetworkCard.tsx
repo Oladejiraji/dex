@@ -30,21 +30,21 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
     <div className="flex flex-col items-center gap-3">
       <div>
         <Link href={AppRoutes.connect.path(chain.chainId)}>
-          <Button className="border border-[#272727] px-[10px] py-[9px] rounded-[6px]">
-            <p className="text-[13px] font-geist-medium text-[#CDCDCD] ">
+          <Button className="border border-[#272727] px-[0.63rem] py-[0.56rem] rounded-[0.38rem]">
+            <p className="text-[0.81rem] font-geist-medium text-[#CDCDCD] ">
               Swap {chain.name}
             </p>
           </Button>
         </Link>
       </div>
       <div
-        className="w-[200px] h-[200px] rounded-[10px] flex flex-col justify-between bg-[#040506] relative p-4 group"
+        className="w-[12.50rem] h-[12.50rem] rounded-[0.63rem] flex flex-col justify-between bg-[#040506] relative p-4 group"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {/* Positioned elements start */}
         {/* Mask with border shadow and linear gradient */}
-        <div className="absolute left-0 top-0 z-[10] network_gradient w-full h-full rounded-[10px]" />
+        <div className="absolute left-0 top-0 z-[10] network_gradient w-full h-full rounded-[0.63rem]" />
         {/* Mask with multiple diagonal lines */}
         <div className="absolute left-0 top-0 z-[11] h-full w-full">
           <DiagonalLines isHover={isHover} />
@@ -54,12 +54,12 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
           <Image
             src={MainAssets.Subtract}
             alt="Subtract"
-            className="w-[200px] h-[200px]"
+            className="w-[12.50rem] h-[12.50rem]"
           />
         </div>
 
         <motion.div
-          className="absolute top-0 right-0 h-full w-full  z-[64]  rounded-[10px] mix-blend-overlay"
+          className="absolute top-0 right-0 h-full w-full  z-[64]  rounded-[0.63rem] mix-blend-overlay"
           // style={style}
           style={{
             background:
@@ -76,11 +76,11 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
             alt="Chain Icon"
             width={56}
             height={56}
-            className="rounded-[4px]"
+            className="rounded-[0.25rem]"
           />
         </div>
         <div className="z-[62] relative">
-          <p className="text-[#4B4B4B] text-[13px] font-geist-medium">
+          <p className="text-[#4B4B4B] text-[0.81rem] font-geist-medium">
             {chain.name}
           </p>
         </div>

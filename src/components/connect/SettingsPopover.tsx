@@ -41,17 +41,17 @@ export function SettingsPopover({
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="absolute left-0 top-0 z-[50] backdrop-blur-[4px] bg-transparent w-full h-full pt-[66px] pb-[43px] flex items-start text-white"
+          className="absolute left-0 top-0 z-[50] backdrop-blur-[0.25rem] bg-transparent w-full h-full pt-[4.13rem] pb-[2.69rem] flex items-start text-white"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="max-w-[470px] mx-auto w-full relative p-[1px] h-fit ">
-            <div className="gradient_bg absolute inset-0 w-full h-full rounded-[6px]" />
+          <div className="max-w-[29.38rem] mx-auto w-full relative p-[0.06rem] h-fit ">
+            <div className="gradient_bg absolute inset-0 w-full h-full rounded-[0.38rem]" />
 
-            <div className="relative select_gradient rounded-[6px] flex-1 flex flex-col ">
-              <div className=" flex items-center justify-between bg-[#0D0E0F] py-2 px-5 rounded-t-[10px]">
+            <div className="relative select_gradient rounded-[0.38rem] flex-1 flex flex-col ">
+              <div className=" flex items-center justify-between bg-[#0D0E0F] py-2 px-5 rounded-t-[0.63rem]">
                 <h1 className="text-base font-geist-medium text-[#f9f9f9]">
                   Transaction Settings
                 </h1>
@@ -59,7 +59,7 @@ export function SettingsPopover({
                   className="w-8 h-8 rounded-full flex items-center justify-center border border-[#272727] bg-[#08090A]"
                   onClick={() => setIsPopOpen(false)}
                 >
-                  <div className="w-[9px] h-[9px]">
+                  <div className="w-[0.56rem] h-[0.56rem]">
                     <Image src={MainAssets.X} alt="X icon" />
                   </div>
                 </button>
@@ -67,10 +67,10 @@ export function SettingsPopover({
               <div className="p-5">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-[15px] font-geist-medium leading-[18px]">
+                    <p className="text-[0.94rem] font-geist-medium leading-[1.13rem]">
                       Route Sorting priority
                     </p>
-                    <p className="text-[14px] font-geist-medium leading-[17px] text-[#7D7D7D]">
+                    <p className="text-[0.88rem] font-geist-medium leading-[1.06rem] text-[#7D7D7D]">
                       {activePriority?.info}
                     </p>
                   </div>
@@ -79,33 +79,33 @@ export function SettingsPopover({
                       selData={priorityOptions}
                       value={priority}
                       onChange={(value: string) => setPriority(value)}
-                      className="border border-solid border-[#272727] rounded-[6px] text-[15px] font-geist-medium text-[#AFAFAF] h-10 w-[173px] gap-0"
-                      itemClassName="text-[#5F5F5F] font-geist-medium text-[15px] px-0 justify-center  h-10 w-[173px] focus:bg-[#0A0B0C]"
-                      listClassName="bg-[#0F0F0F] border border-[#272727] rounded-[6px]"
+                      className="border border-solid border-[#272727] rounded-[0.38rem] text-[0.94rem] font-geist-medium text-[#AFAFAF] h-10 w-[10.81rem] gap-0"
+                      itemClassName="text-[#5F5F5F] font-geist-medium text-[0.94rem] px-0 justify-center  h-10 w-[10.81rem] focus:bg-[#0A0B0C]"
+                      listClassName="bg-[#0F0F0F] border border-[#272727] rounded-[0.38rem]"
                     />
                   </div>
                 </div>
               </div>
               <div className="px-5 pt-2 pb-5">
                 <div>
-                  <h1 className="text-[15px] font-geist-medium text-[#F9F9F9] leading-[18px]">
+                  <h1 className="text-[0.94rem] font-geist-medium text-[#F9F9F9] leading-[1.13rem]">
                     Swap Slippage
                   </h1>
-                  <h3 className="text-[14px] font-geist-medium text-[#7D7D7D] leading-[17px]">
+                  <h3 className="text-[0.88rem] font-geist-medium text-[#7D7D7D] leading-[1.06rem]">
                     Set swap Slippage
                   </h3>
                 </div>
-                <div className="pt-4 flex items-center gap-[14px]">
+                <div className="pt-4 flex items-center gap-[0.88rem]">
                   {presetSlippageOptions.map((option) => {
                     return option.editable ? (
                       <div
                         key={option.id}
-                        className="relative text-[#5F5F5F] font-geist-medium text-[15px]"
+                        className="relative text-[#5F5F5F] font-geist-medium text-[0.94rem]"
                       >
                         <input
                           type="number"
                           className={cn(
-                            "bg-[#0F0F0F] border-[0.5px] border-[#272727] w-[254px] h-[50px] rounded-[6px] px-2",
+                            "bg-[#0F0F0F] border-[0.5px] border-[#272727] w-[15.88rem] h-[3.13rem] rounded-[0.38rem] px-2",
                             {
                               "border border-[#636363]": slippage.custom,
                             }
@@ -142,7 +142,7 @@ export function SettingsPopover({
                         type="button"
                         key={option.id}
                         className={cn(
-                          "w-[46px] h-[50px] transition text-[#AFAFAF] text-[15px] bg-[#0F0F0F] font-geist-medium flex items-center justify-center  border-[0.5px] border-[#272727] rounded-[6px] cursor-pointer",
+                          "w-[2.88rem] h-[3.13rem] transition text-[#AFAFAF] text-[0.94rem] bg-[#0F0F0F] font-geist-medium flex items-center justify-center  border-[0.5px] border-[#272727] rounded-[0.38rem] cursor-pointer",
                           {
                             "border border-[#636363]":
                               option.value === slippage.value &&

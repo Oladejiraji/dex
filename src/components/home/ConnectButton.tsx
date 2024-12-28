@@ -31,7 +31,7 @@ const ConnectButton = () => {
               if (!connected) {
                 return (
                   <Button onClick={openConnectModal} className="group">
-                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                    <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                       Connect Wallet
                     </p>
                   </Button>
@@ -40,7 +40,7 @@ const ConnectButton = () => {
               if (chain.unsupported) {
                 return (
                   <Button onClick={openChainModal} className="group">
-                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                    <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                       Wrong network
                     </p>
                   </Button>

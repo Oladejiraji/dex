@@ -129,20 +129,20 @@ const Review = () => {
           hashState={hashState}
           activeChain={activeChain}
         />
-        <div className="max-w-[827px] mx-auto px-2 sm:px-8">
+        <div className="max-w-[51.69rem] mx-auto px-2 sm:px-8">
           <Header type={2} />
-          <main className=" h-[calc(100vh-100px)] mt-[100px] connect_border">
-            <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14 py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
-              <div className="w-full h-full max-w-[470px] mx-auto px-2 ">
+          <main className=" h-[calc(100vh-100px)] mt-[6.25rem] connect_border">
+            <div className="text-white max-w-[51.69rem] mx-auto mt-0 sm:mt-14 py-[2.19rem] relative border-none sm:border border-grey-200 rounded-[0.63rem]">
+              <div className="w-full h-full max-w-[29.38rem] mx-auto px-2 ">
                 <div className="mb-4 flex items-center justify-between">
-                  <h1 className="text-[20px] font-geist-semibold text-[#F9F9F9]">
+                  <h1 className="text-[1.25rem] font-geist-semibold text-[#F9F9F9]">
                     Review Route
                   </h1>
                   <button
                     className="w-8 h-8 rounded-full flex items-center justify-center border border-[#83838340]"
                     onClick={() => router.back()}
                   >
-                    <div className="w-[10px] h-[10px] flex items-center justify-center relative">
+                    <div className="w-[0.63rem] h-[0.63rem] flex items-center justify-center relative">
                       <Image src={MainAssets.X} alt="X icon" fill />
                     </div>
                   </button>
@@ -154,8 +154,8 @@ const Review = () => {
                     type="From"
                     activeRoute={activeRoute}
                   />
-                  <div className="absolute bottom-[50%] left-[50%] translate-x-[-50%] translate-y-[50%] rotate-[-90deg] bg-[#0D0E0F] border-[3px] border-[#060708] flex items-center justify-center rounded-[8px] w-8 h-8 z-[10]">
-                    <div className="w-[10px] h-[10px]">
+                  <div className="absolute bottom-[50%] left-[50%] translate-x-[-50%] translate-y-[50%] rotate-[-90deg] bg-[#0D0E0F] border-[0.19rem] border-[#060708] flex items-center justify-center rounded-[0.50rem] w-8 h-8 z-[10]">
+                    <div className="w-[0.63rem] h-[0.63rem]">
                       <Image src={MainAssets.Up} alt="Up icon" />
                     </div>
                   </div>
@@ -166,9 +166,9 @@ const Review = () => {
                     activeRoute={activeRoute}
                   />
                 </div>
-                <div className="mt-[32px] rounded-[10px] flex flex-col gap-4">
+                <div className="mt-[2.00rem] rounded-[0.63rem] flex flex-col gap-4">
                   <div className="flex items-center justify-between  ">
-                    <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                    <p className="text-[#7D7D7D] text-[0.88rem] font-geist-regular">
                       Liquidity Provider:{" "}
                     </p>
                     <div className="flex items-center justify-center gap-2">
@@ -179,23 +179,23 @@ const Review = () => {
                           height={24}
                         />
                       </div>
-                      <p className="font-geist-medium text-[14px] text-[#D7D7D7]">
+                      <p className="font-geist-medium text-[0.88rem] text-[#D7D7D7]">
                         {activeRoute.userTxs[0].protocol.displayName}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between  ">
-                    <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                    <p className="text-[#7D7D7D] text-[0.88rem] font-geist-regular">
                       Estimated Fees
                     </p>
-                    <p className="font-geist-medium text-[14px] text-[#D7D7D7]">
+                    <p className="font-geist-medium text-[0.88rem] text-[#D7D7D7]">
                       ${stringToFixed(gasFees.feesInUsd.toString())}
                     </p>
                   </div>
 
                   <div className="flex items-center justify-between  ">
-                    <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                    <p className="text-[#7D7D7D] text-[0.88rem] font-geist-regular">
                       Est. Output
                     </p>
                     <p className="text-grey-400 font-geist-regular text-sm">
@@ -208,7 +208,7 @@ const Review = () => {
                   </div>
                   <div className="flex items-center justify-between  ">
                     <div className="flex items-center gap-2">
-                      <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                      <p className="text-[#7D7D7D] text-[0.88rem] font-geist-regular">
                         Estimated Superbase fees
                       </p>
                       <SuperbaseFeesTooltip />
@@ -219,21 +219,21 @@ const Review = () => {
                   </div>
 
                   <div className="flex items-center justify-between ">
-                    <p className="text-[#7D7D7D] text-[14px] font-geist-regular">
+                    <p className="text-[#7D7D7D] text-[0.88rem] font-geist-regular">
                       Swap Slippage
                     </p>
-                    <p className="font-geist-medium text-[14px] text-[#D7D7D7]">
+                    <p className="font-geist-medium text-[0.88rem] text-[#D7D7D7]">
                       {activeRoute.userTxs[0].swapSlippage}%
                     </p>
                   </div>
                 </div>
                 <div className="mt-16">
                   <Button
-                    className="w-full h-14 bg-primary-800 hover:bg-primary-800 rounded-[10px]"
+                    className="w-full h-14 bg-primary-800 hover:bg-primary-800 rounded-[0.63rem]"
                     loading={isPending}
                     onClick={swapFn}
                   >
-                    <p className="text-[#080808] text-[15px] font-geist-medium">
+                    <p className="text-[#080808] text-[0.94rem] font-geist-medium">
                       {isRightChain
                         ? "Place Order"
                         : "Switch Network To Polygon"}

@@ -105,7 +105,7 @@ const ConnectPage = () => {
   )[0];
 
   return (
-    <div className="max-w-[827px] mx-auto px-2 sm:px-8">
+    <div className="max-w-[51.69rem] mx-auto px-2 sm:px-8">
       <Header type={2} />
       <SettingsPopover
         isPopOpen={isOpen}
@@ -115,9 +115,9 @@ const ConnectPage = () => {
         slippage={slippage}
         setSlippage={setSlippage}
       />
-      <main className=" h-[calc(100vh-100px)] mt-[100px] connect_border">
-        <div className="text-white max-w-[827px] mx-auto mt-0 sm:mt-14 py-[35px] relative border-none sm:border border-grey-200 rounded-[10px]">
-          <div className="w-full h-full max-w-[420px] mx-auto px-0 ">
+      <main className=" h-[calc(100vh-100px)] mt-[6.25rem] connect_border">
+        <div className="text-white max-w-[51.69rem] mx-auto mt-0 sm:mt-14 py-[2.19rem] relative border-none sm:border border-grey-200 rounded-[0.63rem]">
+          <div className="w-full h-full max-w-[26.25rem] mx-auto px-0 ">
             <div className="flex items-center justify-between">
               <h3 className="font-geist-semibold text-xl">Swap</h3>
               <div className="flex gap-2 ">
@@ -142,21 +142,21 @@ const ConnectPage = () => {
                 </Button>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-primary-300 p-4 rounded-[10px] mt-[22px]">
+            <div className="flex items-center gap-2 bg-primary-300 p-4 rounded-[0.63rem] mt-[1.38rem]">
               <div className="w-8 h-8 ">
                 <Image
                   src={currChain.icon}
                   alt="Chain Base Icon"
-                  className="rounded-[4px]"
+                  className="rounded-[0.25rem]"
                   width={32}
                   height={32}
                 />
               </div>
               <div>
-                <h3 className="font-geist-regular text-xs text-grey-300 leading-[14px]">
+                <h3 className="font-geist-regular text-xs text-grey-300 leading-[0.88rem]">
                   Chain
                 </h3>
-                <h4 className="font-geist-medium text-[15px] leading-[18px]">
+                <h4 className="font-geist-medium text-[0.94rem] leading-[1.13rem]">
                   {currChain.name}
                 </h4>
               </div>

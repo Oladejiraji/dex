@@ -12,7 +12,7 @@ export function BasePopover({ isPopOpen }: IProps) {
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="rounded-[6px] h-full"
+          className="rounded-[0.38rem] h-full"
           initial="close"
           animate="open"
           exit="close"
@@ -51,17 +51,17 @@ export function BasePopover({ isPopOpen }: IProps) {
                 <h1 className="text-base text-[#6E6E6E]">Base</h1>
               </div>
             </div>
-            {/* <div className="mt-[48px] rounded-[6px] bg-transparent flex items-center justify-center gap-4">
+            {/* <div className="mt-[3.00rem] rounded-[0.38rem] bg-transparent flex items-center justify-center gap-4">
               <Button variant="invincible" onClick={() => setIsPopOpen(false)}>
                 <div className="flex items-center gap-1">
-                  <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                  <div className="h-[0.88rem] w-[0.88rem]  flex items-center justify-center ">
                     <Image
                       src={MainAssets.Base}
                       alt="Left icon for the faq button"
                     />
                   </div>
-                  <p className="text-[13px] text-grey-100">Base on Obdisian</p>
-                  <div className="h-[14px] w-[14px]  flex items-center justify-center ">
+                  <p className="text-[0.81rem] text-grey-100">Base on Obdisian</p>
+                  <div className="h-[0.88rem] w-[0.88rem]  flex items-center justify-center ">
                     <Image
                       src={MainAssets.Minus}
                       alt="Left icon for the faq button"

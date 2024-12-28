@@ -41,7 +41,7 @@ export function Combobox(props: IProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="border-none rounded-full bg-primary-400 font-geist-medium text-[15px] hover:bg-inherit hover:text-inherit"
+          className="border-none rounded-full bg-primary-400 font-geist-medium text-[0.94rem] hover:bg-inherit hover:text-inherit"
         >
           <div className="flex items-center gap-2">
             {currValue && currValue.icon && <currValue.icon />}
@@ -50,7 +50,7 @@ export function Combobox(props: IProps) {
           <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[12.50rem] p-0">
         <Command>
           <CommandInput placeholder="Search framework..." className="h-9" />
           <CommandList>

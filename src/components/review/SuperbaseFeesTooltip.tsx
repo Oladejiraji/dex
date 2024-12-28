@@ -13,7 +13,7 @@ const SuperbaseFeesTooltip = () => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="w-[13px] h-[13px] cursor-pointer">
+          <div className="w-[0.81rem] h-[0.81rem] cursor-pointer">
             <Image src={MainAssets.Info} alt="info icon" />
           </div>
         </TooltipTrigger>

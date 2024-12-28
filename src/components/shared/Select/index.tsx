@@ -36,7 +36,7 @@ export default function Select(props: IProps) {
     <ShadcnSelect value={value} onValueChange={onChange}>
       <SelectTrigger
         className={cn(
-          "border-none rounded-full bg-primary-400 font-geist-medium text-[15px] cursor-pointer",
+          "border-none rounded-full bg-primary-400 font-geist-medium text-[0.94rem] cursor-pointer",
           className
         )}
       >

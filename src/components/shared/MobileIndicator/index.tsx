@@ -5,15 +5,15 @@ import React from "react";
 
 const MobileIndicator = () => {
   return (
-    //   <div className="w-[198px] h-[198px]">
+    //   <div className="w-[12.38rem] h-[12.38rem]">
     //   <Image src={MainAssets.ComingSoon} alt="Coming soon svg" />
     // </div>
     <main className="flex flex-col justify-center items-center h-screen w-screen">
       <div className="h-[70%] flex items-center">
-        <div className="w-[200px] h-[200px] rounded-[10px] flex flex-col justify-between bg-[#040506] relative p-4 group">
+        <div className="w-[12.50rem] h-[12.50rem] rounded-[0.63rem] flex flex-col justify-between bg-[#040506] relative p-4 group">
           {/* Positioned elements start */}
           {/* Mask with border shadow and linear gradient */}
-          <div className="absolute left-0 top-0 z-[10] network_gradient w-full h-full rounded-[10px]" />
+          <div className="absolute left-0 top-0 z-[10] network_gradient w-full h-full rounded-[0.63rem]" />
           {/* Mask with multiple diagonal lines */}
           {/* <div className="absolute left-0 top-0 z-[11] h-full w-full">
             <DiagonalLines isHover={true} />
@@ -23,12 +23,12 @@ const MobileIndicator = () => {
             <Image
               src={MainAssets.Subtract}
               alt="Subtract"
-              className="w-[200px] h-[200px]"
+              className="w-[12.50rem] h-[12.50rem]"
             />
           </div>
 
           <div
-            className="absolute top-0 right-0 h-full w-full  z-[64]  rounded-[10px] mix-blend-overlay"
+            className="absolute top-0 right-0 h-full w-full  z-[64]  rounded-[0.63rem] mix-blend-overlay"
             // style={style}
             style={{
               background:
@@ -38,7 +38,7 @@ const MobileIndicator = () => {
           {/* Positioned elements end */}
 
           {/* This div is for layout stability */}
-          <div className="h-[35px]"></div>
+          <div className="h-[2.19rem]"></div>
           <div className="flex justify-center gap-2 items-center relative z-[65]">
             <div className="h-4 w-3 mt-1 ">
               <Image
@@ -46,26 +46,26 @@ const MobileIndicator = () => {
                 alt="Left Icon for title button"
               />
             </div>
-            <p className="text-[#414141] text-[18px]">Superbase</p>
+            <p className="text-[#414141] text-[1.13rem]">Superbase</p>
           </div>
           <div className="z-[62] relative">
-            <p className="text-[#4B4B4B] text-[12px] font-geist-medium">
+            <p className="text-[#4B4B4B] text-[0.75rem] font-geist-medium">
               Coming Soon
             </p>
-            <p className="text-[#4B4B4B] text-[12px] font-geist-medium">
+            <p className="text-[#4B4B4B] text-[0.75rem] font-geist-medium">
               v.1.14
             </p>
           </div>
         </div>
       </div>
       <div className="flex flex-col items-center justify-start h-[30%]">
-        <div className="w-[22px] h-[18px]">
+        <div className="w-[1.38rem] h-[1.13rem]">
           <Image src={MainAssets.Pc} alt="Pc svg" />
         </div>
-        <p className="text-[#CCCCCC] text-sm font-geist-semibold leading-[18px] pt-5 pb-1">
+        <p className="text-[#CCCCCC] text-sm font-geist-semibold leading-[1.13rem] pt-5 pb-1">
           Open on your PC
         </p>
-        <p className="text-[#919191] text-xs font-geist-medium leading-[15px]">
+        <p className="text-[#919191] text-xs font-geist-medium leading-[0.94rem]">
           For a better experience
         </p>
       </div>

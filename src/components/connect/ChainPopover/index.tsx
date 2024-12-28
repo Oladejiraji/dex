@@ -58,20 +58,20 @@ export function ChainPopover({
       {isPopOpen ? (
         <motion.div
           style={{ willChange: "opacity, transform" }}
-          className="absolute left-0 top-0 z-[50] backdrop-blur-[4px] bg-transparent w-full h-full pt-[66px] pb-[43px]"
+          className="absolute left-0 top-0 z-[50] backdrop-blur-[0.25rem] bg-transparent w-full h-full pt-[4.13rem] pb-[2.69rem]"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="max-w-[470px] mx-auto w-full relative p-[1px] h-full">
-            <div className="gradient_bg absolute inset-0 w-full h-full rounded-[6px]" />
-            <div className="relative select_gradient py-6 rounded-[6px] h-full flex flex-col">
+          <div className="max-w-[29.38rem] mx-auto w-full relative p-[0.06rem] h-full">
+            <div className="gradient_bg absolute inset-0 w-full h-full rounded-[0.38rem]" />
+            <div className="relative select_gradient py-6 rounded-[0.38rem] h-full flex flex-col">
               <div className="flex items-center gap-2 px-6">
                 <Input
-                  className="bg-transparent border border-[#32323240] font-geist-medium text-[13px] placeholder:text-[#919191] text-white pl-[28px] h-12  rounded-[6px]"
+                  className="bg-transparent border border-[#32323240] font-geist-medium text-[0.81rem] placeholder:text-[#919191] text-white pl-[1.75rem] h-12  rounded-[0.38rem]"
                   containerClass="flex-1"
-                  iconBeforeClassNames="left-[10px]"
+                  iconBeforeClassNames="left-[0.63rem]"
                   onChange={(e) => setSearchValue(e.target.value)}
                   value={searchValue}
                   placeholder="Search Token..."
@@ -82,7 +82,7 @@ export function ChainPopover({
                   className="w-12 h-12 rounded-full flex items-center justify-center border border-[#32323240]"
                   onClick={() => setIsPopOpen(false)}
                 >
-                  <div className="w-[11px] h-[11px]">
+                  <div className="w-[0.69rem] h-[0.69rem]">
                     <Image
                       src={MainAssets.X}
                       alt="X icon"
@@ -92,7 +92,7 @@ export function ChainPopover({
                   </div>
                 </button>
               </div>
-              <div className="flex flex-wrap mt-4 mb-8 gap-x-4 gap-y-[10px] px-6">
+              <div className="flex flex-wrap mt-4 mb-8 gap-x-4 gap-y-[0.63rem] px-6">
                 {processedData.slice(0, 7).map((chain, i) => {
                   return (
                     <button
@@ -100,7 +100,7 @@ export function ChainPopover({
                       onClick={() => handleChain(chain)}
                       disabled={chainsToNotSelect.includes(chain.symbol)}
                       className={cx(
-                        "flex items-center gap-1 px-[6px] h-[30px] border border-[#32323240] rounded-[40px]",
+                        "flex items-center gap-1 px-[0.38rem] h-[1.88rem] border border-[#32323240] rounded-[2.50rem]",
                         {
                           "bg-primary-200": chainsToNotSelect.includes(
                             chain.symbol
@@ -116,7 +116,7 @@ export function ChainPopover({
                           className="rounded-full"
                         />
                       </div>
-                      <p className="font-geist-medium text-[15px]">
+                      <p className="font-geist-medium text-[0.94rem]">
                         {chain.symbol.toUpperCase()}
                       </p>
                     </button>
@@ -147,10 +147,10 @@ export function ChainPopover({
                           />
                         </div>
                         <div>
-                          <p className="font-geist-medium text-[15px] text-left">
+                          <p className="font-geist-medium text-[0.94rem] text-left">
                             {/* {chain.symbol.toUpperCase()} */}
                           </p>
-                          <p className="font-geist-regular text-[13px] text-[#7D7D7D] text-left">
+                          <p className="font-geist-regular text-[0.81rem] text-[#7D7D7D] text-left">
                             {chain.name}
                           </p>
                         </div>

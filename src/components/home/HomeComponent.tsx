@@ -29,9 +29,9 @@ const HomeComponent = ({ data }: { data: ChainType[] }) => {
   return (
     <>
       <Header type={1} />
-      <main className="w-screen min-h-screen mt-[200px]">
+      <main className="w-screen min-h-screen mt-[12.50rem]">
         <ReactLenis root options={{ infinite: true }}>
-          <div className="max-w-[1100px] mx-auto relative panel_wrap">
+          <div className="max-w-[68.75rem] mx-auto relative panel_wrap">
             {data?.map((chain, i, original) => {
               const index = i + 1;
               const reverseIndex = Math.abs(i - original.length);

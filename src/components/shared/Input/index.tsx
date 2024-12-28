@@ -61,7 +61,7 @@ const Input = ({
           className={cx(
             " bg-neutral-650 rounded-lg !mt-0 border border-neutral-400 focus:ring-transparent focus-visible:ring-transparent w-full",
             {
-              "pl-[14px]": iconBefore,
+              "pl-[0.88rem]": iconBefore,
             },
             { [`${className}`]: !!className }
           )}

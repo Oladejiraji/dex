@@ -56,7 +56,7 @@ const Header = ({ type }: { type?: number }) => {
           { "backdrop-blur-sm bg-black/30 ": !isPopOpen }
         )}
       >
-        <div className="flex items-start justify-between max-w-[1200px] mx-auto">
+        <div className="flex items-start justify-between max-w-[75.00rem] mx-auto">
           <Link href={AppRoutes.home.path}>
             <Button>
               <div className="flex items-center gap-1">
@@ -73,9 +73,9 @@ const Header = ({ type }: { type?: number }) => {
 
           {/* Menu 1 */}
           <RenderIf condition={type === 1}>
-            <div className="border border-[#32323240] rounded-[6px] bg-gradient-custom flex items-center gap-3 relative">
+            <div className="border border-[#32323240] rounded-[0.38rem] bg-gradient-custom flex items-center gap-3 relative">
               <motion.div
-                className="flex flex-col items-center z-[1002] relative menu_dropdown_bg rounded-[6px]"
+                className="flex flex-col items-center z-[1002] relative menu_dropdown_bg rounded-[0.38rem]"
                 animate={{
                   height: isPopOpen ? "325px" : "40px",
                   width: "603px",
@@ -98,14 +98,14 @@ const Header = ({ type }: { type?: number }) => {
                           <Simplify className="transition-colors fill-[#919191] group-hover:fill-white " />
                         </div>
 
-                        <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                        <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                           Simplify
                         </p>
                       </div>
                     </Button>
                   </div>
 
-                  <div className="w-[316px]">
+                  <div className="w-[19.75rem]">
                     <Input
                       onFocus={() => setIsPopOpen(true)}
                       // onBlur={() => setIsPopOpen(false)}
@@ -113,25 +113,25 @@ const Header = ({ type }: { type?: number }) => {
                       onChange={(e) => setSearchValue(e.target.value)}
                       iconBefore
                       icon={MainAssets.Search}
-                      inButtonClassNames="right-[0px]"
+                      inButtonClassNames="right-[0.00rem]"
                       inButton={
-                        <div className="flex items-center text-[#5F6368] font-geist-regular text-xs gap-[4px]">
-                          <p className="bg-[#2A2A2A] w-[22px] h-5 flex items-center justify-center rounded-[3px]">
+                        <div className="flex items-center text-[#5F6368] font-geist-regular text-xs gap-[0.25rem]">
+                          <p className="bg-[#2A2A2A] w-[1.38rem] h-5 flex items-center justify-center rounded-[0.19rem]">
                             ⌘
                           </p>
-                          <p className="bg-[#2A2A2A] w-[22px] h-5 flex items-center justify-center rounded-[3px]">
+                          <p className="bg-[#2A2A2A] w-[1.38rem] h-5 flex items-center justify-center rounded-[0.19rem]">
                             /
                           </p>
                         </div>
                       }
                       placeholder="Search for a token, address or chain"
-                      className="bg-transparent border-none font-geist-medium text-[13px] text-[white] p-0 pl-4 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
+                      className="bg-transparent border-none font-geist-medium text-[0.81rem] text-[white] p-0 pl-4 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
                     />
                   </div>
                   <div>
                     <Link href={AppRoutes.networks.path}>
                       <Button variant="invincible" className="group">
-                        <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                        <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                           Supported Networks
                         </p>
                       </Button>
@@ -149,7 +149,7 @@ const Header = ({ type }: { type?: number }) => {
                     setIsPopOpen(false);
                   }}
                   className={cx(
-                    "fixed top-0 left-0 h-screen w-screen backdrop-blur-[13px] bg-black/30",
+                    "fixed top-0 left-0 h-screen w-screen backdrop-blur-[0.81rem] bg-black/30",
                     { "opacity-1": !!isPopOpen },
                     { "opacity-0": !isPopOpen }
                   )}
@@ -160,12 +160,12 @@ const Header = ({ type }: { type?: number }) => {
               <Link href={AppRoutes.connect.path(137)}>
                 <Button variant="ghost" className="group">
                   <div className="flex items-center gap-1">
-                    <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">
+                    <div className="bg-primary-200  rounded-[0.25rem] py-[0.25rem] px-[0.38rem]">
                       <div className="h-4 w-3  flex items-center justify-center ">
                         <New className="transition-colors fill-[#919191] group-hover:fill-white " />
                       </div>
                     </div>
-                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                    <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                       Trade
                     </p>
                   </div>
@@ -177,7 +177,7 @@ const Header = ({ type }: { type?: number }) => {
           {/* Menu 2 */}
           <RenderIf condition={type === 2}>
             <div className="items-center gap-4  flex">
-              <div className="border border-[#32323240] rounded-[6px] bg-gradient-custom flex items-center gap-8 relative hidden">
+              <div className="border border-[#32323240] rounded-[0.38rem] bg-gradient-custom flex items-center gap-8 relative hidden">
                 <HeaderMenu
                   isPopOpen={isPopOpen}
                   processedData={processedData}
@@ -192,7 +192,7 @@ const Header = ({ type }: { type?: number }) => {
                       <Simplify className="transition-colors fill-[#919191] group-hover:fill-white " />
                     </div>
 
-                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                    <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                       Simplify
                     </p>
                   </div>
@@ -205,19 +205,19 @@ const Header = ({ type }: { type?: number }) => {
                         alt="Left icon for the new button"
                       />
                     </div>
-                    <p className="text-[13px] text-grey-100">Search Chain</p>
+                    <p className="text-[0.81rem] text-grey-100">Search Chain</p>
                   </div>
                 </Button>
               </div>
               <Link href={AppRoutes.connect.path(137)}>
                 <Button variant="ghost" className="group">
                   <div className="flex items-center gap-1">
-                    <div className="bg-primary-200  rounded-[4px] py-[4px] px-[6px]">
+                    <div className="bg-primary-200  rounded-[0.25rem] py-[0.25rem] px-[0.38rem]">
                       <div className="h-4 w-3  flex items-center justify-center ">
                         <New className="transition-colors fill-[#919191] group-hover:fill-white " />
                       </div>
                     </div>
-                    <p className="text-[13px] transition-colors text-[#919191] group-hover:text-white">
+                    <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
                       Trade
                     </p>
                   </div>
@@ -229,7 +229,7 @@ const Header = ({ type }: { type?: number }) => {
           {/* Menu 3 */}
           <RenderIf condition={type === 3}>
             <div className="items-center gap-4 flex justify-between w-2/3 ">
-              <div className="border border-[#32323240] rounded-[6px] bg-gradient-custom flex items-center gap-8 relative px-[10px]">
+              <div className="border border-[#32323240] rounded-[0.38rem] bg-gradient-custom flex items-center gap-8 relative px-[0.63rem]">
                 <div className="flex items-center gap-8">
                   <div>
                     <Input
@@ -240,18 +240,18 @@ const Header = ({ type }: { type?: number }) => {
                         updateNetworkSearchValue(e.target.value);
                       }}
                       inButton={
-                        <div className="flex items-center text-[#5F6368] font-geist-regular text-xs gap-[4px]">
-                          <p className="bg-[#2A2A2A] w-[22px] h-5 flex items-center justify-center rounded-[3px]">
+                        <div className="flex items-center text-[#5F6368] font-geist-regular text-xs gap-[0.25rem]">
+                          <p className="bg-[#2A2A2A] w-[1.38rem] h-5 flex items-center justify-center rounded-[0.19rem]">
                             ⌘
                           </p>
-                          <p className="bg-[#2A2A2A] w-[22px] h-5 flex items-center justify-center rounded-[3px]">
+                          <p className="bg-[#2A2A2A] w-[1.38rem] h-5 flex items-center justify-center rounded-[0.19rem]">
                             /
                           </p>
                         </div>
                       }
-                      inButtonClassNames="right-[0px]"
+                      inButtonClassNames="right-[0.00rem]"
                       placeholder="Search our supported chains"
-                      className=" bg-transparent border-none font-geist-medium text-[13px] min-w-[340px] text-[white] p-0 pl-4 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
+                      className=" bg-transparent border-none font-geist-medium text-[0.81rem] min-w-[21.25rem] text-[white] p-0 pl-4 placeholder:text-[#919191] hover:placeholder:text-[white] transition-colors"
                     />
                   </div>
                 </div>

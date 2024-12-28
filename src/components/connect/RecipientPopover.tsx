@@ -49,16 +49,16 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="absolute left-0 bottom-0 z-[50] backdrop-blur-[4px] bg-transparent w-full h-full pt-[66px] pb-[43px] flex items-end"
+          className="absolute left-0 bottom-0 z-[50] backdrop-blur-[0.25rem] bg-transparent w-full h-full pt-[4.13rem] pb-[2.69rem] flex items-end"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="max-w-[470px] mx-auto w-full relative p-[1px] h-fit ">
-            <div className="gradient_bg absolute inset-0 w-full h-full rounded-[6px]" />
+          <div className="max-w-[29.38rem] mx-auto w-full relative p-[0.06rem] h-fit ">
+            <div className="gradient_bg absolute inset-0 w-full h-full rounded-[0.38rem]" />
             {recipientAddress ? (
-              <div className="relative select_gradient py-6 rounded-[6px] flex-1 flex flex-col px-6">
+              <div className="relative select_gradient py-6 rounded-[0.38rem] flex-1 flex flex-col px-6">
                 <div className="mb-4 flex items-center justify-between">
                   <h1 className="text-base font-geist-medium">
                     Edit Recipient Address
@@ -67,7 +67,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                     className="w-10 h-10 rounded-full flex items-center justify-center border border-[#83838340]"
                     onClick={() => setIsPopOpen(false)}
                   >
-                    <div className="w-[11px] h-[11px]">
+                    <div className="w-[0.69rem] h-[0.69rem]">
                       <Image src={MainAssets.X} alt="X icon" />
                     </div>
                   </button>
@@ -75,7 +75,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                 <div className="flex items-center gap-2 ">
                   <Input
                     className={cx(
-                      "bg-transparent border border-[#32323240] font-geist-medium text-[12px] text-[#919191] p-3 h-12  rounded-[6px]",
+                      "bg-transparent border border-[#32323240] font-geist-medium text-[0.75rem] text-[#919191] p-3 h-12  rounded-[0.38rem]",
                       { "border-[#D19191]": !!valueError }
                     )}
                     containerClass="flex-1"
@@ -103,7 +103,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                 </div>
               </div>
             ) : (
-              <div className="relative select_gradient py-6 rounded-[6px] flex-1 flex flex-col px-6">
+              <div className="relative select_gradient py-6 rounded-[0.38rem] flex-1 flex flex-col px-6">
                 <div className="mb-4 flex items-center justify-between">
                   <h1 className="text-base font-geist-medium">
                     Enter Recipient Address
@@ -112,7 +112,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                     className="w-8 h-8 rounded-full flex items-center justify-center border border-[#83838340]"
                     onClick={() => setIsPopOpen(false)}
                   >
-                    <div className="w-[9px] h-[9px]">
+                    <div className="w-[0.56rem] h-[0.56rem]">
                       <Image src={MainAssets.X} alt="X icon" />
                     </div>
                   </button>
@@ -120,7 +120,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                 <div className="flex items-center gap-2 ">
                   <Input
                     className={cx(
-                      "bg-transparent border border-[#32323240] font-geist-medium text-[12px] text-[#919191] p-3 h-12  rounded-[6px]",
+                      "bg-transparent border border-[#32323240] font-geist-medium text-[0.75rem] text-[#919191] p-3 h-12  rounded-[0.38rem]",
                       { "border-[#D19191]": !!valueError }
                     )}
                     containerClass="flex-1"
@@ -129,7 +129,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                     placeholder="Destination Wallet"
                     inButton={
                       <button
-                        className="text-[#B9B9B9] text-[10px] font-geist-medium bg-[#1D1D1D] p-1 rounded-[3px]"
+                        className="text-[#B9B9B9] text-[0.63rem] font-geist-medium bg-[#1D1D1D] p-1 rounded-[0.19rem]"
                         onClick={handlePaste}
                       >
                         PASTE
@@ -138,7 +138,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                   />
                 </div>
                 <RenderIf condition={!!valueError}>
-                  <div className="flex items-center gap-2 bg-primary-200 my-2 p-2 rounded-[6px]">
+                  <div className="flex items-center gap-2 bg-primary-200 my-2 p-2 rounded-[0.38rem]">
                     <div className="w-5 h-5">
                       <Image src={MainAssets.Danger} alt="danger image" />
                     </div>
@@ -157,7 +157,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                   />
                   <label
                     htmlFor="terms"
-                    className="text-[13px] leading-[15px] font-geist-medium  peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-[0.81rem] leading-[0.94rem] font-geist-medium  peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     This address is correct and not an exchange wallet. Any
                     tokens sent to the wrong address will be impossible to

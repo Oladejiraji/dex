@@ -49,14 +49,14 @@ const PanelComponent = ({
               alt="Chain Icon"
               width={48}
               height={48}
-              className="rounded-[8px]"
+              className="rounded-[0.50rem]"
             />
           </div>
           <div className="">
-            <p className="text-[#F0F0F0] text-[13px] font-geist-semibold">
+            <p className="text-[#F0F0F0] text-[0.81rem] font-geist-semibold">
               {chain.name}
             </p>
-            <p className="text-[#919191] text-[13px] font-geist-medium">
+            <p className="text-[#919191] text-[0.81rem] font-geist-medium">
               {chain.isL1 ? "L1 interaction" : "L2 interaction"}
             </p>
           </div>
@@ -66,8 +66,8 @@ const PanelComponent = ({
       <motion.div
         id={`panel-${index}`}
         className={cx(" overflow-y-hidden panel_con cursor-pointer", {
-          "h-[300px]": !isActive,
-          "h-[585px]": isActive,
+          "h-[18.75rem]": !isActive,
+          "h-[36.56rem]": isActive,
         })}
         // whileHover={{ scale: 1.02 }}
         onHoverStart={() => setActiveScroll(index)}
@@ -95,7 +95,7 @@ const PanelComponent = ({
         {/* Actual panel image */}
         <Image src={MainAssets.StraightPanel} alt="Panel" />
         {/* Chain icon */}
-        <div className="absolute top-[50px] left-[100px] ">
+        <div className="absolute top-[3.13rem] left-[6.25rem] ">
           <div className="flex items-center gap-3">
             <div className="">
               <Image
@@ -103,7 +103,7 @@ const PanelComponent = ({
                 alt="Chain Icon"
                 width={48}
                 height={48}
-                className="rounded-[8px]"
+                className="rounded-[0.50rem]"
               />
             </div>
           </div>
@@ -123,14 +123,14 @@ const PanelComponent = ({
               alt="Chain Icon"
               width={48}
               height={48}
-              className="rounded-[8px]"
+              className="rounded-[0.50rem]"
             />
           </div>
           <div className="">
-            <p className="text-[#F0F0F0] text-[13px] font-geist-semibold">
+            <p className="text-[#F0F0F0] text-[0.81rem] font-geist-semibold">
               {chain.name}
             </p>
-            <p className="text-[#919191] text-[13px] font-geist-medium whitespace-nowrap">
+            <p className="text-[#919191] text-[0.81rem] font-geist-medium whitespace-nowrap">
               {chain.isL1 ? "L1 interaction" : "L2 interaction"}
             </p>
           </div>

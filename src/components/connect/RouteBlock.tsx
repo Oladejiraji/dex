@@ -20,7 +20,7 @@ const RouteBlock = ({ isPending, quoteData }: IProps) => {
   return (
     <>
       <RecipientPopover isPopOpen={isPopOpen} setIsPopOpen={setIsPopOpen} />
-      <div className="mt-4 rounded-[10px] border border-grey-200">
+      <div className="mt-4 rounded-[0.63rem] border border-grey-200">
         {isPending && !quoteData && (
           <div className="flex justify-center py-4 items-center gap-2">
             <p>Finding the best route for you</p>
@@ -37,7 +37,7 @@ const RouteBlock = ({ isPending, quoteData }: IProps) => {
         )}
         {!isPending && quoteData && quoteData?.routes.length > 0 && (
           <>
-            <div className="flex items-center justify-between bg-primary-300 px-4 py-3 rounded-t-[10px]">
+            <div className="flex items-center justify-between bg-primary-300 px-4 py-3 rounded-t-[0.63rem]">
               <h3 className="font-geist-regular text-grey-300 text-sm">
                 Recipient address
               </h3>
@@ -57,7 +57,7 @@ const RouteBlock = ({ isPending, quoteData }: IProps) => {
                     <h3 className="font-geist-medium text-grey-400 text-sm">
                       Add Recipient Address
                     </h3>
-                    <div className="w-[14px] h-[14px]">
+                    <div className="w-[0.88rem] h-[0.88rem]">
                       <Image src={MainAssets.YellowPlus} alt="Plus button" />
                     </div>
                   </>

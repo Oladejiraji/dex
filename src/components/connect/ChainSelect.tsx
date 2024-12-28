@@ -21,7 +21,7 @@ export function ChainSelect(props: IProps) {
         <Button
           variant="outline"
           role="combobox"
-          className="border-none rounded-full bg-primary-400 font-geist-medium text-[15px]  py-0 h-10"
+          className="border-none rounded-full bg-primary-400 font-geist-medium text-[0.94rem]  py-0 h-10"
           onClick={() => setIsPopOpen(true)}
         >
           <div className="flex items-center gap-2">
@@ -33,11 +33,11 @@ export function ChainSelect(props: IProps) {
                 className="rounded-full"
               />
             </div>
-            <p className="text-[15px] font-geist-medium">
+            <p className="text-[0.94rem] font-geist-medium">
               {value.symbol.toUpperCase()}
             </p>
           </div>
-          <ChevronDownIcon className="ml-4 h-[14px] w-[14px] shrink-0 opacity-50" />
+          <ChevronDownIcon className="ml-4 h-[0.88rem] w-[0.88rem] shrink-0 opacity-50" />
         </Button>
       </div>
     )
