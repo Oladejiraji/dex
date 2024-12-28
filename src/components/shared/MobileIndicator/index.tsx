@@ -1,5 +1,4 @@
 "use client";
-import DiagonalLines from "@/components/network/DiagonalLines";
 import MainAssets from "@/lib/assets/main";
 import Image from "next/image";
 import React from "react";
