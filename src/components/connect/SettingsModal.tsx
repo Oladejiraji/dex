@@ -27,7 +27,7 @@ const presetSlippageOptions = [
   { id: 4, value: 3, active: false, editable: true },
 ];
 
-export function SettingsPopover({
+export function SettingsModal({
   isPopOpen,
   setIsPopOpen,
   priority,

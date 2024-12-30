@@ -18,7 +18,7 @@ interface IProps {
   currChain: ChainType;
 }
 
-export function ChainPopover({
+export function ChainModal({
   isPopOpen,
   setIsPopOpen,
   handleChainUpdate,

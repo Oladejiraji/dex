@@ -1,23 +1,19 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import Image from "next/image";
-import MainAssets from "@/lib/assets/main";
-import Input from "../shared/Input";
-import RenderIf from "../shared/RenderIf";
-import { ChainSelect } from "./ChainSelect";
-import { ChainPopover } from "./ChainPopover";
-import { useSocketTokensRead } from "@/services/queries/coins";
-import {
-  ChainType,
-  SocketToken,
-  TokenBalance,
-} from "@/services/queries/coins/types";
-import { formatNumber, removeDecimal, stringToFixed } from "@/utils/helpers";
-import { useExchangeContext } from "@/context/ExchangeContext";
-import NumberFlow from "@number-flow/react";
-import { useAccount } from "wagmi";
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import Image from 'next/image';
+import MainAssets from '@/lib/assets/main';
+import Input from '../shared/Input';
+import RenderIf from '../shared/RenderIf';
+import { ChainSelect } from './ChainSelect';
+import { ChainModal } from './ChainModal';
+import { useSocketTokensRead } from '@/services/queries/coins';
+import { ChainType, SocketToken, TokenBalance } from '@/services/queries/coins/types';
+import { formatNumber, removeDecimal, stringToFixed } from '@/utils/helpers';
+import { useExchangeContext } from '@/context/ExchangeContext';
+import NumberFlow from '@number-flow/react';
+import { useAccount } from 'wagmi';
 
 interface IProps {
-  type: "from" | "to";
+  type: 'from' | 'to';
   value: string;
   calculatedValue: string;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -26,28 +22,19 @@ interface IProps {
   currChain: ChainType;
 }
 
-const TransferBlock = ({
-  type,
-  value,
-  calculatedValue,
-  handleInputChange,
-  blockId,
-  currChain,
-  balance,
-}: IProps) => {
+const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockId, currChain, balance }: IProps) => {
   const account = useAccount();
-  const { updateChain, reverseChain, chainFrom, chainTo } =
-    useExchangeContext();
+  const { updateChain, reverseChain, chainFrom, chainTo } = useExchangeContext();
 
   const [isPopOpen, setIsPopOpen] = useState(false);
   const { data, isSuccess } = useSocketTokensRead(currChain.chainId);
   useEffect(() => {
     if (isSuccess && data) {
-      if (type === "from") {
-        updateChain("from", data[0]);
+      if (type === 'from') {
+        updateChain('from', data[0]);
       }
-      if (type === "to") {
-        updateChain("to", data[1]);
+      if (type === 'to') {
+        updateChain('to', data[1]);
       }
     }
   }, [isSuccess]);
@@ -56,27 +43,23 @@ const TransferBlock = ({
     updateChain(type, chain);
   };
 
-  const activeChain = type === "from" ? chainFrom : chainTo;
+  const activeChain = type === 'from' ? chainFrom : chainTo;
   return (
     <>
-      <ChainPopover
+      <ChainModal
         isPopOpen={isPopOpen}
         setIsPopOpen={setIsPopOpen}
         handleChainUpdate={handleChainUpdate}
         currChain={currChain}
       />
-      <div className="flex flex-col gap-4 bg-primary-300 px-4 py-[1.13rem] rounded-[0.63rem]  relative">
-        <div className="flex items-center justify-between w-full">
-          {type === "from" ? (
+      <div className="relative flex flex-col gap-4 rounded-[0.63rem] bg-primary-300 px-4 py-[1.13rem]">
+        <div className="flex w-full items-center justify-between">
+          {type === 'from' ? (
             <div>
               <Input
-                className="bg-transparent border-none font-geist-medium text-2xl text-grey-300 p-0"
+                className="border-none bg-transparent p-0 font-geist-medium text-2xl text-grey-300"
                 onChange={handleInputChange}
-                value={
-                  type === "from"
-                    ? formatNumber(value)
-                    : formatNumber(calculatedValue)
-                }
+                value={type === 'from' ? formatNumber(value) : formatNumber(calculatedValue)}
                 placeholder="0.00"
                 disabled={!account.address}
               />
@@ -85,15 +68,15 @@ const TransferBlock = ({
             <div>
               <NumberFlow
                 value={parseFloat(calculatedValue)}
-                format={{ notation: "standard", maximumFractionDigits: 10 }} // Intl.NumberFormat options
+                format={{ notation: 'standard', maximumFractionDigits: 10 }} // Intl.NumberFormat options
                 locales="en-US" // Intl.NumberFormat locales
-                className="text-grey-300 font-geist-medium text-2xl"
+                className="font-geist-medium text-2xl text-grey-300"
               />
             </div>
           )}
 
           <div>
-            <ChainSelect value={activeChain} setIsPopOpen={setIsPopOpen} />
+            <ChainSelect value={activeChain} setIsPopOpen={setIsPopOpen} isPopOpen={isPopOpen} />
           </div>
         </div>
         <div className="flex items-center justify-between">
@@ -108,14 +91,11 @@ const TransferBlock = ({
             </div>
           )} */}
           <div />
-          {balance && type === "from" ? (
+          {balance && type === 'from' ? (
             <div className="flex items-center gap-2">
               <p className="font-geist-regular text-xs text-grey-300">Bal:</p>
               <p className="font-geist-regular text-xs text-grey-300">
-                {stringToFixed(
-                  removeDecimal(balance.decimals, balance?.balance)
-                )}{" "}
-                {balance?.symbol}
+                {stringToFixed(removeDecimal(balance.decimals, balance?.balance))} {balance?.symbol}
               </p>
               <p className="font-geist-medium text-[0.63rem] text-white">MAX</p>
             </div>
@@ -123,10 +103,10 @@ const TransferBlock = ({
         </div>
         <RenderIf condition={blockId === 1}>
           <button
-            className="absolute bottom-[-18px] translate-x-[-50%] bg-[#0D0E0F] border-[0.19rem] border-[#060708] flex items-center justify-center rounded-[0.50rem] left-[50%] w-8 h-8 z-[10]"
+            className="absolute bottom-[-18px] left-[50%] z-[10] flex h-8 w-8 translate-x-[-50%] items-center justify-center rounded-[0.50rem] border-[0.19rem] border-[#060708] bg-[#0D0E0F]"
             onClick={reverseChain}
           >
-            <div className="w-[0.63rem] h-[0.63rem]">
+            <div className="h-[0.63rem] w-[0.63rem]">
               <Image src={MainAssets.Up} alt="Up icon" />
             </div>
           </button>

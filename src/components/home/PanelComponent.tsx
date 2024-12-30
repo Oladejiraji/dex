@@ -1,12 +1,12 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import cx from "classnames";
-import { ChainType } from "@/services/queries/coins/types";
-import { useLenis } from "lenis/react";
-import MainAssets from "@/lib/assets/main";
-import { useRouter } from "next/navigation";
-import { AppRoutes } from "@/utils/routes";
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import cx from 'classnames';
+import { ChainType } from '@/services/queries/coins/types';
+import { useLenis } from 'lenis/react';
+import MainAssets from '@/lib/assets/main';
+import { useRouter } from 'next/navigation';
+import { AppRoutes } from '@/utils/routes';
 
 interface IProps {
   index: number;
@@ -44,20 +44,12 @@ const PanelComponent = ({
       <div className="opacity-0">
         <div className="flex items-center gap-3">
           <div className="">
-            <Image
-              src={chain.icon}
-              alt="Chain Icon"
-              width={48}
-              height={48}
-              className="rounded-[0.50rem]"
-            />
+            <Image src={chain.icon} alt="Chain Icon" width={48} height={48} className="rounded-[0.50rem]" />
           </div>
           <div className="">
-            <p className="text-[#F0F0F0] text-[0.81rem] font-geist-semibold">
-              {chain.name}
-            </p>
-            <p className="text-[#919191] text-[0.81rem] font-geist-medium">
-              {chain.isL1 ? "L1 interaction" : "L2 interaction"}
+            <p className="font-geist-semibold text-[0.81rem] text-[#F0F0F0]">{chain.name}</p>
+            <p className="font-geist-medium text-[0.81rem] text-[#919191]">
+              {chain.isL1 ? 'L1 interaction' : 'L2 interaction'}
             </p>
           </div>
         </div>
@@ -65,9 +57,9 @@ const PanelComponent = ({
       {/* Main Panel */}
       <motion.div
         id={`panel-${index}`}
-        className={cx(" overflow-y-hidden panel_con cursor-pointer", {
-          "h-[18.75rem]": !isActive,
-          "h-[36.56rem]": isActive,
+        className={cx('panel_con cursor-pointer overflow-y-hidden', {
+          'h-[18.75rem]': !isActive,
+          'h-[36.56rem]': isActive,
         })}
         // whileHover={{ scale: 1.02 }}
         onHoverStart={() => setActiveScroll(index)}
@@ -76,10 +68,12 @@ const PanelComponent = ({
         onMouseLeave={() => setIsHover(false)}
         onClick={() => {
           if (isActive) {
-            // setActivePanel(0);
-            router.push(AppRoutes.connect.path(chain.chainId));
+            setActivePanel(0);
           } else {
             setActivePanel(index);
+            setTimeout(() => {
+              router.push(AppRoutes.connect.path(chain.chainId));
+            }, 1000);
           }
           setTimeout(() => {
             lenis?.scrollTo(`#panel-${index}`, { offset: -100 });
@@ -87,24 +81,16 @@ const PanelComponent = ({
         }}
         animate={{
           scale: isHover ? 1.02 : 1,
-          rotateX: isActive
-            ? "0deg"
-            : `-${actualRotation[reverseIndex - 1] + 20}deg`,
+          rotateX: isActive ? '0deg' : `-${actualRotation[reverseIndex - 1] + 20}deg`,
         }}
       >
         {/* Actual panel image */}
         <Image src={MainAssets.StraightPanel} alt="Panel" />
         {/* Chain icon */}
-        <div className="absolute top-[3.13rem] left-[6.25rem] ">
+        <div className="absolute left-[6.25rem] top-[3.13rem]">
           <div className="flex items-center gap-3">
             <div className="">
-              <Image
-                src={chain.icon}
-                alt="Chain Icon"
-                width={48}
-                height={48}
-                className="rounded-[0.50rem]"
-              />
+              <Image src={chain.icon} alt="Chain Icon" width={48} height={48} className="rounded-[0.50rem]" />
             </div>
           </div>
         </div>
@@ -117,21 +103,13 @@ const PanelComponent = ({
         }}
       >
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12">
-            <Image
-              src={chain.icon}
-              alt="Chain Icon"
-              width={48}
-              height={48}
-              className="rounded-[0.50rem]"
-            />
+          <div className="h-12 w-12">
+            <Image src={chain.icon} alt="Chain Icon" width={48} height={48} className="rounded-[0.50rem]" />
           </div>
           <div className="">
-            <p className="text-[#F0F0F0] text-[0.81rem] font-geist-semibold">
-              {chain.name}
-            </p>
-            <p className="text-[#919191] text-[0.81rem] font-geist-medium whitespace-nowrap">
-              {chain.isL1 ? "L1 interaction" : "L2 interaction"}
+            <p className="font-geist-semibold text-[0.81rem] text-[#F0F0F0]">{chain.name}</p>
+            <p className="whitespace-nowrap font-geist-medium text-[0.81rem] text-[#919191]">
+              {chain.isL1 ? 'L1 interaction' : 'L2 interaction'}
             </p>
           </div>
         </div>

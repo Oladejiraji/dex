@@ -1,7 +1,7 @@
 "use client";
 import ReviewButton from "@/components/connect/ReviewButton";
 import RouteBlock from "@/components/connect/RouteBlock";
-import { SettingsPopover } from "@/components/connect/SettingsPopover";
+import { SettingsModal } from "@/components/connect/SettingsModal";
 import TransferBlock from "@/components/connect/TransferBlock";
 import Button from "@/components/shared/Button";
 import ConnectFooter from "@/components/shared/Footer/ConnectFooter";
@@ -107,7 +107,7 @@ const ConnectPage = () => {
   return (
     <div className="max-w-[51.69rem] mx-auto px-2 sm:px-8">
       <Header type={2} />
-      <SettingsPopover
+      <SettingsModal
         isPopOpen={isOpen}
         setIsPopOpen={setIsOpen}
         priority={priority}
@@ -115,7 +115,8 @@ const ConnectPage = () => {
         slippage={slippage}
         setSlippage={setSlippage}
       />
-      <main className=" h-[calc(100vh-100px)] mt-[6.25rem] connect_border">
+      <main className="  mt-[6.25rem] connect_border">
+        {/* <main className=" h-[calc(100vh-6.25rem)] mt-[6.25rem] connect_border"> */}
         <div className="text-white max-w-[51.69rem] mx-auto mt-0 sm:mt-14 py-[2.19rem] relative border-none sm:border border-grey-200 rounded-[0.63rem]">
           <div className="w-full h-full max-w-[26.25rem] mx-auto px-0 ">
             <div className="flex items-center justify-between">

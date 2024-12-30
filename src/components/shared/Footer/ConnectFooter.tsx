@@ -1,65 +1,50 @@
-"use client";
-import React from "react";
-import cx from "classnames";
-import ExternalLink from "../ExternalLink";
+'use client';
+import React, { useState } from 'react';
+import cx from 'classnames';
+import ExternalLink from '../ExternalLink';
+import Button from '../Button';
+import Clock from '@/lib/svg/Clock';
+import Up from '@/lib/svg/Up';
+import { TransactionHistoryModal } from '../TransactionHistoryModal';
 
 const ConnectFooter = ({ fixed = true }: { fixed?: boolean }) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <footer
-        className={cx(
-          "font-geist-medium  bottom-0 left-0 w-full pb-14 z-[1000] ",
-          { fixed: !!fixed }
-        )}
-      >
-        <div className="flex items-end justify-between max-w-[75.00rem] mx-auto">
-          <div className="flex flex-1 gap-[0.25rem] items-center">
-            <p className="text-[0.94rem] font-geist-medium text-[#919191]">
-              Powered by
-            </p>
+      <TransactionHistoryModal isPopOpen={isOpen} setIsPopOpen={setIsOpen} />
+      <footer className={cx('bottom-0 left-0 z-[1000] w-full pb-14 font-geist-medium', { fixed: !!fixed })}>
+        <div className="mx-auto flex max-w-[75.00rem] items-end justify-between">
+          <div className="flex flex-1 items-center gap-[0.25rem]">
+            <p className="font-geist-medium text-[0.94rem] text-[#919191]">Powered by</p>
             <ExternalLink href="https://www.socket.tech/">
-              <p className="text-[1.00rem] font-geist-semibold text-[#ffffff]">
-                Socket
-              </p>
+              <p className="font-geist-semibold text-[1.00rem] text-[#ffffff]">Socket</p>
             </ExternalLink>
           </div>
-          {/* <div className="flex justify-center flex-1 ">
-            <motion.div
-              className="relative border border-[#32323240] rounded-[0.38rem]  flex items-end justify-center gap-4 bg-transparent overflow-hidden"
-              animate={{
-                width: isMenuOpen ? "351px" : "140px",
-                height: isMenuOpen ? "329px" : "40px",
-              }}
-            >
-              <div className="flex flex-col gradient_border base_popover_gradient">
-                <BasePopover
-                  isPopOpen={isMenuOpen}
-                />
+          <div className="flex flex-1 justify-center">
+            <div className="relative flex items-end justify-center gap-4 overflow-hidden rounded-[0.38rem] border border-[#32323240] bg-transparent">
+              <div className="gradient_border base_popover_gradient flex flex-col">
                 <Button
                   variant="invincible"
                   onClick={() => {
-                    setIsMenuOpen(!isMenuOpen);
+                    setIsOpen(true);
                   }}
-                  className="z-[1000] group"
+                  className="group z-[1000]"
                 >
                   <div className="flex items-center gap-1">
-                    <div className="h-[0.88rem] w-[0.88rem]  flex items-center justify-center ">
-                      <OnChain className="transition-colors fill-[#919191] group-hover:fill-white " />
+                    <div className="flex h-[0.88rem] w-[0.88rem] items-center justify-center">
+                      <Clock className="fill-[#919191] transition-colors group-hover:fill-white" />
                     </div>
-                    <p className="text-[0.81rem] transition-colors text-[#919191] group-hover:text-white">
-                      Base Onchain
+                    <p className="text-base text-[#919191] transition-colors group-hover:text-white">
+                      Transaction History
                     </p>
-                    <div className="h-[0.88rem] w-[0.88rem] flex items-center justify-center ">
-                      <Image
-                        src={isMenuOpen ? MainAssets.Minus : MainAssets.Plus}
-                        alt="Left icon for the faq button"
-                      />
+                    <div className="flex h-[0.88rem] w-[0.88rem] items-center justify-center">
+                      <Up className="fill-[#919191] transition-colors group-hover:fill-white" />
                     </div>
                   </div>
                 </Button>
               </div>
-            </motion.div>
-          </div> */}
+            </div>
+          </div>
           <div className="flex-1"></div>
         </div>
       </footer>

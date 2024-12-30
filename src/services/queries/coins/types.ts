@@ -203,3 +203,8 @@ export interface ChainType {
   rpcs: Array<string>;
   explorers: Array<string>;
 }
+
+export interface TransactionHistory {
+  route: RouteType;
+  timestamp: Date;
+}
