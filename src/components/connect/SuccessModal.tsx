@@ -18,7 +18,6 @@ interface IProps {
   activeRoute: RouteType;
   hashState: string;
   activeChain?: ChainType;
-  luigi: string;
 }
 
 export function SuccessModal({ isPopOpen, setIsPopOpen, activeRoute, activeChain, hashState }: IProps) {
