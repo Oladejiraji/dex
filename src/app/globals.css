@@ -3,45 +3,45 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "geist-thin";
-  src: url("/fonts/geist/Geist-thin.ttf") format("truetype");
+  font-family: 'geist-thin';
+  src: url('/fonts/geist/Geist-thin.ttf') format('truetype');
   font-weight: 100 900;
-  font-named-instance: "Thin";
+  font-named-instance: 'Thin';
 }
 
 @font-face {
-  font-family: "geist-bold";
-  src: url("/fonts/geist/Geist-Bold.ttf") format("truetype");
+  font-family: 'geist-bold';
+  src: url('/fonts/geist/Geist-Bold.ttf') format('truetype');
   font-weight: 100 900;
-  font-named-instance: "Bold";
+  font-named-instance: 'Bold';
 }
 
 @font-face {
-  font-family: "geist-light";
-  src: url("/fonts/geist/Geist-Light.ttf") format("truetype");
+  font-family: 'geist-light';
+  src: url('/fonts/geist/Geist-Light.ttf') format('truetype');
   font-weight: 100 900;
-  font-named-instance: "Light";
+  font-named-instance: 'Light';
 }
 
 @font-face {
-  font-family: "geist-medium";
-  src: url("/fonts/geist/Geist-Medium.ttf") format("truetype");
+  font-family: 'geist-medium';
+  src: url('/fonts/geist/Geist-Medium.ttf') format('truetype');
   font-weight: 100 900;
-  font-named-instance: "Medium";
+  font-named-instance: 'Medium';
 }
 
 @font-face {
-  font-family: "geist-regular";
-  src: url("/fonts/geist/Geist-Regular.ttf") format("truetype");
+  font-family: 'geist-regular';
+  src: url('/fonts/geist/Geist-Regular.ttf') format('truetype');
   font-weight: 100 900;
-  font-named-instance: "Regular";
+  font-named-instance: 'Regular';
 }
 
 @font-face {
-  font-family: "geist-semibold";
-  src: url("/fonts/geist/Geist-SemiBold.ttf") format("truetype");
+  font-family: 'geist-semibold';
+  src: url('/fonts/geist/Geist-SemiBold.ttf') format('truetype');
   font-weight: 100 900;
-  font-named-instance: "SemiBold";
+  font-named-instance: 'SemiBold';
 }
 
 .radial_border {
@@ -69,7 +69,7 @@
 }
 
 /* Global styles */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -81,11 +81,7 @@ input::-webkit-inner-spin-button {
 }
 
 .select_gradient {
-  background: linear-gradient(
-    180deg,
-    rgba(7, 9, 10, 0.5) 24.41%,
-    #09090a 91.6%
-  );
+  background: linear-gradient(180deg, rgba(7, 9, 10, 0.5) 24.41%, #09090a 91.6%);
   /* border: 1px solid;
 
   border-image-source: linear-gradient(
@@ -102,11 +98,7 @@ input::-webkit-inner-spin-button {
 
 .gradient_bg {
   background: linear-gradient(327.6deg, #08090a 75.73%, #434343 158.51%),
-    linear-gradient(
-      129.43deg,
-      rgba(0, 0, 0, 0) 36.01%,
-      rgba(80, 80, 80, 0.2) 88.25%
-    );
+    linear-gradient(129.43deg, rgba(0, 0, 0, 0) 36.01%, rgba(80, 80, 80, 0.2) 88.25%);
 }
 
 /* HTML: <div class="loader"></div> */
@@ -124,70 +116,22 @@ input::-webkit-inner-spin-button {
     clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
   }
   12.5% {
-    clip-path: polygon(
-      50% 50%,
-      0 0,
-      50% 0%,
-      100% 0%,
-      100% 0%,
-      100% 0%,
-      100% 0%
-    );
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
   }
   25% {
-    clip-path: polygon(
-      50% 50%,
-      0 0,
-      50% 0%,
-      100% 0%,
-      100% 100%,
-      100% 100%,
-      100% 100%
-    );
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 100% 100%, 100% 100%);
   }
   50% {
-    clip-path: polygon(
-      50% 50%,
-      0 0,
-      50% 0%,
-      100% 0%,
-      100% 100%,
-      50% 100%,
-      0% 100%
-    );
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
   }
   62.5% {
-    clip-path: polygon(
-      50% 50%,
-      100% 0,
-      100% 0%,
-      100% 0%,
-      100% 100%,
-      50% 100%,
-      0% 100%
-    );
+    clip-path: polygon(50% 50%, 100% 0, 100% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
   }
   75% {
-    clip-path: polygon(
-      50% 50%,
-      100% 100%,
-      100% 100%,
-      100% 100%,
-      100% 100%,
-      50% 100%,
-      0% 100%
-    );
+    clip-path: polygon(50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 50% 100%, 0% 100%);
   }
   100% {
-    clip-path: polygon(
-      50% 50%,
-      50% 100%,
-      50% 100%,
-      50% 100%,
-      50% 100%,
-      50% 100%,
-      0% 100%
-    );
+    clip-path: polygon(50% 50%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 0% 100%);
   }
 }
 @keyframes l20-2 {
@@ -256,25 +200,17 @@ html.lenis body {
 }
 
 .base_popover_gradient {
-  background: linear-gradient(
-    180deg,
-    rgba(7, 9, 10, 0.9) 37.5%,
-    #09090a 168.06%
-  );
+  background: linear-gradient(180deg, rgba(7, 9, 10, 0.9) 37.5%, #09090a 168.06%);
 }
 
 .gradient_border::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -1px;
   left: -1px;
   right: -1px;
   bottom: -1px;
-  background: linear-gradient(
-      129.43deg,
-      rgba(0, 0, 0, 0) 36.01%,
-      rgba(80, 80, 80, 0.2) 88.25%
-    ),
+  background: linear-gradient(129.43deg, rgba(0, 0, 0, 0) 36.01%, rgba(80, 80, 80, 0.2) 88.25%),
     linear-gradient(327.6deg, #08090a 75.73%, #434343 158.51%);
 
   border-radius: inherit;
@@ -287,11 +223,7 @@ html.lenis body {
 }
 
 .menu_dropdown_bg {
-  background: linear-gradient(
-    180deg,
-    rgba(13, 14, 15, 0.5) 37.5%,
-    #0d0e0f 168.06%
-  );
+  background: linear-gradient(180deg, rgba(13, 14, 15, 0.5) 37.5%, #0d0e0f 168.06%);
   box-shadow: 0px 0px 0px 1px rgba(50, 50, 50, 0.25);
   backdrop-filter: blur(24px);
 }
@@ -303,16 +235,12 @@ html.lenis body {
 .connect_border {
   position: relative;
   background: linear-gradient(327.6deg, #08090a 75.73%, #434343 158.51%),
-    linear-gradient(
-      129.43deg,
-      rgba(0, 0, 0, 0) 36.01%,
-      rgba(80, 80, 80, 0.2) 88.25%
-    );
+    linear-gradient(129.43deg, rgba(0, 0, 0, 0) 36.01%, rgba(80, 80, 80, 0.2) 88.25%);
   border-radius: 16px;
 }
 
 .connect_border::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 1px;
   border-radius: 16px;
@@ -340,9 +268,66 @@ html.lenis body {
 .test-rotate {
   transform-style: preserve-3d;
   transform: rotateX(-40deg);
-  transform-origin: "top";
+  transform-origin: 'top';
 }
 
 .test-con {
   perspective: 1000px;
+}
+
+@property --st {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: -80%;
+}
+.pulsing_radial_gradient_network {
+  --st: -80%;
+  /* background: radial-gradient(
+    circle,
+    transparent 0%,
+    rgba(255, 255, 255, 1) var(--st),
+    rgba(255, 255, 255, 0.1) calc(var(--st) + 50%),
+    transparent calc(var(--st) + 50%)
+  ); */
+  background: radial-gradient(
+    circle,
+    transparent calc(var(--st) - 40%),
+    rgba(255, 255, 255, 1) var(--st),
+    rgba(255, 255, 255, 0.1) calc(var(--st) + 30%),
+    transparent calc(var(--st) + 50%)
+  );
+  transition: --st 2s;
+}
+
+.pulsing_radial_gradient_network:hover {
+  /* --st: 150%; */
+  animation: animateGradient 1.4s ease-in-out infinite;
+}
+
+@property --start {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: -80%;
+}
+.pulsing_radial_gradient {
+  --start: -80%;
+  background: radial-gradient(
+    circle,
+    transparent calc(var(--start) - 40%),
+    rgba(255, 255, 255, 1) var(--start),
+    rgba(255, 255, 255, 0.1) calc(var(--start) + 30%),
+    transparent calc(var(--start) + 50%)
+  );
+  animation: animateGradient 2s ease-in-out infinite;
+}
+
+@keyframes animateGradient {
+  0% {
+    --start: -80%;
+    --st: -80%;
+  }
+  100% {
+    --start: 150%;
+    --st: 150%;
+  }
 }

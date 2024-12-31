@@ -1,10 +1,10 @@
-"use client";
-import React, { ReactNode } from "react";
-import Image from "next/image";
+'use client';
+import React, { ReactNode } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import cx from 'classnames';
 
-import cx from "classnames";
-
-import { Input as ShadInput } from "../../ui/input";
+import { Input as ShadInput } from '../../ui/input';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -21,7 +21,7 @@ const Input = ({
   label,
   containerClass,
   id,
-  type = "text",
+  type = 'text',
   icon,
   className,
   iconBefore,
@@ -31,37 +31,36 @@ const Input = ({
   ...rest
 }: InputProps) => {
   return (
-    <div
-      className={cx(
-        "space-y-0",
-        { "flex flex-col gap-1": !!label },
-        { [`${containerClass}`]: !!containerClass }
-      )}
-    >
+    <div className={cx('space-y-0', { 'flex flex-col gap-1': !!label }, { [`${containerClass}`]: !!containerClass })}>
       <div className="relative">
         {iconBefore && icon && (
           <span
-            className={cx("absolute top-[50%] translate-y-[-50%] left-0", {
+            className={cx('absolute left-0 top-[50%] translate-y-[-50%]', {
               [`${iconBeforeClassNames}`]: !!iconBeforeClassNames,
             })}
           >
             <Image src={icon} alt="icon" width={11} height={11} />
           </span>
         )}
-        {inButton && (
-          <span
-            className={cx("absolute top-[50%] translate-y-[-50%] right-6", {
-              [`${inButtonClassNames}`]: !!inButtonClassNames,
-            })}
-          >
-            {inButton}
-          </span>
-        )}
+        <AnimatePresence>
+          {inButton && (
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className={cx('absolute right-6 top-[50%] translate-y-[-50%]', {
+                [`${inButtonClassNames}`]: !!inButtonClassNames,
+              })}
+            >
+              {inButton}
+            </motion.span>
+          )}
+        </AnimatePresence>
         <ShadInput
           className={cx(
-            " bg-neutral-650 rounded-lg !mt-0 border border-neutral-400 focus:ring-transparent focus-visible:ring-transparent w-full",
+            'bg-neutral-650 !mt-0 w-full rounded-lg border border-neutral-400 focus:ring-transparent focus-visible:ring-transparent',
             {
-              "pl-[0.88rem]": iconBefore,
+              'pl-[0.88rem]': iconBefore,
             },
             { [`${className}`]: !!className }
           )}

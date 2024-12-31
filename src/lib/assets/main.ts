@@ -46,6 +46,7 @@ import Info from '../../../public/svgs/info.svg';
 import Pc from '../../../public/svgs/pc.svg';
 import ComingSoon from '../../../public/svgs/coming_soon.svg';
 import RightShadowIcon from '../../../public/svgs/right_shadow_icon.svg';
+import DiagonalLines from '../../../public/svgs/diagonal_lines.svg';
 import X2 from '../../../public/svgs/x2.svg';
 import HistoryIllustration from '../../../public/assets/history_illustration.png';
 import TokensListOverlay from '../../../public/assets/tokens_list_overlay.png';
@@ -102,6 +103,7 @@ const MainAssets = {
   TokensListOverlay,
   X2,
   RightShadowIcon,
+  DiagonalLines,
 };
 
 export default MainAssets;
