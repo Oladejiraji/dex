@@ -278,48 +278,53 @@ html.lenis body {
 @property --st {
   syntax: '<percentage>';
   inherits: false;
-  initial-value: -80%;
+  initial-value: 10%;
 }
+
 .pulsing_radial_gradient_network {
-  --st: -80%;
+  --st: 10%;
   background: radial-gradient(
     circle,
     transparent calc(var(--st) - 40%),
     rgba(255, 255, 255, 1) var(--st),
-    rgba(255, 255, 255, 0.1) calc(var(--st) + 30%),
-    transparent calc(var(--st) + 50%)
+    rgba(255, 255, 255, 0.1) calc(var(--st) + 10%),
+    transparent calc(var(--st) + 30%)
   );
+  opacity: 0;
 }
 
-.pulsing_radial_gradient_network:hover {
-  animation: animateGradient 2s ease-in-out infinite;
+.pulsing_hover:hover ~ .pulsing_radial_gradient_network {
+  animation: animateGradient 3.5s ease-in-out infinite;
 }
 
 @property --start {
   syntax: '<percentage>';
   inherits: false;
-  initial-value: 40%;
+  initial-value: -80%;
 }
+
 .pulsing_radial_gradient {
-  --start: 40%;
+  --start: -80%;
   background: rgb(63, 94, 251);
   background: radial-gradient(
     circle,
     transparent calc(var(--start) - 40%),
     rgba(255, 255, 255, 1) var(--start),
-    rgba(255, 255, 255, 0.1) calc(var(--start) + 30%),
-    transparent calc(var(--start) + 50%)
+    rgba(255, 255, 255, 0.1) calc(var(--start) + 10%),
+    transparent calc(var(--start) + 30%)
   );
-  animation: animateGradient 2s ease-in-out infinite;
+  animation: animateGradient 5s ease-in-out infinite;
 }
 
 @keyframes animateGradient {
   0% {
     --start: -80%;
-    --st: -80%;
+    --st: 10%;
+    opacity: 1;
   }
   100% {
-    --start: 150%;
-    --st: 150%;
+    --start: 100%;
+    --st: 100%;
+    opacity: 0;
   }
 }

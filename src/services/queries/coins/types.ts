@@ -206,5 +206,7 @@ export interface ChainType {
 
 export interface TransactionHistory {
   route: RouteType;
+  chain: ChainType;
+  hash: string;
   timestamp: Date;
 }

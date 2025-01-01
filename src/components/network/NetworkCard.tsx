@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Button from '../shared/Button';
 import Image from 'next/image';
 import MainAssets from '@/lib/assets/main';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { AppRoutes } from '@/utils/routes';
 
@@ -51,10 +50,16 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
           <Image src={MainAssets.Subtract} alt="Subtract" className="h-[12.50rem] w-[12.50rem]" />
         </div>
 
-        <motion.div
-          className="pulsing_radial_gradient_network absolute right-0 top-0 z-[64] h-full w-full rounded-[0.63rem] mix-blend-overlay"
-          // style={style}
-        />
+        {/* Hover component */}
+        <div className="pulsing_hover absolute inset-0 z-[66] h-full w-full" />
+
+        {new Array(9).fill(0).map((_, index) => (
+          <div
+            key={index}
+            style={{ animationDelay: `${index * 1}s` }}
+            className="pulsing_radial_gradient_network pointer-events-none absolute right-0 top-0 z-[64] h-full w-full touch-none rounded-[0.63rem] mix-blend-overlay"
+          />
+        ))}
         {/* Positioned elements end */}
 
         {/* This div is for layout stability */}

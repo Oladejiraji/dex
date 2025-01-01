@@ -5,9 +5,6 @@ import React from 'react';
 
 const MobileIndicator = () => {
   return (
-    //   <div className="w-[12.38rem] h-[12.38rem]">
-    //   <Image src={MainAssets.ComingSoon} alt="Coming soon svg" />
-    // </div>
     <main className="flex h-screen w-screen flex-col items-center justify-center">
       <div className="flex h-[70%] items-center">
         <div className="group relative flex h-[12.50rem] w-[12.50rem] flex-col justify-between rounded-[0.63rem] bg-[#040506] p-4">
@@ -28,8 +25,13 @@ const MobileIndicator = () => {
               className="rounded-[0.63rem]"
             />
           </div>
-
-          <div className="pulsing_radial_gradient absolute right-0 top-0 z-[64] h-full w-full rounded-[0.63rem] mix-blend-overlay" />
+          {new Array(9).fill(0).map((_, i) => (
+            <div
+              key={i}
+              style={{ animationDelay: `${i * 1}s` }}
+              className="pulsing_radial_gradient absolute right-0 top-0 z-[64] h-full w-full rounded-[0.63rem] mix-blend-overlay"
+            />
+          ))}
           {/* Positioned elements end */}
 
           {/* This div is for layout stability */}
