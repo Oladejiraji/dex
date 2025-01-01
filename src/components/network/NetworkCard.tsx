@@ -53,10 +53,10 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
         {/* Hover component */}
         <div className="pulsing_hover absolute inset-0 z-[66] h-full w-full" />
 
-        {new Array(9).fill(0).map((_, index) => (
+        {new Array(4).fill(0).map((_, index) => (
           <div
             key={index}
-            style={{ animationDelay: `${index * 1}s` }}
+            style={{ animationDelay: `${index * 1.2}s` }}
             className="pulsing_radial_gradient_network pointer-events-none absolute right-0 top-0 z-[64] h-full w-full touch-none rounded-[0.63rem] mix-blend-overlay"
           />
         ))}
