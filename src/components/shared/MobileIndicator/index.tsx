@@ -15,16 +15,21 @@ const MobileIndicator = () => {
           {/* Mask with border shadow and linear gradient */}
           <div className="network_gradient absolute left-0 top-0 z-[10] h-full w-full rounded-[0.63rem]" />
           {/* 100% minus subtracted rectangle */}
-          <div className="absolute left-0 top-0 z-[62] h-full w-full">
+          {/* <div className="absolute left-0 top-0 z-[62] h-full w-full">
             <Image src={MainAssets.Subtract} alt="Subtract" className="h-[12.50rem] w-[12.50rem]" />
+          </div> */}
+
+          <div className="absolute left-0 top-0 z-[11] h-full w-full opacity-50">
+            <Image
+              alt="diagonal lines overlay"
+              src={MainAssets.DiagonalLines}
+              width={200}
+              height={200}
+              className="rounded-[0.63rem]"
+            />
           </div>
 
-          <div
-            className="pulsing_radial_gradient absolute right-0 top-0 z-[64] h-full w-full rounded-[0.63rem] mix-blend-overlay"
-            // style={{
-            //   background: 'radial-gradient(circle, rgba(199,199,199,1) 0%, rgba(255,255,255,1) 100%)',
-            // }}
-          />
+          <div className="pulsing_radial_gradient absolute right-0 top-0 z-[64] h-full w-full rounded-[0.63rem] mix-blend-overlay" />
           {/* Positioned elements end */}
 
           {/* This div is for layout stability */}

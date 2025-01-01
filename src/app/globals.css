@@ -282,13 +282,6 @@ html.lenis body {
 }
 .pulsing_radial_gradient_network {
   --st: -80%;
-  /* background: radial-gradient(
-    circle,
-    transparent 0%,
-    rgba(255, 255, 255, 1) var(--st),
-    rgba(255, 255, 255, 0.1) calc(var(--st) + 50%),
-    transparent calc(var(--st) + 50%)
-  ); */
   background: radial-gradient(
     circle,
     transparent calc(var(--st) - 40%),
@@ -296,21 +289,20 @@ html.lenis body {
     rgba(255, 255, 255, 0.1) calc(var(--st) + 30%),
     transparent calc(var(--st) + 50%)
   );
-  transition: --st 2s;
 }
 
 .pulsing_radial_gradient_network:hover {
-  /* --st: 150%; */
-  animation: animateGradient 1.4s ease-in-out infinite;
+  animation: animateGradient 2s ease-in-out infinite;
 }
 
 @property --start {
   syntax: '<percentage>';
   inherits: false;
-  initial-value: -80%;
+  initial-value: 40%;
 }
 .pulsing_radial_gradient {
-  --start: -80%;
+  --start: 40%;
+  background: rgb(63, 94, 251);
   background: radial-gradient(
     circle,
     transparent calc(var(--start) - 40%),

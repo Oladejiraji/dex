@@ -44,7 +44,6 @@ const NetworkCard = ({ chain }: { chain: ChainType }) => {
         <div className="network_gradient absolute left-0 top-0 z-[10] h-full w-full rounded-[0.63rem]" />
         {/* Mask with multiple diagonal lines */}
         <div className="absolute left-0 top-0 z-[11] h-full w-full">
-          {/* <DiagonalLines isHover={isHover} /> */}
           <Image alt="diagonal lines overlay" src={MainAssets.DiagonalLines} />
         </div>
         {/* 100% minus subtracted rectangle */}
