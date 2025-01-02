@@ -34,6 +34,7 @@ export default function RootLayout({
       <Metatags data={prodMeta} />
       <html lang="en">
         <body className="relative bg-primary-100">
+          <div id="modal-root"></div>
           <NextTopLoader color="#fff" showSpinner={false} />
           <ToastContainer
             position="top-right"

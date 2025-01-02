@@ -13,7 +13,6 @@ const NetworkComponent = ({ result }: { result: ChainType[] }) => {
   const { restartSwap } = useExchangeContext();
   useEffect(() => {
     restartSwap();
-    console.log('restarted');
   }, []);
   const debouncedSearchValue = useDebounce(networkSearchValue, 300);
   const filterNetworks = useMemo(() => {

@@ -56,7 +56,6 @@ const Review = () => {
   } = useSendTransaction({
     mutation: {
       onSuccess: (successData) => {
-        console.log('successData:', successData);
         const transactionStore = {
           route: activeRoute,
           chain: activeChain,
