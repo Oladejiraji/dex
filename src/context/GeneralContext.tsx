@@ -1,21 +1,20 @@
-"use client";
+'use client';
 
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useContext, useMemo, useState } from 'react';
+import { Id } from 'react-toastify';
 
 interface ContextType {
   networkSearchValue: string;
   updateNetworkSearchValue: (value: string) => void;
+  transactionToastId: Id;
+  updateTransactionToastId: (value: Id) => void;
 }
 
 const GeneralContext = createContext<ContextType>({
-  networkSearchValue: "",
+  networkSearchValue: '',
   updateNetworkSearchValue: () => {},
+  transactionToastId: '',
+  updateTransactionToastId: () => {},
 });
 
 export const useGeneralContext = () => {
@@ -23,25 +22,28 @@ export const useGeneralContext = () => {
 };
 
 const GeneralContextProvider = ({ children }: { children: ReactNode }) => {
-  const [networkSearchValue, setNetworkSearchValue] = useState("");
+  const [transactionToastId, setTransactionToastId] = useState<Id>(0);
+  const [networkSearchValue, setNetworkSearchValue] = useState('');
 
   const updateNetworkSearchValue = (value: string) => {
     setNetworkSearchValue(value);
+  };
+
+  const updateTransactionToastId = (id: Id) => {
+    setTransactionToastId(id);
   };
 
   const memoizedValue = useMemo(
     () => ({
       networkSearchValue,
       updateNetworkSearchValue,
+      transactionToastId,
+      updateTransactionToastId,
     }),
-    [networkSearchValue]
+    [networkSearchValue, transactionToastId]
   );
 
-  return (
-    <GeneralContext.Provider value={memoizedValue}>
-      {children}
-    </GeneralContext.Provider>
-  );
+  return <GeneralContext.Provider value={memoizedValue}>{children}</GeneralContext.Provider>;
 };
 
 export default GeneralContextProvider;

@@ -1,13 +1,14 @@
-"use client";
-import React, { useState } from "react";
-import Image from "next/image";
-import MainAssets from "@/lib/assets/main";
-import Header from "@/components/shared/Header";
-import { ReactLenis } from "lenis/react";
-import Footer from "@/components/shared/Footer";
-import PanelComponent from "@/components/home/PanelComponent";
-import { calculatePerceivedRotationX } from "@/services/helper";
-import { ChainType } from "@/services/queries/coins/types";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import MainAssets from '@/lib/assets/main';
+import Header from '@/components/shared/Header';
+import { ReactLenis } from 'lenis/react';
+import Footer from '@/components/shared/Footer';
+import PanelComponent from '@/components/home/PanelComponent';
+import { calculatePerceivedRotationX } from '@/services/helper';
+import { ChainType } from '@/services/queries/coins/types';
+import { useExchangeContext } from '@/context/ExchangeContext';
 
 const HomeComponent = ({ data }: { data: ChainType[] }) => {
   const [activePanel, setActivePanel] = useState(0);
@@ -29,9 +30,9 @@ const HomeComponent = ({ data }: { data: ChainType[] }) => {
   return (
     <>
       <Header type={1} />
-      <main className="w-screen min-h-screen mt-[12.50rem]">
+      <main className="mt-[12.50rem] min-h-screen w-screen">
         <ReactLenis root options={{ infinite: true }}>
-          <div className="max-w-[68.75rem] mx-auto relative panel_wrap">
+          <div className="panel_wrap relative mx-auto max-w-[68.75rem]">
             {data?.map((chain, i, original) => {
               const index = i + 1;
               const reverseIndex = Math.abs(i - original.length);
@@ -54,7 +55,7 @@ const HomeComponent = ({ data }: { data: ChainType[] }) => {
         </ReactLenis>
       </main>
 
-      <div className="fixed bottom-0 left-0 w-full z-[999] pointer-events-none ">
+      <div className="pointer-events-none fixed bottom-0 left-0 z-[999] w-full">
         <Image src={MainAssets.Mask} alt="Mask" />
       </div>
 

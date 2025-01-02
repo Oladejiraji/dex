@@ -1,11 +1,17 @@
+'use client';
+
 import MainAssets from '@/lib/assets/main';
 import { AppRoutes } from '@/utils/routes';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
-import Button from '../Button';
+import Button from '../shared/Button';
 import X from '@/lib/svg/X';
+import useLocalStorage from '@/hooks/useLocalStorage';
+import { transactionHistoryKey } from '@/utils/constants';
+import { TransactionHistory } from '@/services/queries/coins/types';
+import HistoryListItem from './historyListItem';
 
 interface IProps {
   isPopOpen: boolean;
@@ -15,6 +21,9 @@ interface IProps {
 const transactions = [1, 2, 3];
 
 export function TransactionHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
+  const [value] = useLocalStorage(transactionHistoryKey, []);
+  const transactinHistory = value as TransactionHistory[];
+
   return (
     <AnimatePresence>
       {isPopOpen ? (
@@ -45,7 +54,7 @@ export function TransactionHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
                   </div>
                 </button>
               </div>
-              {transactions.length === 0 ? (
+              {transactinHistory.length === 0 ? (
                 <>
                   <div className="flex items-center justify-center">
                     <div className="h-[16.25rem] w-[21.3125rem]">
@@ -66,46 +75,8 @@ export function TransactionHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
                 </>
               ) : (
                 <div className="mx-7 mb-11 flex max-h-[27rem] flex-col gap-[1.625rem] overflow-y-auto rounded-[1.125rem] bg-[rgba(70,70,70,0.25)] p-[1.625rem]">
-                  {new Array(7).fill(0).map((_, index) => {
-                    return (
-                      <div key={index} className="flex items-center justify-center gap-[1.375rem]">
-                        <div className="flex items-center gap-2">
-                          <div className="h-6 w-6">
-                            <Image src={MainAssets.Ox} alt="route icon" className="rounded-[0.3125rem]" />
-                          </div>
-                          <div>
-                            <h1 className="font-geist-medium text-xs leading-3 text-[#7D7D7D]">BRIDGE</h1>
-                            <h3 className="font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">Across</h3>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-2">
-                            <div className="h-[1.625rem] w-[1.625rem]">
-                              <Image src={MainAssets.Eth} alt="Token to be transformed" />
-                            </div>
-                            <div>
-                              <p className="font-geist-regular text-xs leading-3 text-[#7D7D7D]">FROM</p>
-                              <p className="font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">ETH</p>
-                            </div>
-                          </div>
-                          <div className="h-8 w-8">
-                            <Image src={MainAssets.RightShadowIcon} alt="Right Icon" />
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className="h-[1.625rem] w-[1.625rem]">
-                              <Image src={MainAssets.Usdc} alt="Token to be transformed" />
-                            </div>
-                            <div>
-                              <p className="font-geist-regular text-xs leading-3 text-[#7D7D7D]">FROM</p>
-                              <p className="font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">USDC</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <p className="font-geist-medium text-sm text-[#9B9B9B]">5 MIN. AGO</p>
-                        </div>
-                      </div>
-                    );
+                  {transactinHistory.map((transaction, index) => {
+                    return <HistoryListItem key={index} transaction={transaction} />;
                   })}
                 </div>
               )}

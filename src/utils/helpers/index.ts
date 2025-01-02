@@ -1,5 +1,5 @@
-import { appKey } from "../constants";
-import { toast } from "react-toastify";
+import { appKey } from '../constants';
+import { toast, ToastOptions } from 'react-toastify';
 
 export const saveLocalStorage = (key: string, data: any) => {
   try {
@@ -39,14 +39,12 @@ export const clearLocalStorage = (key: string) => {
  * @returns string
  */
 export const formatNumber = (value: string) => {
-  const cleanValue = value.replace(/[^0-9.]/g, "");
+  const cleanValue = value.replace(/[^0-9.]/g, '');
 
-  const [integerPart, decimalPart] = cleanValue.split(".");
+  const [integerPart, decimalPart] = cleanValue.split('.');
 
-  const formattedInteger = integerPart || "";
-  return decimalPart !== undefined
-    ? `${formattedInteger}.${decimalPart}`
-    : formattedInteger;
+  const formattedInteger = integerPart || '';
+  return decimalPart !== undefined ? `${formattedInteger}.${decimalPart}` : formattedInteger;
 };
 
 /**
@@ -55,16 +53,12 @@ export const formatNumber = (value: string) => {
  * @returns string
  */
 export const formatNumberWithComma = (value: string) => {
-  const cleanValue = value.replace(/[^0-9.]/g, "");
+  const cleanValue = value.replace(/[^0-9.]/g, '');
 
-  const [integerPart, decimalPart] = cleanValue.split(".");
+  const [integerPart, decimalPart] = cleanValue.split('.');
 
-  const formattedInteger = integerPart
-    ? parseInt(integerPart, 10).toLocaleString()
-    : "";
-  return decimalPart !== undefined
-    ? `${formattedInteger}.${decimalPart}`
-    : formattedInteger;
+  const formattedInteger = integerPart ? parseInt(integerPart, 10).toLocaleString() : '';
+  return decimalPart !== undefined ? `${formattedInteger}.${decimalPart}` : formattedInteger;
 };
 
 /**
@@ -74,10 +68,7 @@ export const formatNumberWithComma = (value: string) => {
  * @param delay
  * @returns
  */
-export const debounce = <T extends (...args: any[]) => void>(
-  func: T,
-  delay: number
-) => {
+export const debounce = <T extends (...args: any[]) => void>(func: T, delay: number) => {
   let timeoutId: ReturnType<typeof setTimeout>;
   return (...args: Parameters<T>) => {
     if (timeoutId) clearTimeout(timeoutId);
@@ -94,11 +85,11 @@ export const debounce = <T extends (...args: any[]) => void>(
  * @returns
  */
 export const appendDecimal = (amount?: string, decimal?: number): string => {
-  if (!amount) return "0";
+  if (!amount) return '0';
   if (!decimal) return amount;
   const multiplier = Math.pow(10, decimal);
   const fixed = parseFloat(amount) * multiplier;
-  return fixed.toLocaleString("fullwide", { useGrouping: false });
+  return fixed.toLocaleString('fullwide', { useGrouping: false });
 };
 
 /**
@@ -107,15 +98,12 @@ export const appendDecimal = (amount?: string, decimal?: number): string => {
  * @param amount amount to be operated on
  * @returns
  */
-export const removeDecimal = (
-  decimal: number,
-  amount?: string | number
-): string => {
-  if (!amount || amount === "0") return "0.0";
-  if (isNaN(Number(amount))) return "0.0";
+export const removeDecimal = (decimal: number, amount?: string | number): string => {
+  if (!amount || amount === '0') return '0.0';
+  if (isNaN(Number(amount))) return '0.0';
   const strAmount = amount.toString();
   let isNegative = false;
-  if (amount.toString().split("")[0] === "-") {
+  if (amount.toString().split('')[0] === '-') {
     isNegative = true;
   }
 
@@ -124,12 +112,11 @@ export const removeDecimal = (
 
   let retValue;
   if (position <= 0) {
-    retValue = "0." + "0".repeat(Math.abs(position)) + absStrAmount;
+    retValue = '0.' + '0'.repeat(Math.abs(position)) + absStrAmount;
   } else {
-    retValue =
-      absStrAmount.slice(0, position) + "." + absStrAmount.slice(position);
+    retValue = absStrAmount.slice(0, position) + '.' + absStrAmount.slice(position);
   }
-  return isNegative ? "-" + retValue : retValue;
+  return isNegative ? '-' + retValue : retValue;
 };
 
 /**
@@ -138,7 +125,7 @@ export const removeDecimal = (
  * @returns
  */
 export const cleanText = (text: string) => {
-  return text.replace(/\n/g, "").trim();
+  return text.replace(/\n/g, '').trim();
 };
 
 /**
@@ -147,7 +134,7 @@ export const cleanText = (text: string) => {
  * @returns
  */
 export function minimizeAddress(address: string): string {
-  if (!address) return "";
+  if (!address) return '';
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
@@ -159,20 +146,22 @@ export function minimizeAddress(address: string): string {
  * @returns
  */
 export const stringToFixed = (number: string, decimal?: number) => {
-  const retValue = parseFloat(
-    parseFloat(number).toFixed(decimal || 8)
-  ).toString();
-  return isNaN(Number(retValue)) ? "0" : retValue;
+  const retValue = parseFloat(parseFloat(number).toFixed(decimal || 8)).toString();
+  return isNaN(Number(retValue)) ? '0' : retValue;
 };
 
-export const successToast = (message: string) => {
-  toast.success(message || "Successful!");
+export const successToast = (message: string, config: ToastOptions = {}) => {
+  return toast.success(message || 'Successful!', config);
 };
 
-export const errorToast = (message: string) => {
-  toast.error(message || "Something went wrong!");
+export const errorToast = (message: string, config: ToastOptions = {}) => {
+  return toast.error(message || 'Something went wrong!', config);
 };
 
-export const defaultToast = (message: string) => {
-  toast(message || "Successful!");
+export const loadingToast = (message: string, config: ToastOptions = {}) => {
+  return toast.loading(message || 'Loading!', config);
+};
+
+export const defaultToast = (message: string, config: ToastOptions = {}) => {
+  return toast(message || 'Successful!', config);
 };

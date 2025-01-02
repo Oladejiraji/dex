@@ -1,5 +1,5 @@
-import { getLocalStorage, saveLocalStorage } from "@/utils/helpers";
-import { useEffect, useState } from "react";
+import { getLocalStorage, saveLocalStorage } from '@/utils/helpers';
+import { useEffect, useState } from 'react';
 
 const useLocalStorage = <T>(key: string, initialValue: T) => {
   const [value, setValue] = useState<T>(initialValue);
@@ -12,7 +12,7 @@ const useLocalStorage = <T>(key: string, initialValue: T) => {
     } else {
       setValue(initialValue);
     }
-  }, [key, initialValue]);
+  }, [key]);
 
   const updateLocalStorage = (newValue: T) => {
     saveLocalStorage(key, newValue);

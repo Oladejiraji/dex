@@ -1,16 +1,17 @@
-import MainAssets from "@/lib/assets/main";
-import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import cx from "classnames";
-import Input from "../shared/Input";
-import { ethers } from "ethers";
-import RenderIf from "../shared/RenderIf";
-import { useExchangeContext } from "@/context/ExchangeContext";
-import { Checkbox } from "../ui/checkbox";
-import { useAccount } from "wagmi";
-import { cleanText } from "@/utils/helpers";
-import Button from "../shared/Button";
+import MainAssets from '@/lib/assets/main';
+import Image from 'next/image';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import cx from 'classnames';
+import Input from '../shared/Input';
+import { ethers } from 'ethers';
+import RenderIf from '../shared/RenderIf';
+import { useExchangeContext } from '@/context/ExchangeContext';
+import { Checkbox } from '../ui/checkbox';
+import { useAccount } from 'wagmi';
+import { cleanText } from '@/utils/helpers';
+import Button from '../shared/Button';
+import { MODAL_ANIMATION_VARIANTS } from '@/animation/variants';
 
 interface IProps {
   isPopOpen: boolean;
@@ -18,8 +19,8 @@ interface IProps {
 }
 
 export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
-  const [value, setValue] = useState("");
-  const [valueError, setValueError] = useState("");
+  const [value, setValue] = useState('');
+  const [valueError, setValueError] = useState('');
   const { address } = useAccount();
   const [termsValue, setTermsValue] = useState(false);
   const { updateRecipientAddress, recipientAddress } = useExchangeContext();
@@ -29,54 +30,50 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
       const text = await navigator.clipboard.readText();
       setValue(cleanText(text));
     } catch (err) {
-      console.error("Failed to read clipboard contents: ", err);
+      console.error('Failed to read clipboard contents: ', err);
     }
   };
 
   useEffect(() => {
-    if (value === "") {
-      setValueError("");
+    if (value === '') {
+      setValueError('');
     } else if (address === value) {
-      setValueError(
-        "Please enter an address different than the connected wallet address"
-      );
+      setValueError('Please enter an address different than the connected wallet address');
     } else if (!ethers.isAddress(value)) {
-      setValueError("Invalid Address");
-    } else setValueError("");
+      setValueError('Invalid Address');
+    } else setValueError('');
   }, [value]);
 
   return (
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="absolute left-0 bottom-0 z-[50] backdrop-blur-[0.25rem] bg-transparent w-full h-full pt-[4.13rem] pb-[2.69rem] flex items-end"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 100 }}
-          transition={{ duration: 0.5 }}
+          className="absolute bottom-0 left-0 z-[50] flex h-full w-full items-end bg-transparent pb-[2.69rem] pt-[4.13rem] backdrop-blur-[0.25rem]"
+          variants={MODAL_ANIMATION_VARIANTS}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
         >
-          <div className="max-w-[29.38rem] mx-auto w-full relative p-[0.06rem] h-fit ">
-            <div className="gradient_bg absolute inset-0 w-full h-full rounded-[0.38rem]" />
+          <div className="relative mx-auto h-fit w-full max-w-[29.38rem] p-[0.06rem]">
+            <div className="gradient_bg absolute inset-0 h-full w-full rounded-[0.38rem]" />
             {recipientAddress ? (
-              <div className="relative select_gradient py-6 rounded-[0.38rem] flex-1 flex flex-col px-6">
+              <div className="select_gradient relative flex flex-1 flex-col rounded-[0.38rem] px-6 py-6">
                 <div className="mb-4 flex items-center justify-between">
-                  <h1 className="text-base font-geist-medium">
-                    Edit Recipient Address
-                  </h1>
+                  <h1 className="font-geist-medium text-base">Edit Recipient Address</h1>
                   <button
-                    className="w-10 h-10 rounded-full flex items-center justify-center border border-[#83838340]"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#83838340]"
                     onClick={() => setIsPopOpen(false)}
                   >
-                    <div className="w-[0.69rem] h-[0.69rem]">
+                    <div className="h-[0.69rem] w-[0.69rem]">
                       <Image src={MainAssets.X} alt="X icon" />
                     </div>
                   </button>
                 </div>
-                <div className="flex items-center gap-2 ">
+                <div className="flex items-center gap-2">
                   <Input
                     className={cx(
-                      "bg-transparent border border-[#32323240] font-geist-medium text-[0.75rem] text-[#919191] p-3 h-12  rounded-[0.38rem]",
-                      { "border-[#D19191]": !!valueError }
+                      'h-12 rounded-[0.38rem] border border-[#32323240] bg-transparent p-3 font-geist-medium text-[0.75rem] text-[#919191]',
+                      { 'border-[#D19191]': !!valueError }
                     )}
                     containerClass="flex-1"
                     onChange={(e) => setValue(e.target.value)}
@@ -88,40 +85,36 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
 
                 <div className="mt-4">
                   <Button
-                    className="w-full h-14 bg-[#1E1E1E]"
+                    className="h-14 w-full bg-[#1E1E1E]"
                     disabled={!termsValue || !!valueError}
                     onClick={() => {
-                      updateRecipientAddress("");
-                      setValue("");
+                      updateRecipientAddress('');
+                      setValue('');
                       setTermsValue(false);
                     }}
                   >
-                    <p className="text-grey-400 font-geist-medium">
-                      Remove Address
-                    </p>
+                    <p className="font-geist-medium text-grey-400">Remove Address</p>
                   </Button>
                 </div>
               </div>
             ) : (
-              <div className="relative select_gradient py-6 rounded-[0.38rem] flex-1 flex flex-col px-6">
+              <div className="select_gradient relative flex flex-1 flex-col rounded-[0.38rem] px-6 py-6">
                 <div className="mb-4 flex items-center justify-between">
-                  <h1 className="text-base font-geist-medium">
-                    Enter Recipient Address
-                  </h1>
+                  <h1 className="font-geist-medium text-base">Enter Recipient Address</h1>
                   <button
-                    className="w-8 h-8 rounded-full flex items-center justify-center border border-[#83838340]"
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-[#83838340]"
                     onClick={() => setIsPopOpen(false)}
                   >
-                    <div className="w-[0.56rem] h-[0.56rem]">
+                    <div className="h-[0.56rem] w-[0.56rem]">
                       <Image src={MainAssets.X} alt="X icon" />
                     </div>
                   </button>
                 </div>
-                <div className="flex items-center gap-2 ">
+                <div className="flex items-center gap-2">
                   <Input
                     className={cx(
-                      "bg-transparent border border-[#32323240] font-geist-medium text-[0.75rem] text-[#919191] p-3 h-12  rounded-[0.38rem]",
-                      { "border-[#D19191]": !!valueError }
+                      'h-12 rounded-[0.38rem] border border-[#32323240] bg-transparent p-3 font-geist-medium text-[0.75rem] text-[#919191]',
+                      { 'border-[#D19191]': !!valueError }
                     )}
                     containerClass="flex-1"
                     onChange={(e) => setValue(e.target.value)}
@@ -129,7 +122,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                     placeholder="Destination Wallet"
                     inButton={
                       <button
-                        className="text-[#B9B9B9] text-[0.63rem] font-geist-medium bg-[#1D1D1D] p-1 rounded-[0.19rem]"
+                        className="rounded-[0.19rem] bg-[#1D1D1D] p-1 font-geist-medium text-[0.63rem] text-[#B9B9B9]"
                         onClick={handlePaste}
                       >
                         PASTE
@@ -138,16 +131,14 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                   />
                 </div>
                 <RenderIf condition={!!valueError}>
-                  <div className="flex items-center gap-2 bg-primary-200 my-2 p-2 rounded-[0.38rem]">
-                    <div className="w-5 h-5">
+                  <div className="my-2 flex items-center gap-2 rounded-[0.38rem] bg-primary-200 p-2">
+                    <div className="h-5 w-5">
                       <Image src={MainAssets.Danger} alt="danger image" />
                     </div>
-                    <p className="font-geist-medium text-xs text-[#D19191]">
-                      {valueError}
-                    </p>
+                    <p className="font-geist-medium text-xs text-[#D19191]">{valueError}</p>
                   </div>
                 </RenderIf>
-                <div className="flex items-center space-x-2 mt-3">
+                <div className="mt-3 flex items-center space-x-2">
                   <Checkbox
                     id="terms"
                     checked={termsValue}
@@ -157,26 +148,23 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                   />
                   <label
                     htmlFor="terms"
-                    className="text-[0.81rem] leading-[0.94rem] font-geist-medium  peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="font-geist-medium text-[0.81rem] leading-[0.94rem] peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    This address is correct and not an exchange wallet. Any
-                    tokens sent to the wrong address will be impossible to
-                    retrieve.
+                    This address is correct and not an exchange wallet. Any tokens sent to the wrong address will be
+                    impossible to retrieve.
                   </label>
                 </div>
                 <div className="mt-4">
                   <Button
                     variant="invincible"
-                    className="w-full h-14 bg-[#1E1E1E]"
+                    className="h-14 w-full bg-[#1E1E1E]"
                     disabled={!termsValue || !!valueError}
                     onClick={() => {
                       updateRecipientAddress(value);
                       setIsPopOpen(false);
                     }}
                   >
-                    <p className="text-grey-400 font-geist-medium">
-                      Save Wallet Address
-                    </p>
+                    <p className="font-geist-medium text-grey-400">Save Wallet Address</p>
                   </Button>
                 </div>
               </div>

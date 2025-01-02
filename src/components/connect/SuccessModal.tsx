@@ -11,6 +11,7 @@ import Button from '../shared/Button';
 import { useRouter } from 'next/navigation';
 import { AppRoutes } from '@/utils/routes';
 import Link from 'next/link';
+import { MODAL_ANIMATION_VARIANTS } from '@/animation/variants';
 
 interface IProps {
   isPopOpen: boolean;
@@ -24,17 +25,16 @@ export function SuccessModal({ isPopOpen, setIsPopOpen, activeRoute, activeChain
   const { userTxs, fromAmount, toAmount } = activeRoute;
   const { fromAsset, toAsset } = userTxs[0];
   const router = useRouter();
-  const { restartSwap } = useExchangeContext();
 
   return (
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
           className="absolute left-0 top-0 z-[50] h-full w-full bg-transparent pb-[2.69rem] pt-[4.13rem] backdrop-blur-[0.25rem]"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 100 }}
-          transition={{ duration: 0.5 }}
+          variants={MODAL_ANIMATION_VARIANTS}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
         >
           <div className="relative mx-auto h-full w-[36.69rem] p-[0.06rem]">
             <div className="gradient_bg absolute inset-0 h-full w-full rounded-[1.25rem]" />
@@ -44,14 +44,14 @@ export function SuccessModal({ isPopOpen, setIsPopOpen, activeRoute, activeChain
                   <h3 className="pb-2 font-geist-semibold text-sm text-[#7D7D7D]">Activity</h3>
                   <h4 className="font-geist-semibold text-base text-[#F9F9F9]">Transaction Details</h4>
                 </div>
-                <button
+                {/* <button
                   className="flex h-8 w-8 items-center justify-center rounded-full border border-[#32323240]"
                   onClick={() => setIsPopOpen(false)}
                 >
                   <div className="h-[0.50rem] w-[0.50rem]">
                     <Image src={MainAssets.X} alt="X icon" />
                   </div>
-                </button>
+                </button> */}
               </div>
               <div className="flex h-full flex-col items-center justify-center gap-12">
                 <div className="h-[5.00rem] w-[5.00rem]">
@@ -60,7 +60,7 @@ export function SuccessModal({ isPopOpen, setIsPopOpen, activeRoute, activeChain
                 <div className="flex flex-col items-center justify-center">
                   <h3 className="font-geist-medium text-[1.50rem] text-[#F9F9F9]">Success</h3>
                   <p className="font-geist-semibold text-[0.94rem] text-[#7D7D7D]">
-                    Transaction successful view at{' '}
+                    View Transaction at{' '}
                     <Link target="_blank" className="underline" href={`${activeChain?.explorers[0]}/tx/${hashState}`}>
                       <span className="text-[#f9f9f9]">{activeChain?.name}</span>
                     </Link>
@@ -128,10 +128,9 @@ export function SuccessModal({ isPopOpen, setIsPopOpen, activeRoute, activeChain
                     className="h-14 w-[15.00rem] rounded-[0.63rem] bg-[#575EFF] text-[0.94rem] font-semibold"
                     onClick={() => {
                       setIsPopOpen(false);
-                      restartSwap();
                       setTimeout(() => {
                         router.push(AppRoutes.networks.path);
-                      }, 500);
+                      }, 200);
                     }}
                   >
                     Continue

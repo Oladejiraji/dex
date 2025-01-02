@@ -1,17 +1,18 @@
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 
 interface IProps {
   src: string;
   width: number;
   height: number;
   className?: string;
+  alt?: string;
 }
 
 const RemoteImage = (props: IProps) => {
-  const { src, width, height, className = "" } = props;
+  const { src, alt, width, height, className = '' } = props;
   const [imageError, setImageError] = useState(false);
-  const fallbackUrl = "/svgs/coin.svg";
+  const fallbackUrl = '/svgs/coin.svg';
   useEffect(() => {
     if (!src) return;
     setImageError(false);
@@ -19,7 +20,7 @@ const RemoteImage = (props: IProps) => {
   return (
     <Image
       src={imageError ? fallbackUrl : src}
-      alt="Chain Image"
+      alt={alt || 'Chain Image'}
       width={width}
       height={height}
       className={className}
