@@ -328,3 +328,8 @@ html.lenis body {
     opacity: 0;
   }
 }
+
+.toast-rotate-transition {
+  transform: rotateY(360deg);
+  transition: all ease 0.5s;
+}

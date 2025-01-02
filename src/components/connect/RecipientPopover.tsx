@@ -141,6 +141,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                 <div className="mt-3 flex items-center space-x-2">
                   <Checkbox
                     id="terms"
+                    className="border-[gray]"
                     checked={termsValue}
                     onCheckedChange={(val: boolean) => {
                       setTermsValue(val);

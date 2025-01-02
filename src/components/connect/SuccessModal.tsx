@@ -16,7 +16,7 @@ interface IProps {
   isPopOpen: boolean;
   setIsPopOpen: Dispatch<SetStateAction<boolean>>;
   activeRoute: RouteType;
-  hashState: string;
+  hashState: `0x${string}` | undefined;
   activeChain?: ChainType;
 }
 

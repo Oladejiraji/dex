@@ -18,11 +18,8 @@ import {
   stringToFixed,
 } from '@/utils/helpers';
 import { useBuildPost, useSocketChainRead } from '@/services/queries/coins';
-import { useChainId, useSwitchChain } from 'wagmi';
-import { ethers } from 'ethers';
-import { chainBaseData } from '@/utils/static';
+import { useChainId, useSendTransaction, useSwitchChain, useWaitForTransactionReceipt } from 'wagmi';
 import { SuccessModal } from '@/components/connect/SuccessModal';
-import { getBridgeStatus } from '@/services/queries/coins/alternate';
 import RemoteImage from '@/components/shared/RemoteImage';
 import SuperbaseFeesTooltip from '@/components/review/SuperbaseFeesTooltip';
 import { useGeneralContext } from '@/context/GeneralContext';
@@ -51,55 +48,19 @@ const Review = () => {
   const activeChain = chainsData?.filter((chain) => chain.chainId === activeTransaction?.chainId)[0];
   const { switchChain } = useSwitchChain();
   const [isPopOpen, setIsPopOpen] = useState(false);
-  const [hashState, setHashTaste] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
-  const swapFn = async () => {
-    try {
-      const anyWindow = window as any;
-      if (!activeTransaction) return;
-      if (isRightChain) {
-        const provider = new ethers.BrowserProvider(anyWindow.ethereum, 'any');
-
-        // Prompt user for account connections
-        await provider.send('eth_requestAccounts', []);
-
-        // Stores signer
-        setIsLoading(true);
-        const signer = await provider.getSigner();
-
-        const gasPrice = (await provider.getFeeData()).gasPrice;
-
-        const gasEstimate = await provider.estimateGas({
-          from: signer.address,
-          to: activeTransaction.txTarget,
-          value: activeTransaction.value,
-          data: activeTransaction.txData,
-          gasPrice: gasPrice,
-        });
-
-        const tx = await signer.sendTransaction({
-          from: signer.address,
-          to: activeTransaction.txTarget,
-          data: activeTransaction.txData,
-          value: activeTransaction.value,
-          gasPrice: gasPrice,
-          gasLimit: gasEstimate,
-        });
-
-        // Initiates swap/bridge transaction on user's frontend which user has to sign
-        const receipt = await tx.wait();
-
-        if (!receipt) return;
-        console.log('receipt:', receipt);
-
-        const txHash = receipt.hash;
-        setHashTaste(txHash);
-        updateTransactionToastId(loadingToast('Your transaction is being processed onchain!'));
+  const {
+    data: hash,
+    sendTransaction,
+    isPending: isPendingTransaction,
+  } = useSendTransaction({
+    mutation: {
+      onSuccess: (successData) => {
+        console.log('successData:', successData);
         const transactionStore = {
           route: activeRoute,
           chain: activeChain,
-          hash: txHash,
+          hash: successData,
           timestamp: new Date(),
         } as TransactionHistory;
         const prevTransactionHistory = getLocalStorage(transactionHistoryKey);
@@ -108,38 +69,77 @@ const Review = () => {
         } else {
           saveLocalStorage(transactionHistoryKey, [transactionStore]);
         }
-        setIsLoading(false);
         setIsPopOpen(true);
+      },
+      onError: (err) => {
+        console.log(err.message);
+        console.log(err.cause);
+        if (err?.message?.includes('User rejected the request')) {
+          console.log('User rejected transaction');
+          errorToast('You rejected the transaction!');
+        } else {
+          errorToast(
+            err?.message || 'Something went wrong, please refresh and try again. Sorry for the incoveniences!'
+          );
+        }
+      },
+    },
+  });
 
-        console.log('Bridging Transaction : ', receipt.hash);
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    isError: isConfirmedError,
+  } = useWaitForTransactionReceipt({
+    hash,
+    chainId: activeTransaction?.chainId,
+  });
 
-        // Checks status of transaction every 20 secs
-        const txStatus = setInterval(async () => {
-          const status = await getBridgeStatus(txHash, chainBaseData.chainId, chainBaseData.chainId);
+  useEffect(() => {
+    if (isConfirming) {
+      updateTransactionToastId(loadingToast('Your transaction is being broadcasted onchain!'));
+    } else if (isConfirmed) {
+      toast.update(transactionToastId, {
+        type: 'success',
+        render: 'Transaction completed!',
+        autoClose: 5000,
+        className: 'toast-rotate-transition',
+        closeButton: true,
+        isLoading: false,
+      });
+      setTimeout(() => {
+        toast.dismiss();
+      }, 1000);
+      updateTransactionToastId(0);
+    } else if (isConfirmedError) {
+      toast.update(transactionToastId, {
+        type: 'error',
+        render: 'Transaction failed, please try again!',
+        autoClose: 5000,
+        className: 'toast-rotate-transition',
+        closeButton: true,
+        isLoading: false,
+      });
+      setTimeout(() => {
+        toast.dismiss();
+      }, 1000);
+      updateTransactionToastId(0);
+    }
 
-          console.log(`SOURCE TX : ${status.result.sourceTxStatus}\nDEST TX : ${status.result.destinationTxStatus}`);
+    return () => {
+      toast.dismiss();
+    };
+  }, [isConfirming, isConfirmed, isConfirmedError]);
 
-          if (status.result.destinationTxStatus == 'COMPLETED') {
-            console.log('DEST TX HASH :', status.result.destinationTransactionHash);
-            toast.update(transactionToastId, {
-              type: 'success',
-              render: 'Transaction completed!',
-              autoClose: 5000,
-              className: 'rotateY animated',
-            });
-            updateTransactionToastId(0);
-            clearInterval(txStatus);
-          }
-        }, 20000);
-      } else {
-        switchChain({ chainId: activeTransaction.chainId });
-      }
-    } catch (error: any) {
-      setIsLoading(false);
-      if (error?.message?.includes('user rejected action')) {
-        console.log('User rejected transaction');
-        errorToast('User rejected the transaction!');
-      }
+  const swapFn = () => {
+    if (!activeTransaction) return;
+    if (isRightChain) {
+      sendTransaction({
+        to: activeTransaction.txTarget as `0x${string}`,
+        value: activeTransaction.value as unknown as bigint,
+      });
+    } else {
+      switchChain({ chainId: activeTransaction.chainId });
     }
   };
   return (
@@ -148,7 +148,7 @@ const Review = () => {
         isPopOpen={isPopOpen}
         setIsPopOpen={setIsPopOpen}
         activeRoute={activeRoute}
-        hashState={hashState}
+        hashState={hash}
         activeChain={activeChain}
       />
       <div className="mx-auto max-w-[51.69rem] px-2 sm:px-8">
@@ -220,7 +220,7 @@ const Review = () => {
               <div className="mt-16">
                 <Button
                   className="h-14 w-full rounded-[0.63rem] bg-primary-800 hover:bg-primary-800"
-                  loading={isPending || isLoading}
+                  loading={isPending || isPendingTransaction}
                   onClick={swapFn}
                 >
                   <p className="font-geist-medium text-[0.94rem] text-[#080808]">
