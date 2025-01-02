@@ -1,5 +1,5 @@
 import MainAssets from '@/lib/assets/main';
-import { TransactionHistory, TransactionType } from '@/services/queries/coins/types';
+import { TransactionHistory } from '@/services/queries/coins/types';
 import Image from 'next/image';
 import React from 'react';
 import RemoteImage from '../shared/RemoteImage';

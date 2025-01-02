@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Dispatch, SetStateAction } from 'react';
 
 import { ChainType, RouteType } from '@/services/queries/coins/types';
-import { useExchangeContext } from '@/context/ExchangeContext';
 import RemoteImage from '../shared/RemoteImage';
 import { removeDecimal, stringToFixed } from '@/utils/helpers';
 import Button from '../shared/Button';

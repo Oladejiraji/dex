@@ -10,13 +10,12 @@ import RenderIf from '@/components/shared/RenderIf';
 import { useExchangeContext } from '@/context/ExchangeContext';
 import MainAssets from '@/lib/assets/main';
 import { useSocketChainRead, useSocketQuoteRead, useTokenBalanceRead } from '@/services/queries/coins';
-import { debounce, loadingToast, removeDecimal, successToast } from '@/utils/helpers';
+import { debounce, loadingToast, removeDecimal } from '@/utils/helpers';
 import { priorityOptions } from '@/utils/static';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { ChangeEvent, useCallback, useState } from 'react';
-import { toast } from 'react-toastify';
 import { useAccount } from 'wagmi';
 
 const ConnectPage = () => {

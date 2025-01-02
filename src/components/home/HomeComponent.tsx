@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import MainAssets from '@/lib/assets/main';
 import Header from '@/components/shared/Header';
@@ -8,7 +8,6 @@ import Footer from '@/components/shared/Footer';
 import PanelComponent from '@/components/home/PanelComponent';
 import { calculatePerceivedRotationX } from '@/services/helper';
 import { ChainType } from '@/services/queries/coins/types';
-import { useExchangeContext } from '@/context/ExchangeContext';
 
 const HomeComponent = ({ data }: { data: ChainType[] }) => {
   const [activePanel, setActivePanel] = useState(0);
