@@ -5,7 +5,7 @@ import ExternalLink from '../ExternalLink';
 import Button from '../Button';
 import Clock from '@/lib/svg/Clock';
 import Up from '@/lib/svg/Up';
-import { TransactionHistoryModal } from '@/components/transactionHistory/transactionHistoryModal';
+import { TransactionHistoryModal } from '@/components/TransactionHistory/TransactionHistoryModal';
 
 const ConnectFooter = ({ fixed = true }: { fixed?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);

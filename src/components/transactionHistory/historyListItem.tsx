@@ -1,13 +1,23 @@
 import MainAssets from '@/lib/assets/main';
 import { TransactionHistory } from '@/services/queries/coins/types';
 import Image from 'next/image';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import RemoteImage from '../shared/RemoteImage';
+import { concatenateString } from '@/services/helper';
+import { formatDistanceToNow } from 'date-fns';
 
-const HistoryListItem = ({ transaction }: { transaction: TransactionHistory }) => {
+interface IProps {
+  transaction: TransactionHistory;
+  setActiveHistory: Dispatch<SetStateAction<`0x${string}` | null>>;
+}
+
+const HistoryListItem = ({ transaction, setActiveHistory }: IProps) => {
   return (
-    <div className="flex items-center justify-center gap-[1.375rem]">
-      <div className="flex items-center gap-2">
+    <button
+      className="flex items-center justify-center gap-[1.375rem]"
+      onClick={() => setActiveHistory(transaction.hash)}
+    >
+      <div className="flex w-[6.25rem] items-center gap-2">
         <div className="h-6 w-6">
           <RemoteImage
             width={24}
@@ -19,12 +29,12 @@ const HistoryListItem = ({ transaction }: { transaction: TransactionHistory }) =
         </div>
         <div>
           <h1 className="font-geist-medium text-xs leading-3 text-[#7D7D7D]">BRIDGE</h1>
-          <h3 className="font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">
-            {transaction.route.userTxs[0].protocol.displayName}
+          <h3 className="text-left font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">
+            {concatenateString(transaction.route.userTxs[0].protocol.displayName, 4)}
           </h3>
         </div>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex w-[12.5rem] items-center gap-3">
         <div className="flex items-center gap-2">
           <div className="h-[1.625rem] w-[1.625rem]">
             <Image src={MainAssets.Eth} alt="Token to be transformed" />
@@ -32,7 +42,7 @@ const HistoryListItem = ({ transaction }: { transaction: TransactionHistory }) =
           <div>
             <p className="font-geist-regular text-xs leading-3 text-[#7D7D7D]">FROM</p>
             <p className="font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">
-              {transaction.route.userTxs[0].fromAsset.symbol}
+              {concatenateString(transaction.route.userTxs[0].fromAsset.symbol, 4)}
             </p>
           </div>
         </div>
@@ -46,15 +56,17 @@ const HistoryListItem = ({ transaction }: { transaction: TransactionHistory }) =
           <div>
             <p className="font-geist-regular text-xs leading-3 text-[#7D7D7D]">FROM</p>
             <p className="font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">
-              {transaction.route.userTxs[0].fromAsset.symbol}
+              {concatenateString(transaction.route.userTxs[0].fromAsset.symbol, 4)}
             </p>
           </div>
         </div>
       </div>
-      <div>
-        <p className="font-geist-medium text-sm text-[#9B9B9B]">5 MIN. AGO</p>
+      <div className="w-[6.25rem]">
+        <p className="text-left font-geist-medium text-sm text-[#9B9B9B]">
+          {concatenateString(formatDistanceToNow(transaction.timestamp, { addSuffix: true }), 18)}
+        </p>
       </div>
-    </div>
+    </button>
   );
 };
 

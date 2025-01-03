@@ -19,10 +19,7 @@ export const getQueryKeys = (namespace: string) => ({
  * @param base   url string
  * @param queries   an array of objects of queries
  */
-export const buildUrl = (
-  base: string,
-  queries: Array<{ key: string; value: string | number | undefined }>
-) => {
+export const buildUrl = (base: string, queries: Array<{ key: string; value: string | number | undefined }>) => {
   let init = base;
   let setup = false;
   queries.forEach((query) => {
@@ -44,11 +41,11 @@ export const buildUrl = (
  */
 export function convertAddressToColor(walletAddress: string) {
   // Remove the '0x' prefix if present
-  walletAddress = walletAddress.replace(/^0x/, "");
+  walletAddress = walletAddress.replace(/^0x/, '');
 
   // Ensure the address is long enough
   if (walletAddress.length < 6) {
-    return "rgb(0, 0, 0)"; // default to black if too short
+    return 'rgb(0, 0, 0)'; // default to black if too short
   }
 
   // Take the first 6 characters
@@ -65,10 +62,7 @@ export function convertAddressToColor(walletAddress: string) {
  * @param d
  * @returns
  */
-export const calculatePerceivedRotationX = (
-  squares: Array<number>,
-  d: number
-) => {
+export const calculatePerceivedRotationX = (squares: Array<number>, d: number) => {
   const angles = squares.map((square) => {
     const x = square; // Position along the X-axis
     return Math.atan(x / d) * (180 / Math.PI); // Convert radians to degrees
@@ -77,9 +71,14 @@ export const calculatePerceivedRotationX = (
   return angles;
 };
 
-export const delay = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const delayFunction = (dependent: number, level: number) => {
   return Math.sqrt(dependent) * level + level * dependent + level;
+};
+
+export const concatenateString = (char: string, length: number) => {
+  if (!char) return '';
+  if (!length) return char;
+  return char.length > length ? `${char.slice(0, length - 1)}...` : char;
 };

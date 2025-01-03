@@ -25,6 +25,7 @@ const NetworkComponent = ({ result }: { result: ChainType[] }) => {
       return item.name.trim().toLowerCase().includes(trimSearch);
     });
   }, [debouncedSearchValue]);
+
   return (
     <>
       <Header type={3} />

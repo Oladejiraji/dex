@@ -51,6 +51,7 @@ import Down from '../../../public/svgs/down.svg';
 import X2 from '../../../public/svgs/x2.svg';
 import HistoryIllustration from '../../../public/assets/history_illustration.png';
 import TokensListOverlay from '../../../public/assets/tokens_list_overlay.png';
+import Union from '../../../public/assets/Union.png';
 
 const MainAssets = {
   Right,
@@ -106,6 +107,7 @@ const MainAssets = {
   X2,
   RightShadowIcon,
   DiagonalLines,
+  Union,
 };
 
 export default MainAssets;
