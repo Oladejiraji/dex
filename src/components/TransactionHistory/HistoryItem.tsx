@@ -11,7 +11,7 @@ interface IProps {
   setActiveHistory: Dispatch<SetStateAction<`0x${string}` | null>>;
 }
 
-const HistoryListItem = ({ transaction, setActiveHistory }: IProps) => {
+const HistoryItem = ({ transaction, setActiveHistory }: IProps) => {
   return (
     <button
       className="flex items-center justify-center gap-[1.375rem]"
@@ -70,4 +70,4 @@ const HistoryListItem = ({ transaction, setActiveHistory }: IProps) => {
   );
 };
 
-export default HistoryListItem;
+export default HistoryItem;

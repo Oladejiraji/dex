@@ -5,13 +5,13 @@ import ExternalLink from '../ExternalLink';
 import Button from '../Button';
 import Clock from '@/lib/svg/Clock';
 import Up from '@/lib/svg/Up';
-import { TransactionHistoryModal } from '@/components/TransactionHistory/TransactionHistoryModal';
+import { TransHistoryModal } from '@/components/TransactionHistory/TransHistoryModal';
 
 const ConnectFooter = ({ fixed = true }: { fixed?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <TransactionHistoryModal isPopOpen={isOpen} setIsPopOpen={setIsOpen} />
+      <TransHistoryModal isPopOpen={isOpen} setIsPopOpen={setIsOpen} />
       <footer className={cx('bottom-0 left-0 z-[1000] w-full pb-14 font-geist-medium', { fixed: !!fixed })}>
         <div className="mx-auto flex max-w-[75.00rem] items-end justify-between">
           <div className="flex flex-1 items-center gap-[0.25rem]">

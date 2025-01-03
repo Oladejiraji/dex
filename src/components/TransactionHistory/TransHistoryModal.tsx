@@ -11,9 +11,9 @@ import X from '@/lib/svg/X';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { transactionHistoryKey } from '@/utils/constants';
 import { TransactionHistory } from '@/services/queries/coins/types';
-import HistoryListItem from './HistoryListItem';
 import RemoteImage from '../shared/RemoteImage';
 import { removeDecimal, stringToFixed } from '@/utils/helpers';
+import HistoryItem from './HistoryItem';
 
 interface IProps {
   isPopOpen: boolean;
@@ -22,7 +22,7 @@ interface IProps {
 
 const transactions = [1, 2, 3];
 
-export function TransactionHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
+export function TransHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
   const [value] = useLocalStorage(transactionHistoryKey, []);
   const transactinHistory = value as TransactionHistory[];
   const [activeHistory, setActiveHistory] = useState<`0x${string}` | null>(null);
@@ -210,9 +210,7 @@ export function TransactionHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
                 ) : (
                   <div className="mx-7 mb-11 flex max-h-[27rem] flex-col gap-[1.625rem] overflow-y-auto rounded-[1.125rem] bg-[rgba(70,70,70,0.25)] p-[1.625rem]">
                     {transactinHistory.map((transaction, index) => {
-                      return (
-                        <HistoryListItem key={index} transaction={transaction} setActiveHistory={setActiveHistory} />
-                      );
+                      return <HistoryItem key={index} transaction={transaction} setActiveHistory={setActiveHistory} />;
                     })}
                   </div>
                 )}
