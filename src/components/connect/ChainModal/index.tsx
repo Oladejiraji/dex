@@ -59,7 +59,7 @@ export function ChainModal({ isPopOpen, setIsPopOpen, handleChainUpdate, currCha
           animate="show"
           exit="hidden"
         >
-          <div className="relative mx-auto h-full w-full max-w-[29.38rem] p-[0.06rem]">
+          <div className="relative mx-auto h-[548px] w-full max-w-[29.38rem] p-[0.06rem]">
             <div className="gradient_bg absolute inset-0 h-full w-full rounded-[0.38rem]" />
             <div className="select_gradient relative flex h-full flex-col rounded-[0.38rem] py-6">
               <div className="flex items-center gap-2 px-6">

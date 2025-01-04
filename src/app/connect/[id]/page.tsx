@@ -4,7 +4,7 @@ import RouteBlock from '@/components/connect/RouteBlock';
 import { SettingsModal } from '@/components/connect/SettingsModal';
 import TransferBlock from '@/components/connect/TransferBlock';
 import Button from '@/components/shared/Button';
-import ConnectFooter from '@/components/shared/Footer/ConnectFooter';
+// import ConnectFooter from '@/components/shared/Footer/ConnectFooter';
 import Header from '@/components/shared/Header';
 import RenderIf from '@/components/shared/RenderIf';
 import { useExchangeContext } from '@/context/ExchangeContext';
@@ -188,7 +188,7 @@ const ConnectPage = () => {
       <div className="fixed bottom-0 left-0 w-full">
         <Image src={MainAssets.Union} alt="Mask overlay" />
       </div>
-      <ConnectFooter />
+      {/* <ConnectFooter fixed={false} /> */}
     </div>
   );
 };
