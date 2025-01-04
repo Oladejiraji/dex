@@ -19,7 +19,7 @@ const RemoteImage = (props: IProps) => {
   }, [src]);
   return (
     <Image
-      src={imageError ? fallbackUrl : src}
+      src={imageError || !src ? fallbackUrl : src}
       alt={alt || 'Chain Image'}
       width={width}
       height={height}

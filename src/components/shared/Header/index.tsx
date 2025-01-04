@@ -160,7 +160,7 @@ const Header = ({ type }: { type?: number }) => {
                   </div>
                 </Button>
               </div>
-              <Link href={AppRoutes.connect.path(137)}>
+              {/* <Link href={AppRoutes.connect.path(137)}>
                 <Button variant="ghost" className="group">
                   <div className="flex items-center gap-1">
                     <div className="rounded-[0.25rem] bg-primary-200 px-[0.38rem] py-[0.25rem]">
@@ -171,7 +171,7 @@ const Header = ({ type }: { type?: number }) => {
                     <p className="text-[0.81rem] text-[#919191] transition-colors group-hover:text-white">Trade</p>
                   </div>
                 </Button>
-              </Link>
+              </Link> */}
               <ConnectButton />
             </div>
           </RenderIf>
