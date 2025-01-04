@@ -31,11 +31,17 @@ const NetworkComponent = ({ result }: { result: ChainType[] }) => {
       <Header type={3} />
       <main className="mx-auto my-[8.75rem] max-w-[75.00rem]">
         <div className="rounded-[0.63rem] border border-dashed border-[#131313] p-8">
-          <div className="network_grid grid place-items-center gap-y-8 border border-[#131313] py-9">
-            {filterNetworks.map((chain, i) => (
-              <NetworkCard key={i} chain={chain} />
-            ))}
-          </div>
+          {filterNetworks.length === 0 ? (
+            <div>
+              <p className="text-center text-white">No results found. Please try a different query!</p>
+            </div>
+          ) : (
+            <div className="network_grid grid place-items-center gap-y-8 border border-[#131313] py-9">
+              {filterNetworks.map((chain, i) => (
+                <NetworkCard key={i} chain={chain} />
+              ))}
+            </div>
+          )}
         </div>
       </main>
       <Footer fixed={false} />

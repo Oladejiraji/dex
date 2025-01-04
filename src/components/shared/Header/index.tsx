@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Button from '../Button';
 import Image from 'next/image';
 import MainAssets from '@/lib/assets/main';
 import Link from 'next/link';
 import { AppRoutes } from '@/utils/routes';
-import Input from '../Input';
 import { HeaderMenu } from '@/components/home/HeaderMenu';
 import RenderIf from '../RenderIf';
 import cx from 'classnames';
@@ -14,11 +13,12 @@ import Simplify from '@/lib/svg/Simplify';
 import New from '@/lib/svg/New';
 import { useSocketChainRead } from '@/services/queries/coins';
 import { useDebounce } from '@/hooks/useDebounce';
-import { useGeneralContext } from '@/context/GeneralContext';
+import HomeHeaderInput from './HomeHeaderInput';
+import NetworkHeaderInput from './NetworkHeaderInput';
 
 const Header = ({ type }: { type?: number }) => {
   const { data } = useSocketChainRead();
-  const { networkSearchValue, updateNetworkSearchValue } = useGeneralContext();
+
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchValue = useDebounce(searchValue, 300);
 
@@ -34,21 +34,6 @@ const Header = ({ type }: { type?: number }) => {
   }, [data, debouncedSearchValue]);
 
   const [isPopOpen, setIsPopOpen] = useState(false);
-  const handleKeyDown = (event: KeyboardEvent) => {
-    const isMac = navigator.userAgent.toUpperCase().includes('MAC');
-
-    if ((isMac && event.metaKey && event.key === '/') || (!isMac && event.ctrlKey && event.key === '/')) {
-      setIsPopOpen(true);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
 
   return (
     <>
@@ -100,28 +85,11 @@ const Header = ({ type }: { type?: number }) => {
                   </div>
 
                   <div className="w-[19.75rem]">
-                    <Input
-                      onFocus={() => setIsPopOpen(true)}
-                      // onBlur={() => setIsPopOpen(false)}
-                      value={searchValue}
-                      onChange={(e) => setSearchValue(e.target.value)}
-                      iconBefore
-                      icon={MainAssets.Search}
-                      inButtonClassNames="right-[0.00rem]"
-                      inButton={
-                        isPopOpen ? null : (
-                          <div className="flex items-center gap-[0.25rem] font-geist-regular text-xs text-[#5F6368]">
-                            <p className="flex h-5 w-[1.38rem] items-center justify-center rounded-[0.19rem] bg-[#2A2A2A]">
-                              ⌘
-                            </p>
-                            <p className="flex h-5 w-[1.38rem] items-center justify-center rounded-[0.19rem] bg-[#2A2A2A]">
-                              /
-                            </p>
-                          </div>
-                        )
-                      }
-                      placeholder="Search for a token, address or chain"
-                      className="border-none bg-transparent p-0 pl-4 font-geist-medium text-[0.81rem] text-[white] transition-colors placeholder:text-[#919191] hover:placeholder:text-[white]"
+                    <HomeHeaderInput
+                      searchValue={searchValue}
+                      setIsPopOpen={setIsPopOpen}
+                      isPopOpen={isPopOpen}
+                      setSearchValue={setSearchValue}
                     />
                   </div>
                   <div>
@@ -213,27 +181,7 @@ const Header = ({ type }: { type?: number }) => {
               <div className="relative flex items-center gap-8 rounded-[0.38rem] border border-[#32323240] bg-gradient-custom px-[0.63rem]">
                 <div className="flex items-center gap-8">
                   <div>
-                    <Input
-                      iconBefore
-                      icon={MainAssets.Search}
-                      value={networkSearchValue}
-                      onChange={(e) => {
-                        updateNetworkSearchValue(e.target.value);
-                      }}
-                      inButton={
-                        <div className="flex items-center gap-[0.25rem] font-geist-regular text-xs text-[#5F6368]">
-                          <p className="flex h-5 w-[1.38rem] items-center justify-center rounded-[0.19rem] bg-[#2A2A2A]">
-                            ⌘
-                          </p>
-                          <p className="flex h-5 w-[1.38rem] items-center justify-center rounded-[0.19rem] bg-[#2A2A2A]">
-                            /
-                          </p>
-                        </div>
-                      }
-                      inButtonClassNames="right-[0.00rem]"
-                      placeholder="Search our supported chains"
-                      className="min-w-[21.25rem] border-none bg-transparent p-0 pl-4 font-geist-medium text-[0.81rem] text-[white] transition-colors placeholder:text-[#919191] hover:placeholder:text-[white]"
-                    />
+                    <NetworkHeaderInput />
                   </div>
                 </div>
               </div>
