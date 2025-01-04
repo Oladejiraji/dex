@@ -98,9 +98,9 @@ const ConnectPage = () => {
         slippage={slippage}
         setSlippage={setSlippage}
       />
-      <main className="connect_border mt-[6.25rem]">
+      <main className="connect_border mt-[6.25rem] pb-[3rem]">
         {/* <main className=" h-[calc(100vh-6.25rem)] mt-[6.25rem] connect_border"> */}
-        <div className="relative mx-auto mt-0 h-[calc(100vh-6.25rem)] max-w-[51.69rem] rounded-[0.63rem] border-none border-grey-200 py-[2.19rem] text-white sm:mt-14 sm:border">
+        <div className="relative mx-auto mt-0 min-h-[calc(100vh-6.25rem)] max-w-[51.69rem] rounded-[0.63rem] border-none border-grey-200 py-[2.19rem] text-white sm:mt-14 sm:border">
           <div className="mx-auto h-full w-full max-w-[26.25rem] px-0">
             <div className="flex items-center justify-between">
               <h3 className="font-geist-semibold text-xl">Swap</h3>
@@ -185,9 +185,9 @@ const ConnectPage = () => {
           </div>
         </div>
       </main>
-      <div className="fixed bottom-0 left-0 w-full">
+      {/* <div className="fixed bottom-0 left-0 w-full">
         <Image src={MainAssets.Union} alt="Mask overlay" />
-      </div>
+      </div> */}
       {/* <ConnectFooter fixed={false} /> */}
     </div>
   );
