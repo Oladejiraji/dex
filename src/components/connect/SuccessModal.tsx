@@ -29,7 +29,7 @@ export function SuccessModal({ isPopOpen, setIsPopOpen, activeRoute, activeChain
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="absolute left-0 top-0 z-[50] h-full w-full bg-transparent pb-[2.69rem] pt-[4.13rem] backdrop-blur-[0.25rem]"
+          className="fixed left-0 top-[2rem] z-[1050] h-full w-full bg-transparent pb-[2.69rem] pt-[4.13rem] backdrop-blur-[0.25rem]"
           variants={MODAL_ANIMATION_VARIANTS}
           initial="hidden"
           animate="show"

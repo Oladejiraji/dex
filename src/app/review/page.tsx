@@ -26,6 +26,7 @@ import { useGeneralContext } from '@/context/GeneralContext';
 import { toast } from 'react-toastify';
 import { transactionHistoryKey } from '@/utils/constants';
 import { TransactionHistory } from '@/services/queries/coins/types';
+import ConnectFooter from '@/components/shared/Footer/ConnectFooter';
 
 const Review = () => {
   const { data: chainsData } = useSocketChainRead();
@@ -230,6 +231,9 @@ const Review = () => {
             </div>
           </div>
         </main>
+      </div>
+      <div className="mt-[3rem]">
+        <ConnectFooter fixed={false} />
       </div>
     </>
   );

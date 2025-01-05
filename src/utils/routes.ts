@@ -1,23 +1,26 @@
 export const AppRoutes = {
   terms: {
-    path: "/terms",
+    path: '/terms',
   },
   privacy: {
-    path: "/privacy",
+    path: '/privacy',
   },
   connect: {
     path: (chainId: number) => `/connect/${chainId}`,
   },
   home: {
-    path: "/",
+    path: '/',
   },
   review: {
-    path: "/review",
+    path: '/review',
   },
   faq: {
-    path: "/faq",
+    path: '/faq',
   },
   networks: {
-    path: "/networks",
+    path: '/networks',
+  },
+  team: {
+    path: '/team',
   },
 };

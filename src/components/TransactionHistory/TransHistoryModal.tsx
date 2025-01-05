@@ -14,6 +14,7 @@ import { TransactionHistory } from '@/services/queries/coins/types';
 import RemoteImage from '../shared/RemoteImage';
 import { removeDecimal, stringToFixed } from '@/utils/helpers';
 import HistoryItem from './HistoryItem';
+import { MODAL_ANIMATION_VARIANTS } from '@/animation/variants';
 
 interface IProps {
   isPopOpen: boolean;
@@ -31,11 +32,11 @@ export function TransHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="absolute left-0 top-0 z-[50] flex h-full w-full items-start bg-transparent pb-[2.69rem] pt-[4.13rem] text-white backdrop-blur-[0.25rem]"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 100 }}
-          transition={{ duration: 0.5 }}
+          className="fixed left-0 top-[3rem] z-[1050] flex h-screen w-full items-start bg-transparent pb-[2.69rem] pt-[4.13rem] text-white backdrop-blur-[0.25rem]"
+          variants={MODAL_ANIMATION_VARIANTS}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
         >
           {activeHistory ? (
             <div className="relative mx-auto h-full w-[36.69rem] p-[0.06rem]">
