@@ -43,14 +43,6 @@ export function SuccessModal({ isPopOpen, setIsPopOpen, activeRoute, activeChain
                   <h3 className="pb-2 font-geist-semibold text-sm text-[#7D7D7D]">Activity</h3>
                   <h4 className="font-geist-semibold text-base text-[#F9F9F9]">Transaction Details</h4>
                 </div>
-                {/* <button
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-[#32323240]"
-                  onClick={() => setIsPopOpen(false)}
-                >
-                  <div className="h-[0.50rem] w-[0.50rem]">
-                    <Image src={MainAssets.X} alt="X icon" />
-                  </div>
-                </button> */}
               </div>
               <div className="flex h-full flex-col items-center justify-center gap-12">
                 <div className="h-[5.00rem] w-[5.00rem]">
