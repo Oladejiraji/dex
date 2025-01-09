@@ -10,7 +10,7 @@ import RenderIf from '@/components/shared/RenderIf';
 import { useExchangeContext } from '@/context/ExchangeContext';
 import MainAssets from '@/lib/assets/main';
 import { useSocketChainRead, useSocketQuoteRead, useTokenBalanceRead } from '@/services/queries/coins';
-import { debounce, loadingToast, removeDecimal } from '@/utils/helpers';
+import { debounce, removeDecimal } from '@/utils/helpers';
 import { priorityOptions } from '@/utils/static';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import Image from 'next/image';
@@ -163,16 +163,7 @@ const ConnectPage = () => {
                         value={value}
                       />
                     ) : (
-                      <Button
-                        className="h-12 w-full bg-primary-800 hover:bg-primary-800"
-                        onClick={() => {
-                          console.log(
-                            loadingToast('holla', {
-                              // autoClose: false,
-                            })
-                          );
-                        }}
-                      >
+                      <Button className="h-12 w-full bg-primary-800 hover:bg-primary-800">
                         <p className="font-geist-medium text-[#080808]">Review Route</p>
                       </Button>
                     )}
