@@ -5,24 +5,16 @@ import { Bounce, ToastContainer } from 'react-toastify';
 import NextTopLoader from 'nextjs-toploader';
 import 'react-toastify/dist/ReactToastify.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import config from '@/config';
-import Metatags from '../components/shared/MetaTags';
 
 export const metadata: Metadata = {
   title: 'Superbase',
   description: 'The greatest token swapper ever',
-};
-
-const prodMeta = {
-  title: 'Superbase',
-  description: 'The greatest token swapper ever 🤩😎',
-  image: '/public/asssets/open-graph.png',
-  // image:
-  //   'https://firebasestorage.googleapis.com/v0/b/deji-firegram.appspot.com/o/Bee%203.png?alt=media&token=8bf25bc2-36fd-4c8d-96b2-da9faeb1439f',
-  keywords: 'crypto, bitcoin',
-  siteName: 'SUPERBASE',
-  href: config.SITE_URL,
-  url: config.SITE_URL,
+  keywords: ['web3', 'ethereum', 'crypto', 'wallet', 'swap', 'bridge'],
+  creator: 'Raji Oladeji',
+  metadataBase: new URL('https://superbase.live'),
+  openGraph: {
+    images: '/assets/open-grapg.png',
+  },
 };
 
 export default function RootLayout({
@@ -32,8 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Metatags data={prodMeta} />
       <html lang="en">
+        {/* <Metatags data={prodMeta} /> */}
         <body className="relative bg-primary-100">
           <div id="modal-root"></div>
           <NextTopLoader color="#fff" showSpinner={false} />
