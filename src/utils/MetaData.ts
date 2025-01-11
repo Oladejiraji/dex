@@ -1,15 +1,15 @@
-import config from "@/config";
+import config from '@/config';
 
 export const metaData = {
-  title: "Superbase",
-  siteName: "Superbase",
-  description: "Swap your tokens",
-  keywords: "buzzz",
+  title: 'Superbase',
+  siteName: 'Superbase',
+  description: 'Swap your tokens',
+  keywords: 'buzzz',
   url: config.SITE_URL,
-  image: "https://picsum.photos/200/300",
+  image: '/public/assets/open-graph.png',
   geo: {
-    placeName: "Nigeria",
-    position: "Nigeria",
-    region: "Nigeria",
+    placeName: 'Nigeria',
+    position: 'Nigeria',
+    region: 'Nigeria',
   },
 };

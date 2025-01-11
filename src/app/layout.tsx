@@ -16,8 +16,9 @@ export const metadata: Metadata = {
 const prodMeta = {
   title: 'Superbase',
   description: 'The greatest token swapper ever 🤩😎',
-  image:
-    'https://firebasestorage.googleapis.com/v0/b/deji-firegram.appspot.com/o/Bee%203.png?alt=media&token=8bf25bc2-36fd-4c8d-96b2-da9faeb1439f',
+  image: '/public/asssets/open-graph.png',
+  // image:
+  //   'https://firebasestorage.googleapis.com/v0/b/deji-firegram.appspot.com/o/Bee%203.png?alt=media&token=8bf25bc2-36fd-4c8d-96b2-da9faeb1439f',
   keywords: 'crypto, bitcoin',
   siteName: 'SUPERBASE',
   href: config.SITE_URL,
