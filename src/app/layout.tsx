@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   creator: 'Raji Oladeji',
   metadataBase: new URL('https://superbase.live'),
   openGraph: {
-    images: '/assets/open-graph-alternate-com.png',
+    images: '/assets/open-graph-com.png',
   },
 };
 
