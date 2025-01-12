@@ -8,7 +8,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 export const metadata: Metadata = {
   title: 'Superbase',
-  description: 'The greatest token swapper ever',
+  description: 'The greatest token swapper ever!!',
   keywords: ['web3', 'ethereum', 'crypto', 'wallet', 'swap', 'bridge'],
   creator: 'Raji Oladeji',
   metadataBase: new URL('https://superbase.live'),
