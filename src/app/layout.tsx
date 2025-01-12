@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   keywords: ['web3', 'ethereum', 'crypto', 'wallet', 'swap', 'bridge'],
   creator: 'Raji Oladeji',
   metadataBase: new URL('https://superbase.live'),
-  // openGraph: {
-  //   images: '/assets/open-graph-com.png',
-  // },
+  openGraph: {
+    images: '/assets/open-graph-alternate-com.png',
+  },
 };
 
 export default function RootLayout({
