@@ -1,4 +1,5 @@
 'use client';
+import NetworkSelect from '@/components/connect/NetworkSelect';
 import ReviewButton from '@/components/connect/ReviewButton';
 import RouteBlock from '@/components/connect/RouteBlock';
 import { SettingsModal } from '@/components/connect/SettingsModal';
@@ -58,7 +59,7 @@ const ConnectPage = () => {
     []
   );
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | { target: { value: string } }) => {
     const value = e.target.value;
     setValue(value);
     handleDebouncedInputChange(value);
@@ -118,21 +119,7 @@ const ConnectPage = () => {
                   </Button>
                 </div>
               </div>
-              <div className="mt-[1.38rem] flex items-center gap-2 rounded-[0.63rem] bg-primary-300 p-4">
-                <div className="h-8 w-8">
-                  <Image
-                    src={currChain.icon}
-                    alt="Chain Base Icon"
-                    className="rounded-[0.25rem]"
-                    width={32}
-                    height={32}
-                  />
-                </div>
-                <div>
-                  <h3 className="font-geist-regular text-xs leading-[0.88rem] text-grey-300">Chain</h3>
-                  <h4 className="font-geist-medium text-[0.94rem] leading-[1.13rem]">{currChain.name}</h4>
-                </div>
-              </div>
+              <NetworkSelect currChain={currChain} />
               <div className="mt-1 flex flex-col gap-2">
                 {transferBlockState.map((block, i) => (
                   <TransferBlock

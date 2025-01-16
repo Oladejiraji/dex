@@ -2,23 +2,21 @@ import React from 'react';
 import { CheckIcon } from '@radix-ui/react-icons';
 import { motion } from 'framer-motion';
 import { MODAL_ANIMATION_VARIANTS } from '@/animation/variants';
+import { useChainId, useSwitchChain } from 'wagmi';
 import RemoteImage from '../shared/RemoteImage';
 import { ChainType } from '@/services/queries/coins/types';
-import { useParams, useRouter } from 'next/navigation';
-import { AppRoutes } from '@/utils/routes';
 
 interface IProps {
   data: ChainType[];
   toggle: () => void;
 }
 
-const ChainSwitcherModal = ({ data, toggle }: IProps) => {
-  const params = useParams();
-  const paramsIdFallback = (params.id as string) || '137';
-  const router = useRouter();
+const NetworkSelectModal = ({ data, toggle }: IProps) => {
+  const { switchChain } = useSwitchChain();
+  const chainId = useChainId();
   return (
     <motion.div
-      className="absolute left-0 top-[4rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212]"
+      className="absolute right-0 top-[3rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212]"
       variants={MODAL_ANIMATION_VARIANTS}
       initial="hidden"
       animate="show"
@@ -32,7 +30,8 @@ const ChainSwitcherModal = ({ data, toggle }: IProps) => {
                 key={i}
                 onClick={() => {
                   toggle();
-                  router.push(AppRoutes.connect.path(chain.chainId));
+                  if (chainId === chain.chainId) return;
+                  switchChain({ chainId: chain.chainId });
                 }}
                 className="flex w-full items-center justify-between rounded-[0.2rem] px-2 py-3 transition-colors hover:bg-[#171717]"
               >
@@ -42,7 +41,7 @@ const ChainSwitcherModal = ({ data, toggle }: IProps) => {
                   </div>
                   <p className="font-geist-medium text-sm text-white">{chain.name}</p>
                 </div>
-                {paramsIdFallback === chain.chainId.toString() ? <CheckIcon className="h-5 w-5 text-[green]" /> : null}
+                {chainId === chain.chainId ? <CheckIcon className="h-5 w-5 text-[green]" /> : null}
               </button>
             );
           })}
@@ -52,4 +51,4 @@ const ChainSwitcherModal = ({ data, toggle }: IProps) => {
   );
 };
 
-export default ChainSwitcherModal;
+export default NetworkSelectModal;

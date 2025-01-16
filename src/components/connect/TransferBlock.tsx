@@ -10,7 +10,8 @@ import { ChainType, SocketToken, TokenBalance } from '@/services/queries/coins/t
 import { formatNumber, removeDecimal, stringToFixed } from '@/utils/helpers';
 import { useExchangeContext } from '@/context/ExchangeContext';
 import NumberFlow from '@number-flow/react';
-import { useAccount } from 'wagmi';
+import { useAccount, useGasPrice } from 'wagmi';
+import { useParams } from 'next/navigation';
 
 interface IProps {
   type: 'from' | 'to';
@@ -23,6 +24,10 @@ interface IProps {
 }
 
 const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockId, currChain, balance }: IProps) => {
+  const params = useParams();
+  const paramsIdFallback = (params.id as string) || '137';
+  const result = useGasPrice({ chainId: parseInt(paramsIdFallback) });
+  console.log(result);
   const account = useAccount();
   const { updateChain, reverseChain, chainFrom, chainTo } = useExchangeContext();
 
@@ -80,16 +85,6 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
           </div>
         </div>
         <div className="flex items-center justify-between">
-          {/* {activeChain && (
-            <div>
-              <p className="font-geist-regular text-xs text-grey-300">
-                $
-                {formatNumberWithComma(
-                  (parseFloat(value) * activeChain.current_price).toString()
-                ) || "0.00"}
-              </p>
-            </div>
-          )} */}
           <div />
           {balance && type === 'from' ? (
             <div className="flex items-center gap-2">
@@ -97,7 +92,15 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
               <p className="font-geist-regular text-xs text-grey-300">
                 {stringToFixed(removeDecimal(balance.decimals, balance?.balance))} {balance?.symbol}
               </p>
-              <p className="font-geist-medium text-[0.63rem] text-white">MAX</p>
+              <button
+              // onClick={() => {
+              //   handleInputChange({
+              //     target: { value: stringToFixed(removeDecimal(balance.decimals, balance?.balance)) },
+              //   });
+              // }}
+              >
+                <p className="font-geist-medium text-[0.63rem] text-white">MAX</p>
+              </button>
             </div>
           ) : null}
         </div>

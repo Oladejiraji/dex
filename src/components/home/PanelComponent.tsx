@@ -73,7 +73,7 @@ const PanelComponent = ({
             setActivePanel(index);
             setTimeout(() => {
               router.push(AppRoutes.connect.path(chain.chainId));
-            }, 1000);
+            }, 400);
           }
           setTimeout(() => {
             lenis?.scrollTo(`#panel-${index}`, { offset: -100 });

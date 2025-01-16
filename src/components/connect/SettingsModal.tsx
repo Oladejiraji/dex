@@ -35,7 +35,7 @@ export function SettingsModal({ isPopOpen, setIsPopOpen, priority, setPriority, 
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="absolute left-0 top-0 z-[50] flex h-full w-full items-start bg-transparent pb-[2.69rem] pt-[4.13rem] text-white backdrop-blur-[0.25rem]"
+          className="absolute left-0 top-[4rem] z-[50] flex h-full w-full items-start bg-transparent pb-[2.69rem] pt-[4.13rem] text-white backdrop-blur-[0.25rem]"
           variants={MODAL_ANIMATION_VARIANTS}
           initial="hidden"
           animate="show"
