@@ -10,9 +10,9 @@ import { ChainType, SocketToken, TokenBalance } from '@/services/queries/coins/t
 import { formatNumber, removeDecimal, stringToFixed } from '@/utils/helpers';
 import { useExchangeContext } from '@/context/ExchangeContext';
 import NumberFlow from '@number-flow/react';
-import { useAccount, useGasPrice } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { useParams } from 'next/navigation';
-import { reverseTokenType } from '@/services/helper';
+import { returnPriorityToken, reverseTokenType } from '@/services/helper';
 
 interface IProps {
   type: 'from' | 'to';
@@ -27,20 +27,21 @@ interface IProps {
 const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockId, currChain, balance }: IProps) => {
   const params = useParams();
   const paramsIdFallback = (params.id as string) || '137';
-  const result = useGasPrice({ chainId: parseInt(paramsIdFallback) });
-  console.log(result);
+
   const account = useAccount();
   const { updateChain, reverseChain, chainFrom, chainTo } = useExchangeContext();
 
   const [isPopOpen, setIsPopOpen] = useState(false);
   const { data, isSuccess } = useSocketTokensRead(currChain.chainId);
+
   useEffect(() => {
     if (isSuccess && data) {
+      const priorityTokens = returnPriorityToken({ tokens: data, chainId: paramsIdFallback });
       if (type === 'from') {
-        updateChain('from', data[0]);
+        updateChain('from', priorityTokens[0]);
       }
       if (type === 'to') {
-        updateChain('to', data[1]);
+        updateChain('to', priorityTokens[1]);
       }
     }
   }, [isSuccess]);
@@ -51,7 +52,8 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
   const handleChainUpdate = (chain: SocketToken) => {
     if (!data) return;
     if (otherChain?.symbol === chain.symbol) {
-      updateChain(reverseTokenType(type), data.find((fn) => fn.symbol !== chain.symbol) || data[0]);
+      const priorityTokens = returnPriorityToken({ tokens: data, chainId: paramsIdFallback });
+      updateChain(reverseTokenType(type), priorityTokens.find((fn) => fn.symbol !== chain.symbol) || data[0]);
     }
     updateChain(type, chain);
   };

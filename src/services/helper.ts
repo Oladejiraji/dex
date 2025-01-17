@@ -1,3 +1,5 @@
+import { SocketToken } from './queries/coins/types';
+
 /**
  * Function to return the generic request types for react query
  * @param namespace
@@ -89,4 +91,23 @@ export const reverseTokenType = (type: 'from' | 'to'): 'from' | 'to' => {
   } else {
     return 'from';
   }
+};
+
+const priorityTokens = ['eth', 'usdc', 'usdt'];
+const priorityTokensPolygon = ['pol(matic)', 'eth', 'usdc', 'usdt'];
+export const returnPriorityToken = ({ tokens, chainId }: { tokens: SocketToken[]; chainId: string }) => {
+  const priorityToUse = chainId === '137' ? priorityTokensPolygon : priorityTokens;
+  const returnToken = tokens.sort((a, b) => {
+    const aPriority = priorityToUse.indexOf(a.symbol.toLowerCase());
+    const bPriority = priorityToUse.indexOf(b.symbol.toLowerCase());
+
+    if (aPriority === -1 && bPriority === -1) return 0; // Both are not priority
+    if (aPriority === -1) return 1; // `a` is not priority, so `b` comes first
+    if (bPriority === -1) return -1; // `b` is not priority, so `a` comes first
+
+    // Both have priority, sort by their position in `priorityStrings`
+    return aPriority - bPriority;
+  });
+
+  return returnToken;
 };
