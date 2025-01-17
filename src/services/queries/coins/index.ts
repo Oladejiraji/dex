@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-import api from "../../api";
-import keys from "./keys";
+import api from '../../api';
+import keys from './keys';
 import {
   BuildResponse,
   ChainType,
@@ -10,11 +10,11 @@ import {
   RouteType,
   SocketToken,
   TokenBalanceResponse,
-} from "./types";
-import { chainBaseData } from "@/utils/static";
-import { appendDecimal } from "@/utils/helpers";
-import { buildUrl } from "@/services/helper";
-import { useExchangeContext } from "@/context/ExchangeContext";
+} from './types';
+import { chainBaseData } from '@/utils/static';
+import { appendDecimal } from '@/utils/helpers';
+import { buildUrl } from '@/services/helper';
+import { useExchangeContext } from '@/context/ExchangeContext';
 
 export const useCoinsRead = () => {
   const hash = [keys.read];
@@ -22,7 +22,7 @@ export const useCoinsRead = () => {
     queryKey: hash,
     queryFn: async () =>
       await api.get({
-        url: "/coins/markets?vs_currency=usd",
+        url: '/coins/markets?vs_currency=usd',
         auth: true,
       }),
   });
@@ -40,7 +40,7 @@ export const useRatesRead = () => {
     queryKey: hash,
     queryFn: async () =>
       await api.get({
-        url: "/exchange_rates?vs_currency=usd",
+        url: '/exchange_rates?vs_currency=usd',
         auth: true,
       }),
   });
@@ -52,7 +52,7 @@ export const useRatesRead = () => {
 };
 
 export const useSocketChainRead = () => {
-  const hash = ["socket read"];
+  const hash = ['socket read'];
   const { data, isPending, error } = useQuery<{
     success: boolean;
     result: ChainType[];
@@ -60,7 +60,7 @@ export const useSocketChainRead = () => {
     queryKey: hash,
     queryFn: async () =>
       await api.get({
-        url: "https://api.socket.tech/v2/supported/chains",
+        url: 'https://api.socket.tech/v2/supported/chains',
         auth: true,
       }),
   });
@@ -72,7 +72,7 @@ export const useSocketChainRead = () => {
 };
 
 export const useSocketTokensRead = (chainId: number) => {
-  const hash = ["socket tokens read", chainId];
+  const hash = ['socket tokens read', chainId];
   const { data, isPending, error, isSuccess } = useQuery<{
     result: SocketToken[];
     success: boolean;
@@ -101,11 +101,11 @@ export const useSocketQuoteRead = (
   decimal?: number,
   userAddress?: string,
   recipient?: string,
-  sort: string = "output",
+  sort: string = 'output',
   slippage: number = 0.5
 ) => {
   const hash = [
-    "socket quote read",
+    'socket quote read',
     amount,
     userAddress,
     decimal,
@@ -116,37 +116,29 @@ export const useSocketQuoteRead = (
     sort,
     slippage,
   ];
-  const sendUrl = buildUrl("https://api.socket.tech/v2/quote", [
-    { key: "fromChainId", value: chainId },
-    { key: "toChainId", value: chainId },
-    { key: "fromTokenAddress", value: fromAddress },
-    { key: "toTokenAddress", value: toAddress },
-    { key: "fromAmount", value: appendDecimal(amount, decimal) },
-    { key: "userAddress", value: userAddress },
-    { key: "recipient", value: recipient },
-    { key: "singleTxOnly", value: "true" },
-    { key: "uniqueRoutesPerBridge", value: "true" },
-    { key: "sort", value: sort },
-    { key: "defaultSwapSlippage", value: slippage },
+  const sendUrl = buildUrl('https://api.socket.tech/v2/quote', [
+    { key: 'fromChainId', value: chainId },
+    { key: 'toChainId', value: chainId },
+    { key: 'fromTokenAddress', value: fromAddress },
+    { key: 'toTokenAddress', value: toAddress },
+    { key: 'fromAmount', value: appendDecimal(amount, decimal) },
+    { key: 'userAddress', value: userAddress },
+    { key: 'recipient', value: recipient },
+    { key: 'singleTxOnly', value: 'true' },
+    { key: 'uniqueRoutesPerBridge', value: 'true' },
+    { key: 'sort', value: sort },
+    { key: 'defaultSwapSlippage', value: slippage },
   ]);
-  const { data, isPending, error, isSuccess, refetch, isFetching, isLoading } =
-    useQuery<QuoteResponse>({
-      queryKey: hash,
-      queryFn: async () =>
-        await api.get({
-          url: sendUrl,
-          auth: true,
-        }),
-      enabled:
-        !!fromAddress &&
-        !!toAddress &&
-        !!amount &&
-        !!userAddress &&
-        !!decimal &&
-        !!sort &&
-        !isModalOpen &&
-        !!slippage,
-    });
+  const { data, isPending, error, isSuccess, refetch, isFetching, isLoading } = useQuery<QuoteResponse>({
+    queryKey: hash,
+    queryFn: async () =>
+      await api.get({
+        url: sendUrl,
+        auth: true,
+      }),
+    enabled:
+      !!fromAddress && !!toAddress && !!amount && !!userAddress && !!decimal && !!sort && !isModalOpen && !!slippage,
+  });
   return {
     data: data?.result,
     isPending,
@@ -165,25 +157,16 @@ export const useCheckAllowanceRead = (
   decimal?: number,
   userAddress?: string
 ) => {
-  const hash = [
-    "socket allowance read",
-    amount,
-    userAddress,
-    decimal,
-    toAddress,
-    fromAddress,
-  ];
-  const { data, isPending, error, isSuccess, refetch } =
-    useQuery<QuoteResponse>({
-      queryKey: hash,
-      queryFn: async () =>
-        await api.get({
-          url: `https://api.socket.tech/v2/approval/check-allowance?chainId=${chainBaseData.chainId}&owner=${userAddress}&allowanceTarget=${fromAddress}&tokenAddress=${toAddress}`,
-          auth: true,
-        }),
-      enabled:
-        !!fromAddress && !!toAddress && !!amount && !!userAddress && !!decimal,
-    });
+  const hash = ['socket allowance read', amount, userAddress, decimal, toAddress, fromAddress];
+  const { data, isPending, error, isSuccess, refetch } = useQuery<QuoteResponse>({
+    queryKey: hash,
+    queryFn: async () =>
+      await api.get({
+        url: `https://api.socket.tech/v2/approval/check-allowance?chainId=${chainBaseData.chainId}&owner=${userAddress}&allowanceTarget=${fromAddress}&tokenAddress=${toAddress}`,
+        auth: true,
+      }),
+    enabled: !!fromAddress && !!toAddress && !!amount && !!userAddress && !!decimal,
+  });
   return {
     data: data?.result,
     isPending,
@@ -193,27 +176,17 @@ export const useCheckAllowanceRead = (
   };
 };
 
-export const useTokenBalanceRead = (
-  chainId: string,
-  userAddress?: string,
-  tokenAddress?: string
-) => {
-  const hash = [
-    "socket token balance read",
-    userAddress,
-    tokenAddress,
-    chainId,
-  ];
-  const { data, isPending, error, isSuccess, refetch } =
-    useQuery<TokenBalanceResponse>({
-      queryKey: hash,
-      queryFn: async () =>
-        await api.get({
-          url: `https://api.socket.tech/v2/balances/token-balance?tokenAddress=${tokenAddress}&chainId=${chainId}&userAddress=${userAddress}`,
-          auth: true,
-        }),
-      enabled: !!userAddress && !!tokenAddress,
-    });
+export const useTokenBalanceRead = (chainId: string, userAddress?: string, tokenAddress?: string) => {
+  const hash = ['socket token balance read', userAddress, tokenAddress, chainId];
+  const { data, isPending, error, isSuccess, refetch } = useQuery<TokenBalanceResponse>({
+    queryKey: hash,
+    queryFn: async () =>
+      await api.get({
+        url: `https://api.socket.tech/v2/balances/token-balance?tokenAddress=${tokenAddress}&chainId=${chainId}&userAddress=${userAddress}`,
+        auth: true,
+      }),
+    enabled: !!userAddress && !!tokenAddress,
+  });
   return {
     data: data?.result,
     isPending,
@@ -228,7 +201,7 @@ export const useBuildPost = () => {
   const { mutate, isPending, isError } = useMutation({
     mutationFn: async (body: { route: RouteType }): Promise<any> => {
       return await api.post({
-        url: "https://api.socket.tech/v2/build-tx",
+        url: 'https://api.socket.tech/v2/build-tx',
         body,
       });
     },

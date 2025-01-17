@@ -7,7 +7,6 @@ import Input from '../../shared/Input';
 import RenderIf from '../../shared/RenderIf';
 import { useSocketTokensRead } from '@/services/queries/coins';
 import { ChainType, SocketToken } from '@/services/queries/coins/types';
-import { useExchangeContext } from '@/context/ExchangeContext';
 import RemoteImage from '../../shared/RemoteImage';
 import { useDebounce } from '@/hooks/useDebounce';
 import { MODAL_ANIMATION_VARIANTS } from '@/animation/variants';
@@ -17,21 +16,21 @@ interface IProps {
   setIsPopOpen: Dispatch<SetStateAction<boolean>>;
   handleChainUpdate: (chain: SocketToken) => void;
   currChain: ChainType;
+  activeChain: SocketToken | null;
 }
 
-export function ChainModal({ isPopOpen, setIsPopOpen, handleChainUpdate, currChain }: IProps) {
+export function ChainModal({ isPopOpen, setIsPopOpen, handleChainUpdate, currChain, activeChain }: IProps) {
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchValue = useDebounce(searchValue, 300);
   const { data } = useSocketTokensRead(currChain.chainId);
-
-  const { chainFrom, chainTo } = useExchangeContext();
 
   const handleChain = (chain: SocketToken) => {
     handleChainUpdate(chain);
     setIsPopOpen(false);
   };
 
-  const chainsToNotSelect = [chainFrom?.symbol, chainTo?.symbol];
+  const chainsToNotSelect = [activeChain?.symbol];
+  // const chainsToNotSelect = [chainFrom?.symbol, chainTo?.symbol];
 
   const processedData = useMemo(() => {
     if (!data) return [];
@@ -87,7 +86,9 @@ export function ChainModal({ isPopOpen, setIsPopOpen, handleChainUpdate, currCha
                   return (
                     <button
                       key={i}
-                      onClick={() => handleChain(chain)}
+                      onClick={() => {
+                        handleChain(chain);
+                      }}
                       disabled={chainsToNotSelect.includes(chain.symbol)}
                       className={cx(
                         'flex h-[1.88rem] items-center gap-1 rounded-[2.50rem] border border-[#32323240] px-[0.38rem]',

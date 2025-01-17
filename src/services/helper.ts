@@ -82,3 +82,11 @@ export const concatenateString = (char: string, length: number) => {
   if (!length) return char;
   return char.length > length ? `${char.slice(0, length - 1)}...` : char;
 };
+
+export const reverseTokenType = (type: 'from' | 'to'): 'from' | 'to' => {
+  if (type === 'from') {
+    return 'to';
+  } else {
+    return 'from';
+  }
+};

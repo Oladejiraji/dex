@@ -12,6 +12,7 @@ import { useExchangeContext } from '@/context/ExchangeContext';
 import NumberFlow from '@number-flow/react';
 import { useAccount, useGasPrice } from 'wagmi';
 import { useParams } from 'next/navigation';
+import { reverseTokenType } from '@/services/helper';
 
 interface IProps {
   type: 'from' | 'to';
@@ -44,11 +45,16 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
     }
   }, [isSuccess]);
 
+  const activeChain = type === 'from' ? chainFrom : chainTo;
+  const otherChain = type === 'to' ? chainFrom : chainTo;
+
   const handleChainUpdate = (chain: SocketToken) => {
+    if (!data) return;
+    if (otherChain?.symbol === chain.symbol) {
+      updateChain(reverseTokenType(type), data.find((fn) => fn.symbol !== chain.symbol) || data[0]);
+    }
     updateChain(type, chain);
   };
-
-  const activeChain = type === 'from' ? chainFrom : chainTo;
   return (
     <>
       <ChainModal
@@ -56,6 +62,7 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
         setIsPopOpen={setIsPopOpen}
         handleChainUpdate={handleChainUpdate}
         currChain={currChain}
+        activeChain={activeChain}
       />
       <div className="relative flex flex-col gap-4 rounded-[0.63rem] bg-primary-300 px-4 py-[1.13rem]">
         <div className="flex w-full items-center justify-between">
