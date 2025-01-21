@@ -137,7 +137,7 @@ const Header = ({ type }: { type?: number }) => {
           {/* Menu 2 */}
           <RenderIf condition={type === 2}>
             <div className="flex items-center gap-4">
-              <div className="relative flex hidden items-center gap-8 rounded-[0.38rem] border border-[#32323240] bg-gradient-custom">
+              <div className="relative flex items-center gap-8 rounded-[0.38rem] border border-[#32323240] bg-gradient-custom">
                 <HeaderMenu isPopOpen={isPopOpen} processedData={processedData} />
                 <Button
                   variant="invincible"

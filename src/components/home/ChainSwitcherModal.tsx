@@ -6,6 +6,7 @@ import RemoteImage from '../shared/RemoteImage';
 import { ChainType } from '@/services/queries/coins/types';
 import { useParams, useRouter } from 'next/navigation';
 import { AppRoutes } from '@/utils/routes';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 interface IProps {
   data: ChainType[];
@@ -13,13 +14,15 @@ interface IProps {
 }
 
 const ChainSwitcherModal = ({ data, toggle }: IProps) => {
+  const [ref] = useOutsideClick(toggle);
   const params = useParams();
   const paramsIdFallback = (params.id as string) || '137';
   const router = useRouter();
   return (
     <motion.div
-      className="absolute left-0 top-[4rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212]"
+      className="absolute right-0 top-[4rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212]"
       variants={MODAL_ANIMATION_VARIANTS}
+      ref={ref}
       initial="hidden"
       animate="show"
       exit="hidden"
