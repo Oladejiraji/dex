@@ -16,7 +16,7 @@ import { priorityOptions } from '@/utils/static';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useAccount } from 'wagmi';
 
 const ConnectPage = () => {
@@ -59,8 +59,7 @@ const ConnectPage = () => {
     []
   );
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | { target: { value: string } }) => {
-    const value = e.target.value;
+  const handleInputChange = (value: string) => {
     setValue(value);
     handleDebouncedInputChange(value);
   };

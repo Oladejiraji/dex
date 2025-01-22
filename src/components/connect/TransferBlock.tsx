@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import MainAssets from '@/lib/assets/main';
 import Input from '../shared/Input';
 import RenderIf from '../shared/RenderIf';
 import { ChainSelect } from './ChainSelect';
+import { motion } from 'framer-motion';
 import { ChainModal } from './ChainModal';
 import { useSocketTokensRead } from '@/services/queries/coins';
 import { ChainType, SocketToken, TokenBalance } from '@/services/queries/coins/types';
@@ -18,7 +19,7 @@ interface IProps {
   type: 'from' | 'to';
   value: string;
   calculatedValue: string;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (value: string) => void;
   blockId: number;
   balance?: TokenBalance;
   currChain: ChainType;
@@ -48,6 +49,7 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
 
   const activeChain = type === 'from' ? chainFrom : chainTo;
   const otherChain = type === 'to' ? chainFrom : chainTo;
+  const [isMax, setIsMax] = useState(false);
 
   const handleChainUpdate = (chain: SocketToken) => {
     if (!data) return;
@@ -72,7 +74,7 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
             <div>
               <Input
                 className="border-none bg-transparent p-0 font-geist-medium text-2xl text-grey-300"
-                onChange={handleInputChange}
+                onChange={(e) => handleInputChange(e.target.value)}
                 value={type === 'from' ? formatNumber(value) : formatNumber(calculatedValue)}
                 placeholder="0.00"
                 disabled={!account.address}
@@ -102,13 +104,21 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
                 {stringToFixed(removeDecimal(balance.decimals, balance?.balance))} {balance?.symbol}
               </p>
               <button
-              // onClick={() => {
-              //   handleInputChange({
-              //     target: { value: stringToFixed(removeDecimal(balance.decimals, balance?.balance)) },
-              //   });
-              // }}
+                onClick={() => {
+                  setIsMax(true);
+                  handleInputChange(stringToFixed(removeDecimal(balance.decimals, balance?.balance)));
+                  setTimeout(() => {
+                    setIsMax(false);
+                  }, 500);
+                }}
               >
-                <p className="font-geist-medium text-[0.63rem] text-white">MAX</p>
+                <motion.p
+                  className="font-geist-medium text-[0.63rem] text-white"
+                  animate={{ width: isMax ? '2.5rem' : '1.5rem' }}
+                >
+                  <span>MAX</span>
+                  <motion.span animate={{ opacity: isMax ? 1 : 0 }}>ING</motion.span>
+                </motion.p>
               </button>
             </div>
           ) : null}
