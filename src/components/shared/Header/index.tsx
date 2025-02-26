@@ -16,6 +16,7 @@ import { useSocketChainRead } from '@/services/queries/coins';
 import { useDebounce } from '@/hooks/useDebounce';
 import HomeHeaderInput from './HomeHeaderInput';
 import NetworkHeaderInput from './NetworkHeaderInput';
+import MobileHeader from './MobileHeader';
 
 const Header = ({ type }: { type?: number }) => {
   const { data } = useSocketChainRead();
@@ -43,7 +44,8 @@ const Header = ({ type }: { type?: number }) => {
           'bg-black/30 backdrop-blur-sm': !isPopOpen,
         })}
       >
-        <div className="mx-auto flex max-w-[75.00rem] items-start justify-between">
+        <MobileHeader />
+        <div className="mx-auto hidden max-w-[75.00rem] items-start justify-between lg:flex">
           <Link href={AppRoutes.home.path}>
             <Button>
               <div className="flex items-center gap-1">
@@ -139,7 +141,7 @@ const Header = ({ type }: { type?: number }) => {
             <div className="flex items-center gap-4">
               <div className="relative flex items-center gap-8 rounded-[0.38rem] border border-[#32323240] bg-gradient-custom">
                 <HeaderMenu isPopOpen={isPopOpen} processedData={processedData} />
-                <Button
+                {/* <Button
                   variant="invincible"
                   // onClick={() => setIsPopOpen(true)}
                   className="group"
@@ -159,20 +161,8 @@ const Header = ({ type }: { type?: number }) => {
                     </div>
                     <p className="text-[0.81rem] text-grey-100">Search Chain</p>
                   </div>
-                </Button>
+                </Button> */}
               </div>
-              {/* <Link href={AppRoutes.connect.path(137)}>
-                <Button variant="ghost" className="group">
-                  <div className="flex items-center gap-1">
-                    <div className="rounded-[0.25rem] bg-primary-200 px-[0.38rem] py-[0.25rem]">
-                      <div className="flex h-4 w-3 items-center justify-center">
-                        <New className="fill-[#919191] transition-colors group-hover:fill-white" />
-                      </div>
-                    </div>
-                    <p className="text-[0.81rem] text-[#919191] transition-colors group-hover:text-white">Trade</p>
-                  </div>
-                </Button>
-              </Link> */}
               <ConnectButton />
             </div>
           </RenderIf>

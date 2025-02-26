@@ -6,23 +6,27 @@ import RemoteImage from '../shared/RemoteImage';
 import { ChainType } from '@/services/queries/coins/types';
 import { useParams, useRouter } from 'next/navigation';
 import { AppRoutes } from '@/utils/routes';
-import useOutsideClick from '@/hooks/useOutsideClick';
+import { useSwitchChain } from 'wagmi';
+import { cn } from '@/lib/utils';
 
 interface IProps {
   data: ChainType[];
   toggle: () => void;
+  anchor?: 'right' | 'left';
 }
 
-const ChainSwitcherModal = ({ data, toggle }: IProps) => {
-  const [ref] = useOutsideClick(toggle);
+const ChainSwitcherModal = ({ data, toggle, anchor = 'right' }: IProps) => {
   const params = useParams();
   const paramsIdFallback = (params.id as string) || '137';
   const router = useRouter();
+  const { switchChain } = useSwitchChain();
   return (
     <motion.div
-      className="absolute right-0 top-[4rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212]"
+      className={cn('absolute top-[4rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212]', {
+        'right-[-3rem]': anchor === 'right',
+        'left-0': anchor === 'left',
+      })}
       variants={MODAL_ANIMATION_VARIANTS}
-      ref={ref}
       initial="hidden"
       animate="show"
       exit="hidden"
@@ -35,6 +39,7 @@ const ChainSwitcherModal = ({ data, toggle }: IProps) => {
                 key={i}
                 onClick={() => {
                   toggle();
+                  switchChain({ chainId: chain.chainId });
                   router.push(AppRoutes.connect.path(chain.chainId));
                 }}
                 className="flex w-full items-center justify-between rounded-[0.2rem] px-2 py-3 transition-colors hover:bg-[#171717]"

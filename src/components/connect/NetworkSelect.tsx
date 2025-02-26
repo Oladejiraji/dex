@@ -12,8 +12,8 @@ const NetworkSelect = ({ currChain }: { currChain: ChainType }) => {
     setIsShow((prev) => !prev);
   };
   return (
-    <div className="relative">
-      <div className="mt-[1.38rem] flex">
+    <div className="relative rounded-[0.625rem] bg-[#0D0E0F]">
+      <div className="mt-6 flex lg:mt-[1.38rem]">
         <button className="flex items-center gap-2 rounded-[0.63rem] p-4" onClick={toggle}>
           <div className="h-8 w-8">
             <Image src={currChain.icon} alt="Chain Base Icon" className="rounded-[0.25rem]" width={32} height={32} />
@@ -24,7 +24,9 @@ const NetworkSelect = ({ currChain }: { currChain: ChainType }) => {
           </div>
         </button>
       </div>
-      <AnimatePresence>{isShow && data ? <ChainSwitcherModal toggle={toggle} data={data} /> : null}</AnimatePresence>
+      <AnimatePresence>
+        {isShow && data ? <ChainSwitcherModal anchor="left" toggle={toggle} data={data} /> : null}
+      </AnimatePresence>
     </div>
   );
 };

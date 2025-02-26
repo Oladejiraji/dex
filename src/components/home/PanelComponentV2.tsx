@@ -1,46 +1,53 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import cx from 'classnames';
 import { ChainType } from '@/services/queries/coins/types';
-import { useLenis } from 'lenis/react';
 import MainAssets from '@/lib/assets/main';
-import { useRouter } from 'next/navigation';
-import { AppRoutes } from '@/utils/routes';
+// import { useRouter } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface IProps {
   index: number;
-  isActive: boolean;
-  reverseIndex: number;
   chain: ChainType;
-  actualRotation: number[];
   setActiveScroll: Dispatch<SetStateAction<number>>;
-  setActivePanel: Dispatch<SetStateAction<number>>;
   returnTransform: (index: number) => 0 | 450 | 50 | 80;
 }
 
-const PanelComponent = ({
-  reverseIndex,
-  index,
-  isActive,
-  chain,
-  actualRotation,
-  setActiveScroll,
-  setActivePanel,
-  returnTransform,
-}: IProps) => {
-  const router = useRouter();
+const PanelComponentV2 = ({ index, chain, setActiveScroll, returnTransform }: IProps) => {
+  const itemRef = useRef<HTMLDivElement>(null);
+  // const router = useRouter();
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
   const [isHover, setIsHover] = useState(false);
 
-  const lenis = useLenis();
+  const handleScroll = () => {
+    const windowCenter = window.innerHeight / 2;
+    const boundElement = itemRef.current?.getBoundingClientRect();
+    if (!boundElement) return;
+
+    if (Math.abs(windowCenter - (boundElement.bottom - boundElement.height / 2)) < boundElement.height / 2) {
+      setIsHover(true);
+      setActiveScroll(index);
+    } else {
+      setIsHover(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('wheel', handleScroll);
+    document.addEventListener('touchmove', handleScroll);
+    return () => {
+      document.removeEventListener('wheel', handleScroll);
+      document.addEventListener('touchmove', handleScroll);
+    };
+  }, []);
 
   return (
     <motion.div
-      style={{ top: (isLargeScreen ? 142 : 80) * (index - 1), zIndex: index }}
-      className="absolute flex gap-4"
+      style={{ zIndex: index }}
+      className="flex gap-4"
       animate={{ translateY: returnTransform(index) }}
+      ref={itemRef}
     >
       {/* Info for stability */}
       <div className="hidden opacity-0 lg:block">
@@ -59,31 +66,32 @@ const PanelComponent = ({
       {/* Main Panel */}
       <motion.div
         id={`panel-${index}`}
-        className={cx('panel_con cursor-pointer overflow-y-hidden', {
-          'h-[18.75rem]': !isActive,
-          'h-[36.56rem]': isActive,
-        })}
-        // whileHover={{ scale: 1.02 }}
-        onHoverStart={() => setActiveScroll(index)}
+        className={cx('panel_con h-[10rem] cursor-pointer lg:h-[14.75rem]', {})}
+        onHoverStart={() => {
+          setActiveScroll(index);
+          // navigator.vibrate(100);
+        }}
         onHoverEnd={() => setActiveScroll(0)}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         onClick={() => {
-          if (isActive) {
-            setActivePanel(0);
-          } else {
-            setActivePanel(index);
-            setTimeout(() => {
-              router.push(AppRoutes.connect.path(chain.chainId));
-            }, 400);
-          }
-          setTimeout(() => {
-            lenis?.scrollTo(`#panel-${index}`, { offset: -100 });
-          }, 300);
+          // if (isActive) {
+          //   setActivePanel(0);
+          // } else {
+          //   setActivePanel(index);1
+          // setTimeout(() => {
+          //   router.push(AppRoutes.connect.path(chain.chainId));
+          // }, 400);
+          // }
+          // setTimeout(() => {
+          //   router.push(AppRoutes.connect.path(chain.chainId));
+          // }, 400);
         }}
         animate={{
-          scale: isHover ? 1.02 : 1,
-          rotateX: isActive ? '0deg' : `-${actualRotation[reverseIndex - 1] + 20}deg`,
+          scaleX: isHover ? (isLargeScreen ? 1.02 : 1.1) : 1,
+          scaleY: isHover ? (isLargeScreen ? 1.1 : 1.3) : 1,
+          // rotateX: isActive ? '0deg' : `30deg`,
+          // rotateX: isActive ? '0deg' : `-${actualRotation[reverseIndex - 1] + 20}deg`,
         }}
       >
         {/* Actual panel image */}
@@ -120,4 +128,4 @@ const PanelComponent = ({
   );
 };
 
-export default PanelComponent;
+export default PanelComponentV2;

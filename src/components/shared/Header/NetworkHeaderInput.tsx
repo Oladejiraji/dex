@@ -1,11 +1,12 @@
+'use client';
 import React, { useEffect, useRef } from 'react';
 import Input from '../Input';
 import MainAssets from '@/lib/assets/main';
-import { useGeneralContext } from '@/context/GeneralContext';
+import { useQueryState } from 'nuqs';
 
 const NetworkHeaderInput = () => {
   const ref = useRef<HTMLInputElement>(null);
-  const { networkSearchValue, updateNetworkSearchValue } = useGeneralContext();
+  const [search, setSearch] = useQueryState('search');
   const handleKeyDown = (event: KeyboardEvent) => {
     const isMac = navigator.userAgent.toUpperCase().includes('MAC');
 
@@ -25,9 +26,9 @@ const NetworkHeaderInput = () => {
     <Input
       iconBefore
       icon={MainAssets.Search}
-      value={networkSearchValue}
+      value={search || ''}
       onChange={(e) => {
-        updateNetworkSearchValue(e.target.value);
+        setSearch(e.target.value);
       }}
       ref={ref}
       inButton={

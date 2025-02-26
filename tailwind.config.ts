@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        neutral: '0.8125rem',
+        'very-small': '0.5rem',
+      },
       fontFamily: {
         'geist-thin': ['geist-thin', 'sans-serif'],
         'geist-bold': ['geist-bold', 'sans-serif'],

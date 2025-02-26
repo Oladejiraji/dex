@@ -4,21 +4,21 @@ import NetworkCard from '@/components/network/NetworkCard';
 import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
 import { ChainType } from '@/services/queries/coins/types';
-import { useGeneralContext } from '@/context/GeneralContext';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useExchangeContext } from '@/context/ExchangeContext';
+import { useQueryState } from 'nuqs';
 
 const NetworkComponent = ({ result }: { result: ChainType[] }) => {
-  const { networkSearchValue } = useGeneralContext();
+  const [search] = useQueryState('search');
   const { restartSwap } = useExchangeContext();
   useEffect(() => {
     restartSwap();
   }, []);
-  const debouncedSearchValue = useDebounce(networkSearchValue, 300);
+  const debouncedSearchValue = useDebounce(search, 300);
   const filterNetworks = useMemo(() => {
     if (!result) return [];
 
-    const trimSearch = debouncedSearchValue.trim().toLowerCase();
+    const trimSearch = (debouncedSearchValue || '').trim().toLowerCase();
 
     return [...result].filter((item) => {
       if (!trimSearch) return true;

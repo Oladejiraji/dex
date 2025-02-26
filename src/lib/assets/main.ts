@@ -1,4 +1,5 @@
 import Right from '../../../public/svgs/right.svg';
+import Burger from '../../../public/svgs/burger.svg';
 import New from '../../../public/svgs/new.svg';
 import Simplify from '../../../public/svgs/simplify.svg';
 import Search from '../../../public/svgs/search.svg';
@@ -108,6 +109,7 @@ const MainAssets = {
   RightShadowIcon,
   DiagonalLines,
   Union,
+  Burger,
 };
 
 export default MainAssets;

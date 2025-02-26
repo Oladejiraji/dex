@@ -6,6 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 import RemoteImage from '../shared/RemoteImage';
 import { useChainId } from 'wagmi';
 import ChainSwitcherModal from './ChainSwitcherModal';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const ChainSwitcher = () => {
   const { data } = useSocketChainRead();
@@ -14,11 +15,18 @@ const ChainSwitcher = () => {
   const toggle = () => {
     setIsPopOpen((prev) => !prev);
   };
+  const [ref] = useOutsideClick(() => setIsPopOpen(false));
   const myChainData = data?.find((chain) => chain.chainId === chainId);
+  console.log(chainId);
   return (
-    <div>
+    <div ref={ref}>
       <div className="relative">
-        <button onClick={toggle} className="flex h-10 w-10 items-center justify-center rounded-[0.375rem] bg-[#131415]">
+        <button
+          onClick={() => {
+            setIsPopOpen(() => !isOpen);
+          }}
+          className="flex h-8 w-8 items-center justify-center rounded-[0.375rem] bg-[#131415] lg:h-10 lg:w-10"
+        >
           <div className="relative">
             <RemoteImage
               width={24}
