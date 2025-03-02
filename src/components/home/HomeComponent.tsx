@@ -2,14 +2,16 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import MainAssets from '@/lib/assets/main';
-import Header from '@/components/shared/Header';
 import { ReactLenis } from 'lenis/react';
 import Footer from '@/components/shared/Footer';
 import PanelComponent from '@/components/home/PanelComponent';
 import { calculatePerceivedRotationX } from '@/services/helper';
 import { ChainType } from '@/services/queries/coins/types';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const HomeComponent = ({ data }: { data: ChainType[] }) => {
+  const isLargeScreen = useMediaQuery('(min-width: 1024px)');
+
   const [activePanel, setActivePanel] = useState(0);
   const [activeScroll, setActiveScroll] = useState(0);
   let actualRotation: number[];
@@ -20,7 +22,7 @@ const HomeComponent = ({ data }: { data: ChainType[] }) => {
 
   const returnTransform = (index: number) => {
     if (activePanel) {
-      return index > activePanel ? 450 : 0;
+      return index > activePanel ? (isLargeScreen ? 450 : 80) : 0;
     } else if (activeScroll) {
       return index > activeScroll && index <= activeScroll + 5 ? 50 : 0;
     } else return 0;
@@ -28,8 +30,9 @@ const HomeComponent = ({ data }: { data: ChainType[] }) => {
 
   return (
     <>
-      <Header type={1} />
-      <main className="mt-[12.50rem] min-h-screen w-screen">
+      {/* <Header type={1} /> */}
+      <main className="mt-0 min-h-screen w-screen px-8 lg:px-0">
+        {/* <main className="mt-[12.50rem] min-h-screen w-screen px-8 lg:px-0"> */}
         <ReactLenis root options={{ infinite: true }}>
           <div className="panel_wrap relative mx-auto max-w-[68.75rem]">
             {data?.map((chain, i, original) => {

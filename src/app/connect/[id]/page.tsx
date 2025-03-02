@@ -60,6 +60,7 @@ const ConnectPage = () => {
   );
 
   const handleInputChange = (value: string) => {
+    console.log(value);
     setValue(value);
     handleDebouncedInputChange(value);
   };
@@ -101,7 +102,7 @@ const ConnectPage = () => {
         />
         <main className="connect_border">
           {/* <main className=" h-[calc(100vh-6.25rem)] mt-[6.25rem] connect_border"> */}
-          <div className="relative mx-auto min-h-[calc(100vh-6.25rem)] max-w-[51.69rem] rounded-[0.63rem] border-none border-grey-200 py-[2.19rem] text-white sm:border">
+          <div className="relative mx-auto min-h-[calc(100vh-6.25rem)] max-w-[51.69rem] rounded-[0.63rem] border-none border-grey-200 px-6 py-[1.6875rem] text-white sm:border lg:px-0 lg:py-[2.19rem]">
             <div className="mx-auto h-full w-full max-w-[26.25rem] px-0">
               <div className="flex items-center justify-between">
                 <h3 className="font-geist-semibold text-xl">Swap</h3>
@@ -155,8 +156,8 @@ const ConnectPage = () => {
                     )}
                   </div>
                 ) : (
-                  <Button className="h-10 w-full bg-primary-500" onClick={openConnectModal}>
-                    <p className="font-geist-medium text-grey-400">Connect Wallet</p>
+                  <Button className="h-12 w-full bg-primary-500 lg:h-14" onClick={openConnectModal}>
+                    <p className="font-geist-medium text-[0.9375rem] text-grey-400">Connect Wallet</p>
                   </Button>
                 )}
               </div>
@@ -167,7 +168,7 @@ const ConnectPage = () => {
       <div className="pointer-events-none absolute bottom-0 left-0 w-full touch-none">
         <Image src={MainAssets.Union} alt="Mask overlay" />
       </div>
-      <div className="relative mt-[3rem] w-full">
+      <div className="relative mt-[3rem] hidden w-full lg:block">
         <ConnectFooter fixed={false} />
       </div>
     </>

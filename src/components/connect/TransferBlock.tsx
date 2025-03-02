@@ -107,17 +107,18 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
                 onClick={() => {
                   setIsMax(true);
                   handleInputChange(stringToFixed(removeDecimal(balance.decimals, balance?.balance)));
+                  // handleInputChange(stringToFixed(removeDecimal(balance.decimals, balance?.balance)));
                   setTimeout(() => {
                     setIsMax(false);
                   }, 500);
                 }}
               >
                 <motion.p
-                  className="font-geist-medium text-[0.63rem] text-white"
-                  animate={{ width: isMax ? '2.5rem' : '1.5rem' }}
+                  className="font-geist-medium text-[0.63rem]"
+                  animate={{ width: isMax ? '2.7rem' : '1.5rem', color: isMax ? 'grey' : '#ffffff' }}
                 >
                   <span>MAX</span>
-                  <motion.span animate={{ opacity: isMax ? 1 : 0 }}>ING</motion.span>
+                  <motion.span animate={{ opacity: isMax ? 1 : 0 }}>XING</motion.span>
                 </motion.p>
               </button>
             </div>

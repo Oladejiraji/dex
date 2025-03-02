@@ -58,12 +58,12 @@ export function ChainModal({ isPopOpen, setIsPopOpen, handleChainUpdate, currCha
           animate="show"
           exit="hidden"
         >
-          <div className="relative mx-auto h-[548px] w-full max-w-[29.38rem] p-[0.06rem]">
+          <div className="relative mx-auto h-[548px] w-full max-w-[29.38rem] lg:p-[0.06rem]">
             <div className="gradient_bg absolute inset-0 h-full w-full rounded-[0.38rem]" />
             <div className="select_gradient relative flex h-full flex-col rounded-[0.38rem] py-6">
               <div className="flex items-center gap-2 px-6">
                 <Input
-                  className="h-12 rounded-[0.38rem] border border-[#32323240] bg-transparent pl-[1.75rem] font-geist-medium text-[0.81rem] text-white placeholder:text-[#919191]"
+                  className="h-8 rounded-[0.38rem] border border-[#32323240] bg-transparent pl-[1.75rem] font-geist-medium text-[0.81rem] text-white placeholder:text-[#919191] lg:h-12"
                   containerClass="flex-1"
                   iconBeforeClassNames="left-[0.63rem]"
                   onChange={(e) => setSearchValue(e.target.value)}
@@ -73,7 +73,7 @@ export function ChainModal({ isPopOpen, setIsPopOpen, handleChainUpdate, currCha
                   icon={MainAssets.Search}
                 />
                 <button
-                  className="flex h-12 w-12 items-center justify-center rounded-full border border-[#32323240]"
+                  className="flex h-12 w-12 items-center justify-center rounded-full border-[#32323240] lg:border"
                   onClick={() => setIsPopOpen(false)}
                 >
                   <div className="h-[0.69rem] w-[0.69rem]">
@@ -81,7 +81,7 @@ export function ChainModal({ isPopOpen, setIsPopOpen, handleChainUpdate, currCha
                   </div>
                 </button>
               </div>
-              <div className="mb-8 mt-4 flex flex-wrap gap-x-4 gap-y-[0.63rem] px-6">
+              <div className="mb-8 mt-4 flex min-h-[2rem] gap-x-4 gap-y-[0.63rem] overflow-x-auto px-6 lg:min-h-[4.375rem] lg:flex-wrap lg:overflow-x-hidden">
                 {processedData.slice(0, 7).map((chain, i) => {
                   return (
                     <button

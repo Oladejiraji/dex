@@ -275,6 +275,12 @@ html.lenis body {
   perspective: 1000px;
 }
 
+.mobile_header_bg {
+  background: linear-gradient(180deg, rgba(13, 14, 15, 0.9) 37.5%, #0d0e0f 168.06%);
+  box-shadow: 0px 0px 0px 1px #32323240;
+  backdrop-filter: blur(24px);
+}
+
 @property --st {
   syntax: '<percentage>';
   inherits: false;
@@ -332,4 +338,10 @@ html.lenis body {
 .toast-rotate-transition {
   transform: rotateY(360deg);
   transition: all ease 0.5s;
+}
+
+@media (max-width: 1024px) {
+  .network_grid {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 2fr));
+  }
 }
