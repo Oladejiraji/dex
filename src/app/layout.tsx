@@ -6,7 +6,6 @@ import { Bounce, ToastContainer } from 'react-toastify';
 import NextTopLoader from 'nextjs-toploader';
 import 'react-toastify/dist/ReactToastify.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import { headers } from 'next/headers';
 
 export const metadata: Metadata = {
   title: 'Superbase',
@@ -24,19 +23,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headerList = await headers();
-  const pathname = headerList.get('x-current-path');
-
   return (
     <>
       <html lang="en">
-        {/* <Metatags data={prodMeta} /> */}
-        <body
-          className={'relative bg-primary-100'}
-          style={{ overflow: pathname === '/' ? 'hidden' : 'auto' }}
-          id="body"
-        >
-          <div id="modal-root"></div>
+        <body className={'relative bg-primary-100'} id="body">
           <NextTopLoader color="#fff" showSpinner={false} />
           <ToastContainer
             position="top-right"

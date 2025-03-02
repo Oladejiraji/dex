@@ -39,15 +39,7 @@ export default function AppKitProvider({ children }: { children: ReactNode; init
       <ExchangeContexttProvider>
         <GeneralContextProvider>
           <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider theme={myTheme}>
-              <div className="h-full w-full">{children}</div>
-              {/* <div className="hidden h-full w-full lg:block">{children}</div>
-              <div className="block h-full w-full lg:hidden">
-                <MobileIndicator />
-              </div> */}
-
-              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-            </RainbowKitProvider>
+            <RainbowKitProvider theme={myTheme}>{children}</RainbowKitProvider>
           </QueryClientProvider>
         </GeneralContextProvider>
       </ExchangeContexttProvider>

@@ -1,34 +1,27 @@
-"use client";
-import Footer from "@/components/shared/Footer";
-import Header from "@/components/shared/Header";
-import React from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { faqData } from "@/utils/static";
+'use client';
+import Footer from '@/components/shared/Footer';
+import Header from '@/components/shared/Header';
+import React from 'react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { faqData } from '@/utils/static';
 
 const Faq = () => {
   return (
-    <div className="max-w-[73.25rem] mx-auto">
+    <div className="mx-auto lg:max-w-[73.25rem]">
       <Header type={1} />
-      <main className="flex items-center justify-center min-h-screen w-full">
-        <div className="flex justify-between w-full">
-          <div className="max-w-[16.63rem]">
-            <h1 className="text-[#C1C1C1] text-[2.00rem] font-geist-medium">
-              Frequently Asked questions
-            </h1>
+      <main className="mt-[6.5625rem] flex w-full items-center justify-center px-6 lg:mt-0 lg:min-h-screen lg:px-0">
+        <div className="flex w-full flex-col justify-between gap-[3.6875rem] lg:flex-row lg:gap-0">
+          <div className="lg:max-w-[16.63rem]">
+            <h1 className="font-geist-medium text-2xl text-[#C1C1C1] lg:text-[2.00rem]">Frequently Asked questions</h1>
           </div>
-          <div className="w-[36.06rem]">
+          <div className="lg:w-[36.06rem]">
             <Accordion type="single" collapsible className="w-full">
               {faqData.map((faq, i) => (
                 <AccordionItem value={`item-${i + 1}`} key={i}>
-                  <AccordionTrigger className="text-[#C1C1C1] text-[1.25rem] font-geist-medium leading-[24.8px]">
+                  <AccordionTrigger className="py-4 font-geist-medium text-base leading-[24.8px] text-[#C1C1C1] lg:py-6 lg:text-[1.25rem]">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-[#999999] font-geist-medium text-[1.00rem] leading-[1.25rem] ml-8">
+                  <AccordionContent className="ml-8 font-geist-medium text-sm leading-[1.25rem] text-[#999999] lg:text-[1.00rem]">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

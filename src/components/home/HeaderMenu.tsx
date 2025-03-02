@@ -128,6 +128,16 @@ export function HeaderMenu({ isPopOpen, processedData }: IProps) {
                       </div>
                     </div>
                   </Link>
+                  <Link href={AppRoutes.team.path}>
+                    <div className="flex gap-1">
+                      <div className="mt-[0.15rem] h-[0.63rem] w-[0.81rem]">
+                        <Image src={MainAssets.Team} alt="chain icon" />
+                      </div>
+                      <div>
+                        <p className="pb-[0.25rem] font-geist-medium text-[0.81rem] text-[#919191]">Team</p>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
                 <div className="relative bottom-[-24px] right-[-20px]">
                   <div className="">

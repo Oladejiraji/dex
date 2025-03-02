@@ -17,7 +17,7 @@ const ReviewButton = ({ value, activeRoute, balance }: IProps) => {
   const isSufficient = parseFloat((parseFloat(balance) - parseFloat(value)).toFixed(6)) >= 0;
   return (
     <Button
-      className="h-14 w-full bg-primary-800 hover:bg-primary-800"
+      className="h-12 w-full bg-primary-800 hover:bg-primary-800 lg:h-14"
       disabled={!isSufficient}
       onClick={() => {
         updateActiveRoute(activeRoute);

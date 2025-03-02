@@ -17,7 +17,7 @@ const ChainSwitcher = () => {
   };
   const [ref] = useOutsideClick(() => setIsPopOpen(false));
   const myChainData = data?.find((chain) => chain.chainId === chainId);
-  console.log(chainId);
+
   return (
     <div ref={ref}>
       <div className="relative">

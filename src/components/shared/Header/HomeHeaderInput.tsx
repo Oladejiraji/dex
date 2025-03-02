@@ -1,10 +1,14 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import Input from '../Input';
 import MainAssets from '@/lib/assets/main';
+import { Options } from 'nuqs';
 
 interface IProps {
   setIsPopOpen: Dispatch<SetStateAction<boolean>>;
-  setSearchValue: Dispatch<SetStateAction<string>>;
+  setSearchValue: (
+    value: string | ((old: string | null) => string | null) | null,
+    options?: Options
+  ) => Promise<URLSearchParams>;
   searchValue: string;
   isPopOpen: boolean;
 }

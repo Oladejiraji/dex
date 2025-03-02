@@ -4,8 +4,9 @@ import Image from 'next/image';
 import cx from 'classnames';
 import { ChainType } from '@/services/queries/coins/types';
 import MainAssets from '@/lib/assets/main';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { AppRoutes } from '@/utils/routes';
 
 interface IProps {
   index: number;
@@ -16,7 +17,7 @@ interface IProps {
 
 const PanelComponentV2 = ({ index, chain, setActiveScroll, returnTransform }: IProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
-  // const router = useRouter();
+  const router = useRouter();
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
   const [isHover, setIsHover] = useState(false);
 
@@ -75,6 +76,7 @@ const PanelComponentV2 = ({ index, chain, setActiveScroll, returnTransform }: IP
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         onClick={() => {
+          router.push(AppRoutes.connect.path(chain.chainId));
           // if (isActive) {
           //   setActivePanel(0);
           // } else {

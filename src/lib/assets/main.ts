@@ -43,6 +43,7 @@ import MenuMask1 from '../../../public/assets/menu_mask_1.png';
 import MenuMask2 from '../../../public/assets/menu_mask_2.png';
 import MenuMask3 from '../../../public/svgs/mask_3.svg';
 import CustomAvatarAsset from '../../../public/svgs/custom_avatar.svg';
+import Team from '../../../public/svgs/team.svg';
 import Info from '../../../public/svgs/info.svg';
 import Pc from '../../../public/svgs/pc.svg';
 import ComingSoon from '../../../public/svgs/coming_soon.svg';
@@ -110,6 +111,7 @@ const MainAssets = {
   DiagonalLines,
   Union,
   Burger,
+  Team,
 };
 
 export default MainAssets;

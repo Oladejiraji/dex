@@ -15,6 +15,14 @@ import Header from '../shared/Header';
 
 gsap.registerPlugin(Observer);
 const HomeComponentV2 = ({ data }: { data: ChainType[] }) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
   const velocityRef = useRef(0);
 
@@ -77,7 +85,7 @@ const HomeComponentV2 = ({ data }: { data: ChainType[] }) => {
     const appplyDec = () => {
       if (Math.abs(velocityRef.current) > 0.01) {
         // Add a deceleration
-        console.log(velocityRef.current);
+        // console.log(velocityRef.current);
         gsap.to(panelWrap, {
           duration: 0.02,
           ease: 'none',

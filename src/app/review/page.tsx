@@ -151,11 +151,11 @@ const Review = () => {
         hashState={hash}
         activeChain={activeChain}
       />
-      <div className="mx-auto max-w-[51.69rem] px-2 sm:px-8">
+      <div className="mx-auto max-w-[51.69rem] px-3 sm:px-8 lg:px-2">
         <Header type={2} />
         <main className="connect_border mt-[6.25rem] h-[calc(100vh-100px)]">
           <div className="relative mx-auto mt-0 max-w-[51.69rem] rounded-[0.63rem] border-none border-grey-200 py-[2.19rem] text-white sm:mt-14 sm:border">
-            <div className="mx-auto h-full w-full max-w-[29.38rem] px-2">
+            <div className="mx-auto h-full w-full max-w-[29.38rem] px-6 lg:px-2">
               <div className="mb-4 flex items-center justify-between">
                 <h1 className="font-geist-semibold text-[1.25rem] text-[#F9F9F9]">Review Route</h1>
                 <button
@@ -167,16 +167,16 @@ const Review = () => {
                   </div>
                 </button>
               </div>
-              <div className="relative flex items-center justify-center gap-2">
+              <div className="relative flex flex-col items-center justify-center gap-2 lg:flex-row">
                 <ReviewChain asset={fromAsset} amount={fromAmount} type="From" activeRoute={activeRoute} />
                 <div className="absolute bottom-[50%] left-[50%] z-[10] flex h-8 w-8 translate-x-[-50%] translate-y-[50%] rotate-[-90deg] items-center justify-center rounded-[0.50rem] border-[0.19rem] border-[#060708] bg-[#0D0E0F]">
-                  <div className="h-[0.63rem] w-[0.63rem]">
+                  <div className="h-[0.63rem] w-[0.63rem] rotate-90 lg:rotate-0">
                     <Image src={MainAssets.Up} alt="Up icon" />
                   </div>
                 </div>
                 <ReviewChain asset={toAsset} amount={toAmount} type="To" activeRoute={activeRoute} />
               </div>
-              <div className="mt-[2.00rem] flex flex-col gap-4 rounded-[0.63rem]">
+              <div className="mt-10 flex flex-col gap-4 rounded-[0.63rem] lg:mt-[2.00rem]">
                 <div className="flex items-center justify-between">
                   <p className="font-geist-regular text-[0.88rem] text-[#7D7D7D]">Liquidity Provider: </p>
                   <div className="flex items-center justify-center gap-2">

@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Button from '../Button';
 import Image from 'next/image';
 import MainAssets from '@/lib/assets/main';
@@ -13,27 +13,18 @@ import ConnectButton from '@/components/home/ConnectButton';
 import Simplify from '@/lib/svg/Simplify';
 import New from '@/lib/svg/New';
 import { useSocketChainRead } from '@/services/queries/coins';
-import { useDebounce } from '@/hooks/useDebounce';
 import HomeHeaderInput from './HomeHeaderInput';
 import NetworkHeaderInput from './NetworkHeaderInput';
 import MobileHeader from './MobileHeader';
+import { useQueryState } from 'nuqs';
+import useFilterChains from '@/hooks/useFilterChains';
 
-const Header = ({ type }: { type?: number }) => {
+const HeaderComp = ({ type }: { type?: number }) => {
   const { data } = useSocketChainRead();
 
-  const [searchValue, setSearchValue] = useState('');
-  const debouncedSearchValue = useDebounce(searchValue, 300);
+  const [search, setSearch] = useQueryState('search');
 
-  const processedData = useMemo(() => {
-    if (!data) return [];
-
-    const trimSearch = debouncedSearchValue.trim().toLowerCase();
-
-    return [...data].filter((item) => {
-      if (!trimSearch) return true;
-      return item.name.trim().toLowerCase().includes(trimSearch);
-    });
-  }, [data, debouncedSearchValue]);
+  const processedData = useFilterChains(search, data);
 
   const [isPopOpen, setIsPopOpen] = useState(false);
 
@@ -89,10 +80,10 @@ const Header = ({ type }: { type?: number }) => {
 
                   <div className="w-[19.75rem]">
                     <HomeHeaderInput
-                      searchValue={searchValue}
+                      searchValue={search || ''}
                       setIsPopOpen={setIsPopOpen}
                       isPopOpen={isPopOpen}
-                      setSearchValue={setSearchValue}
+                      setSearchValue={setSearch}
                     />
                   </div>
                   <div>
@@ -141,27 +132,6 @@ const Header = ({ type }: { type?: number }) => {
             <div className="flex items-center gap-4">
               <div className="relative flex items-center gap-8 rounded-[0.38rem] border border-[#32323240] bg-gradient-custom">
                 <HeaderMenu isPopOpen={isPopOpen} processedData={processedData} />
-                {/* <Button
-                  variant="invincible"
-                  // onClick={() => setIsPopOpen(true)}
-                  className="group"
-                >
-                  <div className="flex items-center gap-1">
-                    <div className="flex h-4 w-3 items-center justify-center">
-                      <Simplify className="fill-[#919191] transition-colors group-hover:fill-white" />
-                    </div>
-
-                    <p className="text-[0.81rem] text-[#919191] transition-colors group-hover:text-white">Simplify</p>
-                  </div>
-                </Button>
-                <Button variant="invincible">
-                  <div className="flex items-center gap-1">
-                    <div className="flex h-4 w-3 items-center justify-center">
-                      <Image src={MainAssets.Search} alt="Left icon for the new button" />
-                    </div>
-                    <p className="text-[0.81rem] text-grey-100">Search Chain</p>
-                  </div>
-                </Button> */}
               </div>
               <ConnectButton />
             </div>
@@ -182,6 +152,14 @@ const Header = ({ type }: { type?: number }) => {
         </div>
       </header>
     </>
+  );
+};
+
+const Header = ({ type }: { type?: number }) => {
+  return (
+    <Suspense>
+      <HeaderComp type={type} />
+    </Suspense>
   );
 };
 
