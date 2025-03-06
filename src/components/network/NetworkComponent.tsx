@@ -29,7 +29,7 @@ const NetworkComponent = ({ result }: { result: ChainType[] }) => {
   return (
     <>
       <Header type={3} />
-      <main className="mx-auto my-[8.75rem] max-w-[75.00rem]">
+      <main className="mx-auto my-[5.5rem] max-w-[75.00rem] lg:my-[8.75rem]">
         <div className="rounded-[0.63rem] border border-dashed border-[#131313] p-8">
           {filterNetworks.length === 0 ? (
             <div>

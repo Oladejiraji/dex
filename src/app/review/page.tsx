@@ -153,7 +153,7 @@ const Review = () => {
       />
       <div className="mx-auto max-w-[51.69rem] px-3 sm:px-8 lg:px-2">
         <Header type={2} />
-        <main className="connect_border mt-[6.25rem] h-[calc(100vh-100px)]">
+        <main className="connect_border mt-[6.25rem] lg:h-[calc(100vh-100px)]">
           <div className="relative mx-auto mt-0 max-w-[51.69rem] rounded-[0.63rem] border-none border-grey-200 py-[2.19rem] text-white sm:mt-14 sm:border">
             <div className="mx-auto h-full w-full max-w-[29.38rem] px-6 lg:px-2">
               <div className="mb-4 flex items-center justify-between">

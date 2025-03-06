@@ -16,6 +16,7 @@ const simplifyOptions = [
   {
     name: 'Chains',
     ready: true,
+    link: AppRoutes.networks.path,
     options: ['BASE', 'POLYGON', 'ARBITRUM', 'SOLANA'],
   },
   {
@@ -121,33 +122,35 @@ const MobileNav = ({ closeNav }: IProps) => {
                 <div className="flex flex-col gap-4">
                   {simplifyOptions.map((opt, i) => {
                     return (
-                      <div key={i} className="flex items-center gap-2">
-                        <h3
-                          className={cn('font-geist-medium text-xl', {
-                            'text-white': opt.ready,
-                            'text-[#919191]': !opt.ready,
-                          })}
-                        >
-                          {opt.name}
-                        </h3>
-                        <div className="flex items-center gap-1">
-                          <RenderIf condition={opt.ready}>
-                            {opt.options?.map((cld, j) => (
-                              <p
-                                className="rounded-[3px] bg-[#151617] px-1 py-[0.25rem] font-geist-semibold text-very-small text-white"
-                                key={j}
-                              >
-                                {cld}
+                      <Link href={opt.link || '#'} key={i}>
+                        <div className="flex items-center gap-2">
+                          <h3
+                            className={cn('font-geist-medium text-xl', {
+                              'text-white': opt.ready,
+                              'text-[#919191]': !opt.ready,
+                            })}
+                          >
+                            {opt.name}
+                          </h3>
+                          <div className="flex items-center gap-1">
+                            <RenderIf condition={opt.ready}>
+                              {opt.options?.map((cld, j) => (
+                                <p
+                                  className="rounded-[3px] bg-[#151617] px-1 py-[0.25rem] font-geist-semibold text-very-small text-white"
+                                  key={j}
+                                >
+                                  {cld}
+                                </p>
+                              ))}
+                            </RenderIf>
+                            <RenderIf condition={!opt.ready}>
+                              <p className="rounded-[3px] bg-[#151617] px-1 py-[0.25rem] font-geist-semibold text-very-small text-[#919191]">
+                                COMING SOON
                               </p>
-                            ))}
-                          </RenderIf>
-                          <RenderIf condition={!opt.ready}>
-                            <p className="rounded-[3px] bg-[#151617] px-1 py-[0.25rem] font-geist-semibold text-very-small text-[#919191]">
-                              COMING SOON
-                            </p>
-                          </RenderIf>
+                            </RenderIf>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     );
                   })}
                 </div>
