@@ -77,23 +77,10 @@ const PanelComponentV2 = ({ index, chain, setActiveScroll, returnTransform }: IP
         onMouseLeave={() => setIsHover(false)}
         onClick={() => {
           router.push(AppRoutes.connect.path(chain.chainId));
-          // if (isActive) {
-          //   setActivePanel(0);
-          // } else {
-          //   setActivePanel(index);1
-          // setTimeout(() => {
-          //   router.push(AppRoutes.connect.path(chain.chainId));
-          // }, 400);
-          // }
-          // setTimeout(() => {
-          //   router.push(AppRoutes.connect.path(chain.chainId));
-          // }, 400);
         }}
         animate={{
           scaleX: isHover ? (isLargeScreen ? 1.02 : 1.1) : 1,
           scaleY: isHover ? (isLargeScreen ? 1.1 : 1.3) : 1,
-          // rotateX: isActive ? '0deg' : `30deg`,
-          // rotateX: isActive ? '0deg' : `-${actualRotation[reverseIndex - 1] + 20}deg`,
         }}
       >
         {/* Actual panel image */}
@@ -101,7 +88,7 @@ const PanelComponentV2 = ({ index, chain, setActiveScroll, returnTransform }: IP
         {/* Chain icon */}
         <div className="absolute left-[2.25rem] top-[2.13rem] lg:left-[6.25rem] lg:top-[3.13rem]">
           <div className="flex items-center gap-3">
-            <div className="">
+            <div className="h-8 w-8 lg:h-12 lg:w-12">
               <Image src={chain.icon} alt="Chain Icon" width={48} height={48} className="rounded-[0.50rem]" />
             </div>
           </div>

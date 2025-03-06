@@ -34,12 +34,12 @@ const HistoryItem = ({ transaction, setActiveHistory }: IProps) => {
           </h3>
         </div>
       </div>
-      <div className="flex w-[12.5rem] items-center gap-3">
+      <div className="flex items-center gap-3 lg:w-[12.5rem]">
         <div className="flex items-center gap-2">
           <div className="h-[1.625rem] w-[1.625rem]">
             <Image src={MainAssets.Eth} alt="Token to be transformed" />
           </div>
-          <div>
+          <div className="hidden lg:block">
             <p className="font-geist-regular text-xs leading-3 text-[#7D7D7D]">FROM</p>
             <p className="font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">
               {concatenateString(transaction.route.userTxs[0].fromAsset.symbol, 4)}
@@ -53,7 +53,7 @@ const HistoryItem = ({ transaction, setActiveHistory }: IProps) => {
           <div className="h-[1.625rem] w-[1.625rem]">
             <Image src={MainAssets.Usdc} alt="Token to be transformed" />
           </div>
-          <div>
+          <div className="hidden lg:block">
             <p className="font-geist-regular text-xs leading-3 text-[#7D7D7D]">FROM</p>
             <p className="font-geist-medium text-sm leading-[0.875rem] text-[#D7D7D7]">
               {concatenateString(transaction.route.userTxs[0].fromAsset.symbol, 4)}
@@ -62,8 +62,14 @@ const HistoryItem = ({ transaction, setActiveHistory }: IProps) => {
         </div>
       </div>
       <div className="w-[6.25rem]">
-        <p className="text-left font-geist-medium text-sm text-[#9B9B9B]">
+        <p className="hidden text-left font-geist-medium text-sm text-[#9B9B9B] lg:block">
           {concatenateString(formatDistanceToNow(transaction.timestamp, { addSuffix: true }), 18)}
+        </p>
+        <p className="block text-left font-geist-medium text-xs text-[#9B9B9B] lg:hidden">
+          {concatenateString(formatDistanceToNow(transaction.timestamp, { addSuffix: true }), 18).replace(
+            'minutes',
+            'mins'
+          )}
         </p>
       </div>
     </button>

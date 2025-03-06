@@ -102,7 +102,7 @@ const ConnectPage = () => {
         />
         <main className="connect_border">
           {/* <main className=" h-[calc(100vh-6.25rem)] mt-[6.25rem] connect_border"> */}
-          <div className="relative mx-auto min-h-[calc(100vh-6.25rem)] max-w-[51.69rem] rounded-[0.63rem] border-none border-grey-200 px-6 py-[1.6875rem] text-white sm:border lg:px-0 lg:py-[2.19rem]">
+          <div className="relative mx-auto max-w-[51.69rem] rounded-[0.63rem] border-none border-grey-200 px-6 py-[1.6875rem] text-white sm:border lg:min-h-[calc(100vh-6.25rem)] lg:px-0 lg:py-[2.19rem]">
             <div className="mx-auto h-full w-full max-w-[26.25rem] px-0">
               <div className="flex items-center justify-between">
                 <h3 className="font-geist-semibold text-xl">Swap</h3>
@@ -168,7 +168,7 @@ const ConnectPage = () => {
       <div className="pointer-events-none absolute bottom-0 left-0 w-full touch-none">
         <Image src={MainAssets.Union} alt="Mask overlay" />
       </div>
-      <div className="relative mt-[3rem] hidden w-full lg:block">
+      <div className="relative mt-[3rem] w-full">
         <ConnectFooter fixed={false} />
       </div>
     </>

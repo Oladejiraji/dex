@@ -22,8 +22,8 @@ const ChainSwitcherModal = ({ data, toggle, anchor = 'right' }: IProps) => {
   const { switchChain } = useSwitchChain();
   return (
     <motion.div
-      className={cn('absolute top-[4rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212]', {
-        'right-[-3rem]': anchor === 'right',
+      className={cn('absolute top-[3rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212] lg:top-[4rem]', {
+        'right-[-5rem] lg:right-[-3rem]': anchor === 'right',
         'left-0': anchor === 'left',
       })}
       variants={MODAL_ANIMATION_VARIANTS}

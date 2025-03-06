@@ -13,8 +13,8 @@ const ConnectFooter = ({ fixed = true }: { fixed?: boolean }) => {
     <>
       <TransHistoryModal isPopOpen={isOpen} setIsPopOpen={setIsOpen} />
       <footer className={cx('bottom-0 left-0 z-[1000] w-full pb-14 font-geist-medium', { fixed: !!fixed })}>
-        <div className="mx-auto flex max-w-[75.00rem] items-end justify-between">
-          <div className="flex flex-1 items-center gap-[0.25rem]">
+        <div className="mx-auto flex max-w-[75.00rem] items-end justify-center lg:justify-between">
+          <div className="hidden flex-1 items-center gap-[0.25rem] lg:flex">
             <p className="font-geist-medium text-[0.94rem] text-[#919191]">Powered by</p>
             <ExternalLink href="https://www.socket.tech/">
               <p className="font-geist-semibold text-[1.00rem] text-[#ffffff]">Socket</p>
@@ -45,7 +45,7 @@ const ConnectFooter = ({ fixed = true }: { fixed?: boolean }) => {
               </div>
             </div>
           </div>
-          <div className="flex-1"></div>
+          <div className="hidden flex-1 lg:block"></div>
         </div>
       </footer>
     </>
