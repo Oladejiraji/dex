@@ -106,8 +106,7 @@ const TransferBlock = ({ type, value, calculatedValue, handleInputChange, blockI
               <button
                 onClick={() => {
                   setIsMax(true);
-                  handleInputChange(stringToFixed(removeDecimal(balance.decimals, balance?.balance)));
-                  // handleInputChange(stringToFixed(removeDecimal(balance.decimals, balance?.balance)));
+                  handleInputChange(stringToFixed(removeDecimal(balance.decimals, balance?.balance), 5));
                   setTimeout(() => {
                     setIsMax(false);
                   }, 500);

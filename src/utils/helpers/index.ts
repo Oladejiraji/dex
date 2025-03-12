@@ -1,3 +1,4 @@
+import { CustomErrorToast, CustomExploreToast, CustomLoadingToast, CustomSuccessToast } from '@/CustomToast';
 import { appKey } from '../constants';
 import { toast, ToastOptions } from 'react-toastify';
 
@@ -150,18 +151,21 @@ export const stringToFixed = (number: string, decimal?: number) => {
   return isNaN(Number(retValue)) ? '0' : retValue;
 };
 
+const defaultToastConfig: ToastOptions = {
+  className: 'sonner-like-toast',
+};
+
 export const successToast = (message: string, config: ToastOptions = {}) => {
-  return toast.success(message || 'Successful!', config);
+  return toast(CustomSuccessToast, { ...config, ...defaultToastConfig, data: { content: message } });
 };
 
 export const errorToast = (message: string, config: ToastOptions = {}) => {
-  return toast.error(message || 'Something went wrong!', config);
+  return toast(CustomErrorToast, { ...config, ...defaultToastConfig, data: { content: message } });
 };
 
 export const loadingToast = (message: string, config: ToastOptions = {}) => {
-  return toast.loading(message || 'Loading!', config);
+  return toast(CustomLoadingToast, { ...config, ...defaultToastConfig, data: { content: message } });
 };
-
-export const defaultToast = (message: string, config: ToastOptions = {}) => {
-  return toast(message || 'Successful!', config);
+export const exploreToast = (message: string, link: string, config: ToastOptions = {}) => {
+  return toast(CustomExploreToast, { ...config, ...defaultToastConfig, data: { content: message, link } });
 };

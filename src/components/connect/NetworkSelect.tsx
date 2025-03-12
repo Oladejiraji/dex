@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import ChainSwitcherModal from '../home/ChainSwitcherModal';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const NetworkSelect = ({ currChain }: { currChain: ChainType }) => {
   const { data } = useSocketChainRead();
@@ -11,8 +12,9 @@ const NetworkSelect = ({ currChain }: { currChain: ChainType }) => {
   const toggle = () => {
     setIsShow((prev) => !prev);
   };
+  const [ref] = useOutsideClick(() => setIsShow(false));
   return (
-    <div className="relative rounded-[0.625rem] bg-[#0D0E0F]">
+    <div className="relative rounded-[0.625rem] bg-[#0D0E0F]" ref={ref}>
       <div className="mt-6 flex lg:mt-[1.38rem]">
         <button className="flex items-center gap-2 rounded-[0.63rem] p-4" onClick={toggle}>
           <div className="h-8 w-8">
@@ -25,7 +27,9 @@ const NetworkSelect = ({ currChain }: { currChain: ChainType }) => {
         </button>
       </div>
       <AnimatePresence>
-        {isShow && data ? <ChainSwitcherModal anchor="left" toggle={toggle} data={data} /> : null}
+        {isShow && data ? (
+          <ChainSwitcherModal activeChain={currChain.chainId} anchor="left" toggle={toggle} data={data} />
+        ) : null}
       </AnimatePresence>
     </div>
   );

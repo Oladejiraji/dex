@@ -11,11 +11,12 @@ import { AppRoutes } from '@/utils/routes';
 interface IProps {
   index: number;
   chain: ChainType;
+  playSound: () => void;
   setActiveScroll: Dispatch<SetStateAction<number>>;
   returnTransform: (index: number) => 0 | 450 | 50 | 80;
 }
 
-const PanelComponentV2 = ({ index, chain, setActiveScroll, returnTransform }: IProps) => {
+const PanelComponentV2 = ({ index, chain, setActiveScroll, returnTransform, playSound }: IProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const isLargeScreen = useMediaQuery('(min-width: 1024px)');
@@ -70,6 +71,7 @@ const PanelComponentV2 = ({ index, chain, setActiveScroll, returnTransform }: IP
         className={cx('panel_con h-[10rem] cursor-pointer lg:h-[14.75rem]', {})}
         onHoverStart={() => {
           setActiveScroll(index);
+          playSound();
           // navigator.vibrate(100);
         }}
         onHoverEnd={() => setActiveScroll(0)}

@@ -1,25 +1,30 @@
 import { QuoteResponseResult } from '@/services/queries/coins/types';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import Loader2 from '../shared/Loader/loader2';
 import Image from 'next/image';
 import MainAssets from '@/lib/assets/main';
 import { minimizeAddress, removeDecimal, stringToFixed } from '@/utils/helpers';
 import { RecipientPopover } from './RecipientPopover';
-import { useExchangeContext } from '@/context/ExchangeContext';
 import RemoteImage from '../shared/RemoteImage';
 
 interface IProps {
   isPending: boolean;
   quoteData?: QuoteResponseResult;
+  recipientAddressValue: string;
+  setRecipientAddressValue: Dispatch<SetStateAction<string>>;
 }
 
-const RouteBlock = ({ isPending, quoteData }: IProps) => {
+const RouteBlock = ({ isPending, quoteData, recipientAddressValue, setRecipientAddressValue }: IProps) => {
   const [isPopOpen, setIsPopOpen] = useState(false);
-  const { recipientAddress } = useExchangeContext();
 
   return (
     <>
-      <RecipientPopover isPopOpen={isPopOpen} setIsPopOpen={setIsPopOpen} />
+      <RecipientPopover
+        isPopOpen={isPopOpen}
+        setIsPopOpen={setIsPopOpen}
+        recipientAddressValue={recipientAddressValue}
+        setRecipientAddressValue={setRecipientAddressValue}
+      />
       <div className="mt-4 rounded-[0.63rem] border border-grey-200">
         {isPending && !quoteData && (
           <div className="flex items-center justify-center gap-2 py-4">
@@ -40,9 +45,11 @@ const RouteBlock = ({ isPending, quoteData }: IProps) => {
             <div className="flex items-center justify-between rounded-t-[0.63rem] bg-primary-300 px-4 py-3">
               <h3 className="font-geist-regular text-sm text-grey-300">Recipient address</h3>
               <button className="flex items-center gap-2" onClick={() => setIsPopOpen(true)}>
-                {recipientAddress ? (
+                {recipientAddressValue ? (
                   <div className="flex items-center gap-2 rounded-full border border-[#32323240] bg-primary-200 px-3 py-1 font-geist-medium text-sm">
-                    <h3 className="font-geist-medium text-sm text-grey-400">{minimizeAddress(recipientAddress)}</h3>
+                    <h3 className="font-geist-medium text-sm text-grey-400">
+                      {minimizeAddress(recipientAddressValue)}
+                    </h3>
                     <p className="text-grey-400 underline">Edit</p>
                   </div>
                 ) : (

@@ -6,7 +6,6 @@ import { Observer } from 'gsap/Observer';
 import Image from 'next/image';
 import MainAssets from '@/lib/assets/main';
 import Footer from '@/components/shared/Footer';
-import { calculatePerceivedRotationX } from '@/services/helper';
 import { ChainType } from '@/services/queries/coins/types';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import PanelComponentV2 from './PanelComponentV2';
@@ -28,12 +27,6 @@ const HomeComponentV2 = ({ data }: { data: ChainType[] }) => {
 
   const [activePanel, _] = useState(0);
   const [activeScroll, setActiveScroll] = useState(0);
-  let actualRotation: number[];
-  if (data) {
-    const transformData = data.map((_, i) => i * 142);
-    actualRotation = calculatePerceivedRotationX(transformData, 5000);
-    console.log(actualRotation);
-  }
 
   const returnTransform = (index: number) => {
     if (activePanel) {
@@ -125,11 +118,26 @@ const HomeComponentV2 = ({ data }: { data: ChainType[] }) => {
   }, []);
   const previewChain = data[activeScroll - 1];
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const hoverSound = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    hoverSound.current = new Audio('/sounds/drop_002.ogg');
+  }, []);
+
+  const playSound = () => {
+    if (!hoverSound.current) return;
+    // hoverSound.current.currentTime = 0;
+    // hoverSound.current.play();
+  };
+
   useEffect(() => {
     if (activeScroll > 0) {
       // audioRef.current?.play();
+      playSound();
     }
   }, [activeScroll]);
+
   return (
     <>
       <Header type={1} />
@@ -148,6 +156,7 @@ const HomeComponentV2 = ({ data }: { data: ChainType[] }) => {
                     setActiveScroll={setActiveScroll}
                     index={index}
                     returnTransform={returnTransform}
+                    playSound={playSound}
                   />
                 );
               })}

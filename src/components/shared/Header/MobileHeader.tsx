@@ -2,14 +2,17 @@ import MainAssets from '@/lib/assets/main';
 import { AppRoutes } from '@/utils/routes';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Button from '../Button';
 import ConnectButton from '@/components/home/ConnectButton';
 import MobileNav from './MobileNav';
 
-const MobileHeader = () => {
-  const [isShow, setIsShow] = useState(false);
+interface IProps {
+  isShow: boolean;
+  setIsShow: Dispatch<SetStateAction<boolean>>;
+}
+const MobileHeader = ({ isShow, setIsShow }: IProps) => {
   const closeNav = () => setIsShow(false);
 
   return (

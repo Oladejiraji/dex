@@ -27,6 +27,7 @@ import { toast } from 'react-toastify';
 import { transactionHistoryKey } from '@/utils/constants';
 import { TransactionHistory } from '@/services/queries/coins/types';
 import ConnectFooter from '@/components/shared/Footer/ConnectFooter';
+import { CustomErrorToast, CustomExploreToast } from '@/CustomToast';
 
 const Review = () => {
   const { data: chainsData } = useSocketChainRead();
@@ -78,9 +79,7 @@ const Review = () => {
           console.log('User rejected transaction');
           errorToast('You rejected the transaction!');
         } else {
-          errorToast(
-            err?.message || 'Something went wrong, please refresh and try again. Sorry for the incoveniences!'
-          );
+          errorToast(err?.message || 'Something went wrong!');
         }
       },
     },
@@ -100,10 +99,10 @@ const Review = () => {
       updateTransactionToastId(loadingToast('Your transaction is being broadcasted onchain!'));
     } else if (isConfirmed) {
       toast.update(transactionToastId, {
-        type: 'success',
-        render: 'Transaction completed!',
+        render: CustomExploreToast,
         autoClose: 5000,
-        className: 'toast-rotate-transition',
+        data: { content: 'Transaction completed!', link: `${activeChain?.explorers[0]}/tx/${hash}` },
+        className: 'toast-rotate-transition sonner-like-toast',
         closeButton: true,
         isLoading: false,
       });
@@ -113,10 +112,10 @@ const Review = () => {
       updateTransactionToastId(0);
     } else if (isConfirmedError) {
       toast.update(transactionToastId, {
-        type: 'error',
-        render: 'Transaction failed, please try again!',
+        render: CustomErrorToast,
+        data: { content: 'Transaction failed!' },
         autoClose: 5000,
-        className: 'toast-rotate-transition',
+        className: 'toast-rotate-transition sonner-like-toast',
         closeButton: true,
         isLoading: false,
       });
