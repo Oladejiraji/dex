@@ -52,13 +52,13 @@ export function ChainModal({ isPopOpen, setIsPopOpen, handleChainUpdate, currCha
       {isPopOpen ? (
         <motion.div
           style={{ willChange: 'opacity, transform' }}
-          className="absolute left-0 top-0 z-[50] h-full w-full bg-transparent pb-[2.69rem] pt-[4.13rem] backdrop-blur-[0.25rem]"
+          className="absolute left-0 top-0 z-[1001] h-full w-full bg-transparent pb-[2.69rem] pt-[4.13rem] backdrop-blur-[0.25rem]"
           variants={MODAL_ANIMATION_VARIANTS}
           initial="hidden"
           animate="show"
           exit="hidden"
         >
-          <div className="relative mx-auto h-[548px] w-full max-w-[29.38rem] lg:p-[0.06rem]">
+          <div className="relative z-[1001] mx-auto h-[548px] w-full max-w-[29.38rem] lg:p-[0.06rem]">
             <div className="gradient_bg absolute inset-0 h-full w-full rounded-[0.38rem]" />
             <div className="select_gradient relative flex h-full flex-col rounded-[0.38rem] py-6">
               <div className="flex items-center gap-2 px-6">

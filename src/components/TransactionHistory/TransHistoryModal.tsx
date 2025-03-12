@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Button from '../shared/Button';
-import X from '@/lib/svg/X';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { transactionHistoryKey } from '@/utils/constants';
 import { TransactionHistory } from '@/services/queries/coins/types';
@@ -32,7 +31,7 @@ export function TransHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
     <AnimatePresence>
       {isPopOpen ? (
         <motion.div
-          className="fixed left-0 top-[3rem] z-[1050] flex h-screen w-full items-start bg-transparent pb-[2.69rem] pt-[4.13rem] text-white backdrop-blur-[0.25rem]"
+          className="fixed left-0 top-[1rem] z-[1050] flex h-screen w-full items-start bg-transparent pb-[2.69rem] pt-[4.13rem] text-white backdrop-blur-[0.25rem]"
           variants={MODAL_ANIMATION_VARIANTS}
           initial="hidden"
           animate="show"
@@ -45,29 +44,29 @@ export function TransHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
               setIsPopOpen={setIsPopOpen}
             />
           ) : (
-            <div className="relative mx-auto h-fit w-full max-w-[32.4375rem] bg-[#121212] p-[0.06rem] sm:rounded-[2rem]">
+            <div className="relative mx-auto h-fit w-full max-w-[32.4375rem] p-[0.06rem]">
               <div className="">
-                <div className="flex items-center justify-between px-[1.6875rem] py-[2.25rem]">
+                <div className="flex items-center justify-between border-t border-[#28282860] bg-[rgba(0,0,0,0.8)] px-[1.6875rem] py-[1rem] backdrop-blur-3xl sm:rounded-t-[2rem] sm:border-none sm:bg-[#121212] sm:py-[2.25rem] sm:backdrop-blur-none">
                   <div>
                     <h1 className="font-geist-medium text-xs leading-4 text-[#898989]">
                       {transactinHistory?.length === 0 ? 'ACTIVITY' : `${transactinHistory?.length} completed`}
                     </h1>
-                    <h3 className="pt-1 font-geist-bold text-xl leading-[1.375rem] text-[#999999]">
+                    <h3 className="pt-1 font-geist-bold text-[0.9375rem] leading-[1.125rem] text-[#999999] sm:text-xl sm:leading-[1.375rem]">
                       Transaction history
                     </h3>
                   </div>
                   <button
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-[#232323]"
+                    className="flex items-center justify-center rounded-full px-3 py-3 sm:bg-[#232323]"
                     onClick={() => setIsPopOpen(false)}
                   >
-                    <div className="">
-                      <X className="fill-white" />
+                    <div className="relative h-[0.563rem] w-[0.563rem] sm:h-[0.875rem] sm:w-[0.875rem]">
+                      <Image src={MainAssets.X} alt="X icon" fill />
                     </div>
                   </button>
                 </div>
                 {/* Main */}
                 {transactinHistory.length === 0 ? (
-                  <>
+                  <div className="bg-[#121212]">
                     <div className="flex items-center justify-center">
                       <div className="h-[16.25rem] w-[21.3125rem]">
                         <Image src={MainAssets.HistoryIllustration} alt="Modal Illustration" />
@@ -84,12 +83,16 @@ export function TransHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
                         <Image src={MainAssets.TokensListOverlay} alt="Tokens List Overlay" />
                       </div>
                     </div>
-                  </>
+                  </div>
                 ) : (
-                  <div className="mx-4 mb-11 flex max-h-[27rem] flex-col gap-[1.625rem] overflow-y-auto rounded-[1.125rem] bg-[rgba(70,70,70,0.25)] px-6 py-[1.625rem] lg:mx-7 lg:px-[1.625rem]">
-                    {transactinHistory.map((transaction, index) => {
-                      return <HistoryItem key={index} transaction={transaction} setActiveHistory={setActiveHistory} />;
-                    })}
+                  <div className="rounded-t-[1.5rem] bg-[#121212] px-4 pb-11 pt-[0.8125rem] sm:rounded-none sm:pt-0 lg:px-7">
+                    <div className="flex max-h-[10rem] flex-col gap-[1.625rem] overflow-y-auto rounded-[1.125rem] bg-[rgba(70,70,70,0.25)] px-6 py-[1.625rem] sm:max-h-[24rem] lg:px-[1.625rem]">
+                      {transactinHistory.map((transaction, index) => {
+                        return (
+                          <HistoryItem key={index} transaction={transaction} setActiveHistory={setActiveHistory} />
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
               </div>
@@ -114,8 +117,8 @@ export function TransHistoryModal({ isPopOpen, setIsPopOpen }: IProps) {
                   </div>
                 </div>
               ) : (
-                <div className="bg-[rgba(70,70,70,0.25)] px-7 pb-[2.375rem] pt-6 sm:rounded-b-[2rem]">
-                  <p className="mx-auto max-w-[18.25rem] text-center font-geist-regular text-base leading-[1.125rem] tracking-[-1%] text-[#898989]">
+                <div className="bg-[#171717] px-7 pb-[2.375rem] pt-6 sm:rounded-b-[2rem]">
+                  <p className="mx-auto max-w-[18.25rem] text-center font-geist-regular text-sm leading-[1.125rem] tracking-[-1%] text-[#898989] sm:text-base">
                     Transaction history is only stored locally and will be deleted if you clear browser data
                   </p>
                 </div>

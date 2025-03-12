@@ -4,22 +4,23 @@ import { motion } from 'framer-motion';
 import { MODAL_ANIMATION_VARIANTS } from '@/animation/variants';
 import RemoteImage from '../shared/RemoteImage';
 import { ChainType } from '@/services/queries/coins/types';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { AppRoutes } from '@/utils/routes';
 import { useSwitchChain } from 'wagmi';
 import { cn } from '@/lib/utils';
+import { errorToast } from '@/utils/helpers';
 
 interface IProps {
   data: ChainType[];
   toggle: () => void;
   anchor?: 'right' | 'left';
+  activeChain?: number;
 }
 
-const ChainSwitcherModal = ({ data, toggle, anchor = 'right' }: IProps) => {
-  const params = useParams();
-  const paramsIdFallback = (params.id as string) || '137';
+const ChainSwitcherModal = ({ data, toggle, anchor = 'right', activeChain }: IProps) => {
   const router = useRouter();
-  const { switchChain } = useSwitchChain();
+  const { switchChainAsync } = useSwitchChain();
+
   return (
     <motion.div
       className={cn('absolute top-[3rem] z-[50] h-[21.875rem] w-[16rem] rounded-[0.5rem] bg-[#121212] lg:top-[4rem]', {
@@ -37,10 +38,18 @@ const ChainSwitcherModal = ({ data, toggle, anchor = 'right' }: IProps) => {
             return (
               <button
                 key={i}
-                onClick={() => {
+                onClick={async () => {
                   toggle();
-                  switchChain({ chainId: chain.chainId });
-                  router.push(AppRoutes.connect.path(chain.chainId));
+                  try {
+                    await switchChainAsync({ chainId: chain.chainId });
+                    router.push(AppRoutes.connect.path(chain.chainId));
+                  } catch (err: any) {
+                    if (err?.message?.includes('User rejected the request')) {
+                      errorToast('You rejected the transaction!');
+                    } else {
+                      errorToast(err?.message || 'Something went wrong!');
+                    }
+                  }
                 }}
                 className="flex w-full items-center justify-between rounded-[0.2rem] px-2 py-3 transition-colors hover:bg-[#171717]"
               >
@@ -50,7 +59,7 @@ const ChainSwitcherModal = ({ data, toggle, anchor = 'right' }: IProps) => {
                   </div>
                   <p className="font-geist-medium text-sm text-white">{chain.name}</p>
                 </div>
-                {paramsIdFallback === chain.chainId.toString() ? <CheckIcon className="h-5 w-5 text-[green]" /> : null}
+                {activeChain === chain.chainId ? <CheckIcon className="h-5 w-5 text-[green]" /> : null}
               </button>
             );
           })}

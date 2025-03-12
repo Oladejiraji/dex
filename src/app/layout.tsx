@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import './globals.css';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import AppKitProvider from '@/context/wagmiContext';
 import { Bounce, ToastContainer } from 'react-toastify';
 import NextTopLoader from 'nextjs-toploader';
 import 'react-toastify/dist/ReactToastify.css';
+import './globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
 export const metadata: Metadata = {
@@ -29,8 +29,10 @@ export default async function RootLayout({
         <body className={'relative bg-primary-100'} id="body">
           <NextTopLoader color="#fff" showSpinner={false} />
           <ToastContainer
-            position="top-right"
+            position="bottom-center"
             autoClose={5000}
+            // autoClose={false}
+            closeButton={false}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

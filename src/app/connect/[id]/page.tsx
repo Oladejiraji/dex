@@ -29,11 +29,12 @@ const ConnectPage = () => {
 
   const params = useParams();
   const paramsIdFallback = (params.id as string) || '137';
-  const { chainFrom, chainTo, recipientAddress } = useExchangeContext();
+  const { chainFrom, chainTo } = useExchangeContext();
   const { address } = useAccount();
 
   const [value, setValue] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
+  const [recipientAddressValue, setRecipientAddressValue] = useState('');
   const {
     data: quoteData,
     isPending,
@@ -47,7 +48,7 @@ const ConnectPage = () => {
     debouncedValue,
     chainFrom?.decimals,
     address,
-    recipientAddress || undefined,
+    recipientAddressValue || undefined,
     priority,
     slippage.value
   );
@@ -69,14 +70,6 @@ const ConnectPage = () => {
     { type: 'from', id: 1 },
     { type: 'to', id: 2 },
   ]);
-
-  // const routeFetchActive =
-  //   !!chainFrom?.address &&
-  //   !!chainTo?.address &&
-  //   !!debouncedValue &&
-  //   !!address &&
-  //   !!chainFrom.decimals &&
-  //   !isOpen;
 
   const calculatedValue = quoteData ? removeDecimal(quoteData.toAsset.decimals, quoteData.routes[0]?.toAmount) : '0';
   const isSufficientCalculationReady =
@@ -137,7 +130,12 @@ const ConnectPage = () => {
 
               {/* Route info */}
               <RenderIf condition={!!quoteData || isFetching}>
-                <RouteBlock isPending={isPending} quoteData={quoteData} />
+                <RouteBlock
+                  isPending={isPending}
+                  quoteData={quoteData}
+                  recipientAddressValue={recipientAddressValue}
+                  setRecipientAddressValue={setRecipientAddressValue}
+                />
               </RenderIf>
 
               <div className="mt-4">

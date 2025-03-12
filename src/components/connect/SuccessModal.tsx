@@ -40,8 +40,10 @@ export function SuccessModal({ isPopOpen, setIsPopOpen, activeRoute, activeChain
             <div className="select_gradient relative flex h-full flex-col rounded-[1.25rem]">
               <div className="flex items-center justify-between gap-2 rounded-t-[1.25rem] bg-[#0D0E0F] px-6 py-3">
                 <div className="">
-                  <h3 className="pb-2 font-geist-semibold text-sm text-[#7D7D7D]">Activity</h3>
-                  <h4 className="font-geist-semibold text-base text-[#F9F9F9]">Transaction Details</h4>
+                  <h3 className="pb-0 font-geist-semibold text-sm text-[#7D7D7D] sm:pb-2">Activity</h3>
+                  <h4 className="pt-1 font-geist-bold text-[0.9375rem] leading-[1.125rem] text-[#999999] sm:text-xl sm:leading-[1.375rem]">
+                    Transaction Details
+                  </h4>
                 </div>
               </div>
               <div className="flex h-full flex-col items-center justify-center gap-12">

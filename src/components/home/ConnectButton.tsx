@@ -62,7 +62,7 @@ const ConnectButton = () => {
                       onClick={openAccountModal}
                       className="block h-8 rounded-[0.375rem] border border-[#131415] px-[0.625rem] lg:hidden"
                     >
-                      <p className="text-neutral font-geist-medium text-[#CDCDCD]">
+                      <p className="font-geist-medium text-neutral text-[#CDCDCD]">
                         {minimizeAddress(account.address)}
                       </p>
                     </button>

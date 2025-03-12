@@ -11,13 +11,13 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 const ChainSwitcher = () => {
   const { data } = useSocketChainRead();
   const chainId = useChainId();
+
   const [isOpen, setIsPopOpen] = useState(false);
   const toggle = () => {
     setIsPopOpen((prev) => !prev);
   };
   const [ref] = useOutsideClick(() => setIsPopOpen(false));
   const myChainData = data?.find((chain) => chain.chainId === chainId);
-
   return (
     <div ref={ref}>
       <div className="relative">
@@ -40,7 +40,11 @@ const ChainSwitcher = () => {
             </div>
           </div>
         </button>
-        <AnimatePresence>{isOpen && data ? <ChainSwitcherModal toggle={toggle} data={data} /> : null}</AnimatePresence>
+        <AnimatePresence>
+          {isOpen && data ? (
+            <ChainSwitcherModal activeChain={myChainData?.chainId} toggle={toggle} data={data} />
+          ) : null}
+        </AnimatePresence>
       </div>
     </div>
   );

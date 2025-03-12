@@ -6,11 +6,9 @@ import React, { createContext, ReactNode, useContext, useMemo, useState } from '
 interface ContextType {
   chainFrom: null | SocketToken;
   chainTo: null | SocketToken;
-  recipientAddress: null | string;
   activeRoute: null | RouteType;
   activeTransaction: null | TransactionType;
   updateChain: (type: 'from' | 'to', chain: SocketToken) => void;
-  updateRecipientAddress: (address: string) => void;
   updateActiveRoute: (route: RouteType) => void;
   updateActiveTransaction: (transaction: TransactionType) => void;
   reverseChain: () => void;
@@ -22,9 +20,7 @@ const ExchangeContext = createContext<ContextType>({
   chainTo: null,
   activeRoute: null,
   activeTransaction: null,
-  recipientAddress: null,
   updateChain: () => {},
-  updateRecipientAddress: () => {},
   updateActiveRoute: () => {},
   updateActiveTransaction: () => {},
   reverseChain: () => {},
@@ -38,7 +34,6 @@ export const useExchangeContext = () => {
 const ExchangeContexttProvider = ({ children }: { children: ReactNode }) => {
   const [chainFrom, setChainFrom] = useState<SocketToken | null>(null);
   const [chainTo, setChainTo] = useState<SocketToken | null>(null);
-  const [recipientAddress, setRecipientAddress] = useState<string | null>(null);
   const [activeRoute, setActiveRoute] = useState<RouteType | null>(null);
   const [activeTransaction, setActiveTransaction] = useState<TransactionType | null>(null);
 
@@ -50,10 +45,6 @@ const ExchangeContexttProvider = ({ children }: { children: ReactNode }) => {
   const reverseChain = () => {
     setChainFrom(chainTo);
     setChainTo(chainFrom);
-  };
-
-  const updateRecipientAddress = (address: string) => {
-    setRecipientAddress(address);
   };
 
   const updateActiveRoute = (route: RouteType) => {
@@ -73,17 +64,15 @@ const ExchangeContexttProvider = ({ children }: { children: ReactNode }) => {
     () => ({
       chainFrom,
       chainTo,
-      recipientAddress,
       updateChain,
       reverseChain,
-      updateRecipientAddress,
       activeRoute,
       activeTransaction,
       updateActiveTransaction,
       updateActiveRoute,
       restartSwap,
     }),
-    [chainFrom, chainTo, recipientAddress, activeRoute, activeTransaction]
+    [chainFrom, chainTo, activeRoute, activeTransaction]
   );
 
   return <ExchangeContext.Provider value={memoizedValue}>{children}</ExchangeContext.Provider>;

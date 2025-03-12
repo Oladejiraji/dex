@@ -6,7 +6,6 @@ import cx from 'classnames';
 import Input from '../shared/Input';
 import { ethers } from 'ethers';
 import RenderIf from '../shared/RenderIf';
-import { useExchangeContext } from '@/context/ExchangeContext';
 import { Checkbox } from '../ui/checkbox';
 import { useAccount } from 'wagmi';
 import { cleanText } from '@/utils/helpers';
@@ -16,14 +15,15 @@ import { MODAL_ANIMATION_VARIANTS } from '@/animation/variants';
 interface IProps {
   isPopOpen: boolean;
   setIsPopOpen: Dispatch<SetStateAction<boolean>>;
+  recipientAddressValue: string;
+  setRecipientAddressValue: Dispatch<SetStateAction<string>>;
 }
 
-export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
+export function RecipientPopover({ isPopOpen, setIsPopOpen, recipientAddressValue, setRecipientAddressValue }: IProps) {
   const [value, setValue] = useState('');
   const [valueError, setValueError] = useState('');
   const { address } = useAccount();
   const [termsValue, setTermsValue] = useState(false);
-  const { updateRecipientAddress, recipientAddress } = useExchangeContext();
 
   const handlePaste = async () => {
     try {
@@ -56,7 +56,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
         >
           <div className="relative mx-auto h-fit w-full max-w-[29.38rem] p-[0.06rem]">
             <div className="gradient_bg absolute inset-0 h-full w-full rounded-[0.38rem]" />
-            {recipientAddress ? (
+            {recipientAddressValue ? (
               <div className="select_gradient relative flex flex-1 flex-col rounded-[0.38rem] px-6 py-6">
                 <div className="mb-4 flex items-center justify-between">
                   <h1 className="font-geist-medium text-base">Edit Recipient Address</h1>
@@ -88,7 +88,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                     className="h-14 w-full bg-[#1E1E1E]"
                     disabled={!termsValue || !!valueError}
                     onClick={() => {
-                      updateRecipientAddress('');
+                      setRecipientAddressValue('');
                       setValue('');
                       setTermsValue(false);
                     }}
@@ -161,7 +161,7 @@ export function RecipientPopover({ isPopOpen, setIsPopOpen }: IProps) {
                     className="h-14 w-full bg-[#1E1E1E]"
                     disabled={!termsValue || !!valueError}
                     onClick={() => {
-                      updateRecipientAddress(value);
+                      setRecipientAddressValue(value);
                       setIsPopOpen(false);
                     }}
                   >

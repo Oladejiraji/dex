@@ -79,7 +79,7 @@ export const delayFunction = (dependent: number, level: number) => {
   return Math.sqrt(dependent) * level + level * dependent + level;
 };
 
-export const concatenateString = (char: string, length: number) => {
+export const concatenateString = (char?: string, length?: number) => {
   if (!char) return '';
   if (!length) return char;
   return char.length > length ? `${char.slice(0, length - 1)}...` : char;

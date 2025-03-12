@@ -27,15 +27,16 @@ const HeaderComp = ({ type }: { type?: number }) => {
   const processedData = useFilterChains(search, data);
 
   const [isPopOpen, setIsPopOpen] = useState(false);
+  const [isMobileNavShow, setIsMobileNavShow] = useState(false);
 
   return (
     <>
       <header
         className={cx('fixed left-0 top-0 z-[1001] w-full px-8 py-7 font-geist-medium', {
-          'bg-black/30 backdrop-blur-sm': !isPopOpen,
+          'bg-black/30 backdrop-blur-sm': !isPopOpen && !isMobileNavShow,
         })}
       >
-        <MobileHeader />
+        <MobileHeader isShow={isMobileNavShow} setIsShow={setIsMobileNavShow} />
         <div className="mx-auto hidden max-w-[75.00rem] items-start justify-between lg:flex">
           <Link href={AppRoutes.home.path}>
             <Button>
